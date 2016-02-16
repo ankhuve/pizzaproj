@@ -1,0 +1,25 @@
+{
+  "name": "pizzaproj",
+  "version": "1.0.0",
+  "description": "Infovis project 4",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ankhuve/pizzaproj.git"
+  },
+  "author": "Erik Forsberg, Maria Hjorth, Jonathan Söderin, Kyriaki Sarampasina, Linn Lahtinen, Niklas Gustavsson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ankhuve/pizzaproj/issues"
+  },
+  "homepage": "https://github.com/ankhuve/pizzaproj#readme",
+  "dependencies": {
+    "d3": "^3.5.15",
+    "jquery": "^2.2.0",
+    "normalize.css": "^3.0.3",
+    "three": "^0.74.0"
+  }
+}
