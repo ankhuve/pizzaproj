@@ -34,20 +34,21 @@ $(function(){
         scene.add(grid);
 
         /*Camera*/
-        camera.position.x = 15;
-        camera.position.y = 12;
-        camera.position.z = 10;
+        camera.position.x = 100;
+        camera.position.y = 100;
+        camera.position.z = 100;
         camera.lookAt(scene.position);
 
         /*Lights*/
         var ambient = new THREE.AmbientLight( 0x404040 );
         scene.add( ambient );
 
+/* 
         spotLight = new THREE.SpotLight( 0xffffff );
-        spotLight.position.set( 10, 10, 15 );
+        spotLight.position.set(15, 20, 15 );
         spotLight.castShadow = true;
         spotLight.shadowCameraNear = 8;
-        spotLight.shadowCameraFar = 30;
+        spotLight.shadowCameraFar = 300;
         spotLight.shadowDarkness = 0.5;
         spotLight.shadowCameraVisible = false;
         spotLight.shadowMapWidth = 1024;
@@ -55,17 +56,34 @@ $(function(){
         spotLight.name = 'Spot Light';
         scene.add( spotLight );
 
+        */
+
+        var pointLight = new THREE.PointLight( 0xff0000, 1, 100 );
+        pointLight.position.set( 0, 20, 0 );
+        pointLight.castShadow = true;
+        pointLight.shadowCameraNear = 8;
+        pointLight.shadowCameraFar = 300;
+        pointLight.shadowDarkness = 0.5;
+        pointLight.shadowCameraVisible = false;
+        pointLight.shadowMapWidth = 1024;
+        pointLight.shadowMapHeight = 1024;
+        scene.add( pointLight );
+
+        var sphereSize = 1;
+        var pointLightHelper = new THREE.PointLightHelper( pointLight, sphereSize );
+        scene.add( pointLightHelper );
+
         /*Ground*/
         var Ground_geometry = new THREE.BoxGeometry( 20, 0.1, 20 );
         var Ground_material = new THREE.MeshPhongMaterial( {
             color: 0xa0adaf,
-            shininess: 150,
+            shininess: 0,
             specular: 0xffffff,
             shading: THREE.SmoothShading
         } );
 
         var ground = new THREE.Mesh( Ground_geometry, Ground_material );
-        ground.scale.multiplyScalar( 3 );
+        ground.scale.multiplyScalar( 5 );
         ground.castShadow = false;
         ground.receiveShadow = true;
         scene.add( ground );
@@ -73,16 +91,29 @@ $(function(){
         /*Box*/
         var Box_material = new THREE.MeshPhongMaterial( {
             color: 0xff0000,
-            shininess: 150,
+            shininess: 0,
             specular: 0x222222,
             shading: THREE.SmoothShading,
         } );
-        var Box_geometry = new THREE.BoxGeometry( 3, 3, 3 );
-        cube = new THREE.Mesh( Box_geometry, Box_material );
-        cube.position.set( 0, 1.6, 0 );
-        cube.castShadow = true;
-        cube.receiveShadow = true;
-        scene.add( cube );
+
+        var Box_geometry = new THREE.BoxGeometry( 1, 3, 1 );
+       
+
+        cubes = new THREE.Object3D();
+        scene.add( cubes );
+        var range = 100;
+
+        for(var i = 0; i < 1000; i++ ) {
+            var grayness = Math.random() * 0.5 + 0.25,
+            mat = new THREE.MeshBasicMaterial();
+            cube = new THREE.Mesh( Box_geometry, Box_material );
+            cube.castShadow = true;
+            cube.receiveShadow = true;
+            mat.color.setRGB( grayness, grayness, grayness );
+            cube.position.set( range * (0.5 - Math.random()), 1.6, range * (0.5 - Math.random()) );
+            //cube.grayness = grayness; // *** NOTE THIS
+            cubes.add( cube );
+        }
 
 
         $("#holder").append(renderer.domElement);
