@@ -18,8 +18,12 @@
   "homepage": "https://github.com/ankhuve/pizzaproj#readme",
   "dependencies": {
     "d3": "^3.5.15",
-    "jquery": "^2.2.0",
-    "normalize.css": "^3.0.3",
     "three": "^0.74.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.11.1",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-sass": "^2.2.0"
   }
 }
