@@ -2663,47 +2663,47 @@ $(function(){
                 grid.setColors(color, 0x000000);
                 scene.add(grid);
 
-            /*Ground*/
-            var Ground_geometry = new THREE.BoxGeometry( 20, 0.1, 20 );
-            var Ground_material = new THREE.MeshPhongMaterial( {
-                color: 0xa0adaf,
-                shininess: 0,
-                specular: 0xffffff,
-                shading: THREE.SmoothShading
-            } );
+                /*Ground*/
+                var Ground_geometry = new THREE.BoxGeometry( 20, 0.1, 20 );
+                var Ground_material = new THREE.MeshPhongMaterial( {
+                    color: 0xa0adaf,
+                    shininess: 0,
+                    specular: 0xffffff,
+                    shading: THREE.SmoothShading
+                } );
     
-            var ground = new THREE.Mesh( Ground_geometry, Ground_material );
-            ground.scale.multiplyScalar( 5 );
-            ground.castShadow = false;
-            ground.receiveShadow = true;
-            scene.add( ground );
+                var ground = new THREE.Mesh( Ground_geometry, Ground_material );
+                    ground.scale.multiplyScalar( 5 );
+                    ground.castShadow = false;
+                    ground.receiveShadow = true;
+                    scene.add( ground );
     
-            /*Box*/
-            var Box_material = new THREE.MeshPhongMaterial( {
-                color: 0xff0000,
-                shininess: 0,
-                specular: 0x222222,
-                shading: THREE.SmoothShading,
-            } );
+                /*Box*/
+                var Box_material = new THREE.MeshPhongMaterial( {
+                    color: 0xff0000,
+                    shininess: 0,
+                    specular: 0x222222,
+                    shading: THREE.SmoothShading,
+                } );
     
-            var Box_geometry = new THREE.BoxGeometry( 1, 3, 1 );
+                var Box_geometry = new THREE.BoxGeometry( 1, 3, 1 );
            
     
-            cubes = new THREE.Object3D();
-            scene.add( cubes );
-            var range = 100;
+                cubes = new THREE.Object3D();
+                scene.add( cubes );
+                var range = 100;
     
-            for(var i = 0; i < 1000; i++ ) {
-                var grayness = Math.random() * 0.5 + 0.25,
-                mat = new THREE.MeshBasicMaterial();
-                cube = new THREE.Mesh( Box_geometry, Box_material );
-                cube.castShadow = true;
-                cube.receiveShadow = true;
-                mat.color.setRGB( grayness, grayness, grayness );
-                cube.position.set( range * (0.5 - Math.random()), 1.6, range * (0.5 - Math.random()) );
-                //cube.grayness = grayness; // *** NOTE THIS
-                cubes.add( cube );
-            }
+                for(var i = 0; i < 1000; i++ ) {
+                    var grayness = Math.random() * 0.5 + 0.25,
+                    mat = new THREE.MeshBasicMaterial();
+                    cube = new THREE.Mesh( Box_geometry, Box_material );
+                    cube.castShadow = true;
+                    cube.receiveShadow = true;
+                    mat.color.setRGB( grayness, grayness, grayness );
+                    cube.position.set( range * (0.5 - Math.random()), 1.6, range * (0.5 - Math.random()) );
+                    //cube.grayness = grayness; // *** NOTE THIS
+                    cubes.add( cube );
+                }
 
 				//
 
