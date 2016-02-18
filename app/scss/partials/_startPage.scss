@@ -1,4 +1,18 @@
 body{
+  overflow: hidden;
   background: $smoke;
   font-family: $font-family-sans-serif;
+  color: $jet;
+
+  a{
+    color: $jet;
+
+    &:visited{
+      color: $jet;
+    }
+
+    &:link{
+      color: $jet;
+    }
+  }
 }
