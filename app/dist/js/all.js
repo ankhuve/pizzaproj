@@ -975,6 +975,7 @@ if (typeof exports !== 'undefined') {
   this['THREE'] = THREE;
 }
 
+//$("#helloWorld").hide(3000); // we got jQuery!
 /**
  * @author qiao / https://github.com/qiao
  * @author mrdoob / http://mrdoob.com
@@ -2031,7 +2032,6 @@ Object.defineProperties( THREE.OrbitControls.prototype, {
 
 } );
 
-$("#helloWorld").hide(3000); // we got jQuery!
 console.log('This file gets combined with the other js-files in the "app/scripts" folder!');
 $(function(){
 /*Work on v72  */
