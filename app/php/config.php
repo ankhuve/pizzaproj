@@ -1,13 +1,13 @@
 <?php
-$hostname = 'xml0.csc.kth.se';
-$username = 'eforsbe';
-$password = 'eforsbe-xmlpub13';
-$database = 'eforsbe';
+$hostname = 'mysql17.citynetwork.se';
+$username = '102625-ki68218';
+$password = 'erikluktarkorv';
+$database = '102625-ivis';
 
 $conn = mysqli_connect($hostname, $username, $password, $database);
 
-if (mysqli_connect_errno()) {
-    printf("Connect failed: %s\n", mysqli_connect_error());
-    exit();
-};
-?>
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+echo "Connected to the database.";
