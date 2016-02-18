@@ -24,6 +24,7 @@
     "browser-sync": "^2.11.1",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
+    "gulp-connect-php": "0.0.7",
     "gulp-sass": "^2.2.0"
   }
 }
