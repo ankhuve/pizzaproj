@@ -48,4 +48,5 @@ Temporary Items
 
 .idea
 node_modules
-app/dist
+app/dist/css/main.css
+app/dist/js/all.js
