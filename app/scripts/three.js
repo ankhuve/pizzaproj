@@ -38,8 +38,33 @@ $(function(){
             ySize: 1024,
         });
 
+        terrainScene.receiveShadow = true;
+
         // Assuming you already have your global scene
         scene.add(terrainScene);
+
+        var geo = terrainScene.children[0].geometry;
+
+
+        var BollMat = new THREE.MeshPhongMaterial( {
+            color: 0xff0000,
+            shininess: 0,
+            specular: 0x222222,
+            shading: THREE.FlatShading,
+        } );
+
+        var BollGeo = new THREE.SphereGeometry( 5, 5, 5 );
+        //var material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
+        var boll = new THREE.Mesh( BollGeo, BollMat );
+
+        decoScene = THREE.Terrain.ScatterMeshes(geo, {
+            mesh: boll,
+            w: xS,
+            h: yS,
+            spread: 0.02,
+            randomness: Math.random,
+        });
+        terrainScene.add(decoScene);
 
 
         /* 
@@ -56,7 +81,7 @@ $(function(){
 
         // Add randomly distributed foliage
 
-        //scene.fog = new THREE.FogExp2( 0x000000, 0.0025 );
+        scene.fog = new THREE.FogExp2( 0xffffff, 0.0025 );
         
         camera =  new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, .1, 500);
         renderer = new THREE.WebGLRenderer({antialias:true});
@@ -72,7 +97,7 @@ $(function(){
 
         /*adds helpers*/
         axis =  new THREE.AxisHelper(10);
-        scene.add (axis);
+        //scene.add (axis);
 
         grid = new THREE.GridHelper(500, 5);
         color = new THREE.Color("rgb(255,0,0)");
@@ -112,7 +137,7 @@ $(function(){
         */
 
         var pointLight = new THREE.PointLight( 0xff0000, 1, 100 );
-        pointLight.position.set( -5, 20, 5 );
+        pointLight.position.set( 5, 20, 5 );
         pointLight.castShadow = true;
         pointLight.shadowCameraNear = 8;
         pointLight.shadowCameraFar = 300;
@@ -120,7 +145,7 @@ $(function(){
         pointLight.shadowCameraVisible = false;
         pointLight.shadowMapWidth = 1024;
         pointLight.shadowMapHeight = 1024;
-        //scene.add( pointLight );
+        scene.add( pointLight );
 
         var sphereSize = 1;
         var pointLightHelper = new THREE.PointLightHelper( pointLight, sphereSize );
@@ -178,7 +203,7 @@ $(function(){
         } );
 
         var geometry = new THREE.SphereGeometry( 5, 5, 5 );
-		var material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
+		//var material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
 		var sphere = new THREE.Mesh( geometry, Sphere_material );
 		sphere.position.set(0,106,0);
 		scene.add( sphere );
