@@ -1997,7 +1997,7 @@ THREE.Terrain.ScatterMeshes = function(geometry, options) {
  * heightmap as a map of probabilities of where meshes will be placed.
  *
  * @param {Function} method
- *   A random terrain generation function (i.e. a valid value for the
+ *   A random generation function (i.e. a valid value for the
  *   `options.heightmap` parameter of the `THREE.Terrain` function).
  * @param {Object} options
  *   A map of settings that control how the resulting noise should be generated

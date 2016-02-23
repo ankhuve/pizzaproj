@@ -51,6 +51,7 @@ $(function(){
             shininess: 0,
             specular: 0x222222,
             shading: THREE.FlatShading,
+            castShadow: true
         } );
 
         var BollGeo = new THREE.SphereGeometry( 5, 5, 5 );
@@ -58,12 +59,14 @@ $(function(){
         var boll = new THREE.Mesh( BollGeo, BollMat );
 
         decoScene = THREE.Terrain.ScatterMeshes(geo, {
-            mesh: boll,
+            mesh: buildTree(),
             w: xS,
             h: yS,
             spread: 0.02,
             randomness: Math.random,
         });
+
+        decoScene.position.z +=3;
         terrainScene.add(decoScene);
 
 
@@ -121,21 +124,6 @@ $(function(){
         var ambient = new THREE.AmbientLight( 0x404040 );
         scene.add( ambient );
 
-/* 
-        spotLight = new THREE.SpotLight( 0xffffff );
-        spotLight.position.set(15, 20, 15 );
-        spotLight.castShadow = true;
-        spotLight.shadowCameraNear = 8;
-        spotLight.shadowCameraFar = 300;
-        spotLight.shadowDarkness = 0.5;
-        spotLight.shadowCameraVisible = false;
-        spotLight.shadowMapWidth = 1024;
-        spotLight.shadowMapHeight = 1024;
-        spotLight.name = 'Spot Light';
-        scene.add( spotLight );
-
-        */
-
         var pointLight = new THREE.PointLight( 0xff0000, 1, 100 );
         pointLight.position.set( 5, 20, 5 );
         pointLight.castShadow = true;
@@ -166,47 +154,7 @@ $(function(){
         ground.receiveShadow = true;
         //scene.add( ground );
 
-        /*Box*/
-        var Box_material = new THREE.MeshPhongMaterial( {
-            color: 0xff0000,
-            shininess: 0,
-            specular: 0x222222,
-            shading: THREE.SmoothShading,
-        } );
-
-        var Box_geometry = new THREE.BoxGeometry( 1, 3, 1 );
-       
-
-        cubes = new THREE.Object3D();
-        scene.add( cubes );
-        var range = 1;
-
-        for(var i = 0; i < 1; i++ ) {
-            var grayness = Math.random() * 0.5 + 0.25,
-            mat = new THREE.MeshBasicMaterial();
-            cube = new THREE.Mesh( Box_geometry, Box_material );
-            cube.castShadow = true;
-            cube.receiveShadow = true;
-            mat.color.setRGB( grayness, grayness, grayness );
-            //cube.position.set( range * (0.5 - Math.random()), 4, range * (0.5 - Math.random()) );
-            cube.position.set(0,100,0);
-
-            //cube.grayness = grayness; // *** NOTE THIS
-            cubes.add( cube );
-        }
-
-        var Sphere_material = new THREE.MeshPhongMaterial( {
-            color: 0xff0000,
-            shininess: 0,
-            specular: 0x222222,
-            shading: THREE.FlatShading,
-        } );
-
-        var geometry = new THREE.SphereGeometry( 5, 5, 5 );
-		//var material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
-		var sphere = new THREE.Mesh( geometry, Sphere_material );
-		sphere.position.set(0,106,0);
-		scene.add( sphere );
+     
 
 		//var blobGeometry = Coral.Blob( {"smoothing":2,"detail":2,"radius":2,"noiseOptions":2} );
 		//var sphereBlob = new THREE.Mesh( blobGeometry, Sphere_material );
@@ -268,3 +216,44 @@ $(function(){
     });
 
 });	
+
+
+function buildTree() {
+  var material = new THREE.MeshFaceMaterial([
+    new THREE.MeshLambertMaterial({ color: 0x3d2817 }), // brown
+    new THREE.MeshLambertMaterial({ color: 0x2d4c1e }), // green
+  ]);
+
+  var c0 = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 12, 6, 1, true));
+  c0.position.y = 6;
+  var c1 = new THREE.Mesh(new THREE.CylinderGeometry(0, 10, 14, 8));
+  c1.position.y = 18;
+  var c2 = new THREE.Mesh(new THREE.CylinderGeometry(0, 9, 13, 8));
+  c2.position.y = 25;
+  var c3 = new THREE.Mesh(new THREE.CylinderGeometry(0, 8, 12, 8));
+  c3.position.y = 32;
+
+  var g = new THREE.Geometry();
+  c0.updateMatrix();
+  c1.updateMatrix();
+  c2.updateMatrix();
+  c3.updateMatrix();
+  g.merge(c0.geometry, c0.matrix);
+  g.merge(c1.geometry, c1.matrix);
+  g.merge(c2.geometry, c2.matrix);
+  g.merge(c3.geometry, c3.matrix);
+
+  var b = c0.geometry.faces.length;
+  for (var i = 0, l = g.faces.length; i < l; i++) {
+    g.faces[i].materialIndex = i < b ? 0 : 1;
+  }
+
+  var m = new THREE.Mesh(g, material);
+
+  m.scale.x = m.scale.z = 5;
+  m.scale.y = 1.25;
+  return m;
+}
+
+
+
