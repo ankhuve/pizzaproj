@@ -15,78 +15,21 @@
 //         /*creates empty scene object and renderer*/
 //         scene = new THREE.Scene();
 
-//         var Terrain_material = new THREE.MeshPhongMaterial( {
-//             color: 0x83be82,
-//             shininess: 0,
-//             specular: 0xffffff,
-//             shading: THREE.FlatShading
-//         });
+     
 
-//         var xS = 128, yS = 128;
-//         terrainScene = THREE.Terrain({
-//             easing: THREE.Terrain.Linear,
-//             frequency: 2.5,
-//             heightmap: THREE.Terrain.DiamondSquare,
-//             material: Terrain_material,
-//             maxHeight: 100,
-//             minHeight: -100,
-//             steps: 1,
-//             useBufferGeometry: false,
-//             xSegments: xS,
-//             xSize: 1024,
-//             ySegments: yS,
-//             ySize: 1024,
-//         });
+  
 
-//         terrainScene.receiveShadow = true;
+//         var heightMap = THREEx.Terrain.allocateHeightMap(100, 200)
+// 		THREEx.Terrain.simplexHeightMap(heightMap)
+// 		// build the geometry
+// 		var geometry = THREEx.Terrain.heightMapToPlaneGeometry(heightMap)
+// 		// init the material
+// 		var material = new THREE.MeshPhongMaterial();
+// 		// create the mesh and add it to the scene
+// 		var mesh = new THREE.Mesh( geometry, material );
+// 		scene.add( mesh );
 
-//         // Assuming you already have your global scene
-//         scene.add(terrainScene);
-
-//         var geo = terrainScene.children[0].geometry;
-
-
-//         var BollMat = new THREE.MeshPhongMaterial( {
-//             color: 0xff0000,
-//             shininess: 0,
-//             specular: 0x222222,
-//             shading: THREE.FlatShading,
-//             castShadow: true
-//         } );
-
-//         var BollGeo = new THREE.SphereGeometry( 5, 5, 5 );
-//         //var material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
-//         var boll = new THREE.Mesh( BollGeo, BollMat );
-
-
-//         numb = 200; //number of trees
-//         decoScene = THREE.Terrain.ScatterMeshes(numb, geo, {
-//             mesh: buildTree(),
-//             w: xS,
-//             h: yS,
-//             spread: 0.02,
-//             randomness: Math.random,
-//         });
-
-//         decoScene.position.z +=0;
-//         terrainScene.add(decoScene);
-
-
-//         /* 
-//         decoScene = THREE.Terrain.ScatterMeshes(geo, {
-//             mesh: new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 12, 6)),
-//             w: xS,
-//             h: yS,
-//             spread: 0.02,
-//             randomness: Math.random,
-//         });
-//         terrainScene.add(decoScene);
-
-//         */
-
-//         // Add randomly distributed foliage
-
-//         scene.fog = new THREE.FogExp2( 0xffffff, 0.0025 );
+//         //scene.fog = new THREE.FogExp2( 0xffffff, 0.0025 );
         
 //         camera =  new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, .1, 1000);
 //         renderer = new THREE.WebGLRenderer({antialias:true});
@@ -102,12 +45,12 @@
 
 //         /*adds helpers*/
 //         axis =  new THREE.AxisHelper(10);
-//         //scene.add (axis);
+//         scene.add (axis);
 
 //         grid = new THREE.GridHelper(500, 5);
 //         color = new THREE.Color("rgb(255,0,0)");
 //         grid.setColors(color, 0x000000);
-//         //scene.add(grid);
+//         scene.add(grid);
 
 //         /*Camera*/
 //         camera.position.x = 30;
