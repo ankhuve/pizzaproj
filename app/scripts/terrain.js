@@ -68,9 +68,7 @@ var renderer	= new THREE.WebGLRenderer({
 	})
 
 	scene.fog = new THREE.Fog(0x000000,0,50);
-
-
-	var BollGeo = new THREE.SphereGeometry( 0.3, 5, 5 );
+ 	var BollGeo = new THREE.SphereGeometry( 0.3, 5, 5 );
 
 	var trees = new THREE.Object3D();
 
@@ -84,7 +82,17 @@ var renderer	= new THREE.WebGLRenderer({
        shading: THREE.FlatShading
    	});
 
-   	for(var i = 0; i < 1000; i++ ) {
+
+	$.get("php/getAllMoviesInDatabase.php",function(data){
+
+		var array = JSON.parse(data);
+		//console.log(array);
+		makeDaTrees(array);	
+	});
+
+	function makeDaTrees(data){
+
+   	for(var i = 0; i < data.length; i++ ) {
     	
     	var Box_geometry = new THREE.BoxGeometry(0.2,1,0.2); // generate psuedo-random geometry
 
@@ -113,6 +121,8 @@ var renderer	= new THREE.WebGLRenderer({
    	trees.scale.multiplyScalar(1);
    	trees.castShadow = true;
    	scene.add( trees );
+
+   }
 
 
 	//////////////////////////////////////////////////////////////////////////////////
