@@ -10,8 +10,51 @@ $(function(){
 
 
     function init(){
+
+
         /*creates empty scene object and renderer*/
         scene = new THREE.Scene();
+
+        var Terrain_material = new THREE.MeshPhongMaterial( {
+            color: 0x6c94bd,
+            shininess: 0,
+            specular: 0xffffff,
+            shading: THREE.FlatShading
+        });
+
+        var xS = 128, yS = 128;
+        terrainScene = THREE.Terrain({
+            easing: THREE.Terrain.Linear,
+            frequency: 2.5,
+            heightmap: THREE.Terrain.DiamondSquare,
+            material: Terrain_material,
+            maxHeight: 100,
+            minHeight: -100,
+            steps: 1,
+            useBufferGeometry: false,
+            xSegments: xS,
+            xSize: 1024,
+            ySegments: yS,
+            ySize: 1024,
+        });
+
+        // Assuming you already have your global scene
+        scene.add(terrainScene);
+
+
+        /* 
+        decoScene = THREE.Terrain.ScatterMeshes(geo, {
+            mesh: new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 12, 6)),
+            w: xS,
+            h: yS,
+            spread: 0.02,
+            randomness: Math.random,
+        });
+        terrainScene.add(decoScene);
+
+        */
+
+        // Add randomly distributed foliage
 
         //scene.fog = new THREE.FogExp2( 0x000000, 0.0025 );
         
@@ -34,13 +77,20 @@ $(function(){
         grid = new THREE.GridHelper(500, 5);
         color = new THREE.Color("rgb(255,0,0)");
         grid.setColors(color, 0x000000);
-        scene.add(grid);
+        //scene.add(grid);
 
         /*Camera*/
         camera.position.x = 30;
-        camera.position.y = 40;
+        camera.position.y = 30;
         camera.position.z = 30;
+
+        scene.position.x = 0;
+        scene.position.y = -100;
+        scene.position.z = 0;
         camera.lookAt(scene.position);
+
+        var light = new THREE.HemisphereLight( 0x2a3865, 0x91a3de, 1 );
+        scene.add( light );
 
         /*Lights*/
         var ambient = new THREE.AmbientLight( 0x404040 );
@@ -70,7 +120,7 @@ $(function(){
         pointLight.shadowCameraVisible = false;
         pointLight.shadowMapWidth = 1024;
         pointLight.shadowMapHeight = 1024;
-        scene.add( pointLight );
+        //scene.add( pointLight );
 
         var sphereSize = 1;
         var pointLightHelper = new THREE.PointLightHelper( pointLight, sphereSize );
@@ -89,7 +139,7 @@ $(function(){
         ground.scale.multiplyScalar( 5 );
         ground.castShadow = false;
         ground.receiveShadow = true;
-        scene.add( ground );
+        //scene.add( ground );
 
         /*Box*/
         var Box_material = new THREE.MeshPhongMaterial( {
@@ -114,7 +164,7 @@ $(function(){
             cube.receiveShadow = true;
             mat.color.setRGB( grayness, grayness, grayness );
             //cube.position.set( range * (0.5 - Math.random()), 4, range * (0.5 - Math.random()) );
-            cube.position.set(0,1.5,0);
+            cube.position.set(0,100,0);
 
             //cube.grayness = grayness; // *** NOTE THIS
             cubes.add( cube );
@@ -130,7 +180,7 @@ $(function(){
         var geometry = new THREE.SphereGeometry( 5, 5, 5 );
 		var material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
 		var sphere = new THREE.Mesh( geometry, Sphere_material );
-		sphere.position.set(0,7.5,0);
+		sphere.position.set(0,106,0);
 		scene.add( sphere );
 
 		//var blobGeometry = Coral.Blob( {"smoothing":2,"detail":2,"radius":2,"noiseOptions":2} );
@@ -142,6 +192,26 @@ $(function(){
 
     }
 
+  
+
+    function render() {
+    	// DEPTH OF FIELD VILL HA DEN HÄR BITEN MEN DET FUNKAR FAN INTE. postprocessing.composer.render( 0.1 );
+    }
+
+    function animate(){
+        requestAnimationFrame(animate);
+        render();
+
+        renderer.render(scene, camera);
+    }
+
+    
+
+    init();
+    animate();
+
+    // DEPTH OF FIELD SOM INTE FUNKAR
+	var postprocessing = {};
     initPostprocessing();
 	
 	function initPostprocessing() {
@@ -162,17 +232,7 @@ $(function(){
 
 	}
 
-    function render() {}
-
-    function animate(){
-        requestAnimationFrame(animate);
-        render();
-
-        renderer.render(scene, camera);
-    }
-
-    init();
-    animate();
+	// DEPTH OF FIELD KOD SLUTAR HÄR
 
     $(window).resize(function(){
         SCREEN_WIDTH = window.innerWidth;
