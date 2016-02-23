@@ -1871,7 +1871,7 @@ THREE.Terrain.generateBlendedMaterial = function(textures) {
  *   return value of a call to `THREE.Terrain()` or added to that return value;
  *   otherwise the position and rotation of the meshes will be wrong.
  */
-THREE.Terrain.ScatterMeshes = function(geometry, options) {
+THREE.Terrain.ScatterMeshes = function(numb, geometry, options) {
     if (!options.mesh) {
         console.error('options.mesh is required for THREE.Terrain.ScatterMeshes but was not passed');
         return;
@@ -1968,7 +1968,8 @@ THREE.Terrain.ScatterMeshes = function(geometry, options) {
     var k, l;
     if (options.mesh.geometry instanceof THREE.Geometry) {
         var g = new THREE.Geometry();
-        for (k = 0, l = meshes.length; k < l; k++) {
+        //for (k = 0, l = meshes.length; k < l; k++) {
+        for (k = 0, l = meshes.length; k < l; k++) { //numb instead of meshes.length, is number of trees to generate
             var m = meshes[k];
             m.updateMatrix();
             g.merge(m.geometry, m.matrix);
@@ -2042,6 +2043,7 @@ THREE.Terrain.ScatterHelper = function(method, options, skip, threshold) {
         }
     }
     return function() {
+
         return heightmap;
     };
 };

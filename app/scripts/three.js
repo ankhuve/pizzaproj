@@ -16,7 +16,7 @@ $(function(){
         scene = new THREE.Scene();
 
         var Terrain_material = new THREE.MeshPhongMaterial( {
-            color: 0x6c94bd,
+            color: 0x83be82,
             shininess: 0,
             specular: 0xffffff,
             shading: THREE.FlatShading
@@ -58,7 +58,9 @@ $(function(){
         //var material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
         var boll = new THREE.Mesh( BollGeo, BollMat );
 
-        decoScene = THREE.Terrain.ScatterMeshes(geo, {
+
+        numb = 200; //number of trees
+        decoScene = THREE.Terrain.ScatterMeshes(numb, geo, {
             mesh: buildTree(),
             w: xS,
             h: yS,
@@ -66,7 +68,7 @@ $(function(){
             randomness: Math.random,
         });
 
-        decoScene.position.z +=3;
+        decoScene.position.z +=0;
         terrainScene.add(decoScene);
 
 
@@ -117,7 +119,7 @@ $(function(){
         scene.position.z = 0;
         camera.lookAt(scene.position);
 
-        var light = new THREE.HemisphereLight( 0x2a3865, 0x91a3de, 1 );
+        var light = new THREE.HemisphereLight( 0x2a3865, 0xf8f6ba, 1 );
         scene.add( light );
 
         /*Lights*/
