@@ -69,23 +69,32 @@ var renderer	= new THREE.WebGLRenderer({
 
 	scene.fog = new THREE.Fog(0x000000,0,50);
 
-	var cubes = new THREE.Object3D();
+
+	var BollGeo = new THREE.SphereGeometry( 0.3, 5, 5 );
+
+	var trees = new THREE.Object3D();
+
+	//var cubes = new THREE.Object3D();
    	var range = 60;
 
    	var Box_material = new THREE.MeshPhongMaterial( {
        color: 0x66493b,
        shininess: 0,
        specular: 0x222222,
-       shading: THREE.SmoothShading
+       shading: THREE.FlatShading
    	});
 
    	for(var i = 0; i < 1000; i++ ) {
     	
     	var Box_geometry = new THREE.BoxGeometry(0.2,1,0.2); // generate psuedo-random geometry
+
        	var grayness = Math.random() * 0.5 + 0.25,
         mat = new THREE.MeshBasicMaterial();
        	var cube = new THREE.Mesh( Box_geometry, Box_material );
+       	var boll = new THREE.Mesh( BollGeo, Box_material );
+
        	cube.castShadow = true;
+       	boll.castShadow = true;
        	//cube.receiveShadow = true;
        	mat.color.setRGB( grayness, grayness, grayness );
        	var x =  range * (0.5 - Math.random());
@@ -95,12 +104,15 @@ var renderer	= new THREE.WebGLRenderer({
        	var y = THREEx.Terrain.planeToHeightMapCoords(heightMap, mesh, x, z) + 0.4
 
        	cube.position.set(x,y,z);
+
+       	boll.position.set(x,y+0.5,z);
        	//cube.grayness = grayness; // *** NOTE THIS
-       	cubes.add( cube );
+       	trees.add( boll );
+       	trees.add( cube );
    }
-   	cubes.scale.multiplyScalar(1);
-   	cubes.castShadow = true;
-   	scene.add( cubes );
+   	trees.scale.multiplyScalar(1);
+   	trees.castShadow = true;
+   	scene.add( trees );
 
 
 	//////////////////////////////////////////////////////////////////////////////////
