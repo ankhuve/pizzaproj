@@ -1,6 +1,9 @@
 var renderer	= new THREE.WebGLRenderer({
 		antialias	: true
 	});
+
+	//renderer.shadowMapEnabled = true;
+
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild( renderer.domElement );
 
@@ -17,16 +20,23 @@ var renderer	= new THREE.WebGLRenderer({
 	;(function(){
 		// add a ambient light
 		var light	= new THREE.AmbientLight( 0xf5f5cf )
+		light.castShadow = true;
 		scene.add( light )
 		// add a light in front
 		var light	= new THREE.DirectionalLight(0xf5f5cf, 1)
 		light.position.set(0.5, 0.0, 2)
+		light.castShadow = true;
 		scene.add( light )
 		// add a light behind
-		var light	= new THREE.DirectionalLight('white', 0.75*2)
-		light.position.set(-0.5, -0.5, -2)
+		var light	= new THREE.DirectionalLight(0xa6a6a6, 0.75*2)
+		light.castShadow = true;
+		//light.position.set(-0.5, -0.5, -2)
 		//scene.add( light )		
 	})()
+
+
+
+	
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		add an object and make it move					//
@@ -40,19 +50,20 @@ var renderer	= new THREE.WebGLRenderer({
 	
 	var geometry	= THREEx.Terrain.heightMapToPlaneGeometry(heightMap)
 
-	THREEx.Terrain.heightMapToVertexColor(heightMap, geometry)
-	
+	THREEx.Terrain.heightMapToVertexColor(heightMap, geometry);
 	
 	var material	= new THREE.MeshPhongMaterial({
 		shading		: THREE.FlatShading,
-		color: 0x76a275,
+		color: 0x176fd4,
         shininess: 0,
         specular: 0x3a5939
 	});
 	// var material	= new THREE.MeshNormalMaterial({
 	// 	shading		: THREE.SmoothShading,
 	// })
-	var mesh	= new THREE.Mesh( geometry, material );
+
+	var mesh = new THREE.Mesh( geometry, material );
+	mesh.receiveShadow = true;
 	scene.add( mesh );
 	mesh.lookAt(new THREE.Vector3(0,1,0))
 	mesh.rotateZ(-Math.PI/2)
@@ -68,7 +79,6 @@ var renderer	= new THREE.WebGLRenderer({
 	})
 
 	scene.fog = new THREE.Fog(0x000000,0,50);
- 	var BollGeo = new THREE.SphereGeometry( 0.3, 5, 5 );
 
 	var trees = new THREE.Object3D();
 
@@ -82,6 +92,30 @@ var renderer	= new THREE.WebGLRenderer({
        shading: THREE.FlatShading
    	});
 
+   	var Boll_material = new THREE.MeshPhongMaterial( {
+       color: 0x4aa24b,
+       shininess: 0,
+       specular: 0x222222,
+       shading: THREE.FlatShading
+   	});
+
+
+   	var verticesOfCube = [
+    -1,-1,-1,    1,-1,-1,    1, 1,-1,    -1, 1,-1,
+    -1,-1, 1,    1,-1, 1,    1, 1, 1,    -1, 1, 1,
+	];
+
+	var indicesOfFaces = [
+    2,1,0,    0,3,2,
+    0,4,7,    7,3,0,
+    0,1,5,    5,4,0,
+    1,2,6,    6,5,1,
+    2,3,7,    7,6,2,
+    4,5,6,    6,7,4
+	];
+
+	var polyGeo = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, 0.3, 1 );
+
 
 	$.get("php/getAllMoviesInDatabase.php",function(data){
 
@@ -90,16 +124,19 @@ var renderer	= new THREE.WebGLRenderer({
 		makeDaTrees(array);	
 	});
 
+
+
 	function makeDaTrees(data){
 
    	for(var i = 0; i < data.length; i++ ) {
-    	
-    	var Box_geometry = new THREE.BoxGeometry(0.2,1,0.2); // generate psuedo-random geometry
+
+    	var Box_geometry = new THREE.BoxGeometry(0.1,1,0.1); // generate psuedo-random geometry
+    	var BollGeo = new THREE.SphereGeometry( 0.3, 5, 5 );
 
        	var grayness = Math.random() * 0.5 + 0.25,
         mat = new THREE.MeshBasicMaterial();
        	var cube = new THREE.Mesh( Box_geometry, Box_material );
-       	var boll = new THREE.Mesh( BollGeo, Box_material );
+       	var boll = new THREE.Mesh( polyGeo, Boll_material );
 
        	cube.castShadow = true;
        	boll.castShadow = true;
@@ -110,13 +147,19 @@ var renderer	= new THREE.WebGLRenderer({
        	//console.log(heightMap);
        	//console.log(mesh);
        	var y = THREEx.Terrain.planeToHeightMapCoords(heightMap, mesh, x, z) + 0.4
-
+       	cube.rotateY(-Math.PI/1.5)
        	cube.position.set(x,y,z);
-
        	boll.position.set(x,y+0.5,z);
        	//cube.grayness = grayness; // *** NOTE THIS
        	trees.add( boll );
        	trees.add( cube );
+
+       	if(i%10==0) {
+
+       		var light = new THREE.PointLight( 0xffffff, 1, 10 );
+			light.position.set( x, y+1, z );
+			scene.add( light );
+		}
    }
    	trees.scale.multiplyScalar(1);
    	trees.castShadow = true;
