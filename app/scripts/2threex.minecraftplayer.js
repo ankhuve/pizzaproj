@@ -81,6 +81,8 @@ THREEx.MinecraftPlayer	= function(){
 		// build the sprite itself
 		var material	= new THREE.SpriteMaterial({
 			map			: texture,
+			transparent: true,
+			opacity:0,
 			useScreenCoordinates	: false
 		});
 		var sprite		= new THREE.Sprite( material );
@@ -122,6 +124,8 @@ THREEx.MinecraftPlayer	= function(){
 		// build the sprite itself
 		var material	= new THREE.SpriteMaterial({
 			map			: texture,
+			transparent: true,
+			opacity:0,
 			useScreenCoordinates	: false
 		});
 		var sprite		= new THREE.Sprite( material );

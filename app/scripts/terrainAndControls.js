@@ -72,20 +72,6 @@
 	//var cubes = new THREE.Object3D();
    	var range = 60;
 
-   	var Box_material = new THREE.MeshPhongMaterial( {
-       color: 0x66493b,
-       shininess: 0,
-       specular: 0x222222,
-       shading: THREE.FlatShading
-   	});
-
-   	var Boll_material = new THREE.MeshPhongMaterial( {
-       color: 0x4aa24b,
-       shininess: 0,
-       specular: 0x222222,
-       shading: THREE.FlatShading
-   	});
-
 
    	var verticesOfCube = [
     -1,-1,-1,    1,-1,-1,    1, 1,-1,    -1, 1,-1,
@@ -104,11 +90,13 @@
 	var polyGeo = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, 0.3, 1 );
 
 
-	$.get("php/getAllMoviesInDatabase.php",function(data){
+	$.get("php/betterMovies.php",function(data){
+
+		//console.log(JSON.parse(data));
 
 		var array = JSON.parse(data);
 		//console.log(array);
-		makeDaTrees(array);	
+		makeDaTrees(array);
 	});
 
 
@@ -116,6 +104,23 @@
 	function makeDaTrees(data){
 
    	for(var i = 0; i < data.length; i++ ) {
+
+   		var movieColor = data[i][2];
+   		console.log(movieColor);
+
+   		var Box_material = new THREE.MeshPhongMaterial( {
+       		color: 0x66493b,
+       		shininess: 0,
+       		specular: 0x222222,
+       		shading: THREE.FlatShading
+   		});
+
+   		var Boll_material = new THREE.MeshPhongMaterial( {
+       		color: new THREE.Color(movieColor),
+       		shininess: 0,
+       		specular: 0x222222,
+       		shading: THREE.FlatShading
+   		});
 
     	var Box_geometry = new THREE.BoxGeometry(0.1,1,0.1); // generate psuedo-random geometry
     	var BollGeo = new THREE.SphereGeometry( 0.3, 5, 5 );

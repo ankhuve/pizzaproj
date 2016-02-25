@@ -18,10 +18,13 @@ THREEx.MinecraftChar	= function(skinUrl){
 	this.texture	= texture
 
 	var material	= new THREEx.MinecraftChar.defaultMaterial({
+		transparent: true,
+		opacity:0,
 		map	: texture
 	});
 	var materialTran= new THREEx.MinecraftChar.defaultMaterial({
 		map		: texture,
+		opacity:0,
 		transparent	: true,
 		depthWrite	: false,
 		side		: THREE.DoubleSide
