@@ -5,7 +5,7 @@ THREEx.MinecraftControls	= function(object3d, input){
 	input		= input	|| {}
 
 	// handle arguments default values
-	this.speed	= 2;
+	this.speed	= 20;
 	this.lateralMove= 'rotationY';
 	this.input	= input;
 	this.object3d	= object3d;
@@ -16,8 +16,8 @@ THREEx.MinecraftControls	= function(object3d, input){
 		// keyboard handling
 		if( this.lateralMove === 'rotationY' ){
 			// lateral => rotation Y
-			if( input.left )	object3d.rotation.y += 0.1 * delta * Math.PI * 2;
-			if( input.right )	object3d.rotation.y -= 0.1 * delta * Math.PI * 2;			
+			if( input.left )	object3d.rotation.y += 0.1 * delta * Math.PI * 10;
+			if( input.right )	object3d.rotation.y -= 0.1 * delta * Math.PI * 10;			
 		}else if( this.lateralMove === 'strafe' ){
 			// lateral => strafe
 			var distance	= 0;

@@ -87,12 +87,10 @@
     4,5,6,    6,7,4
 	];
 
-	var polyGeo = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, 0.3, 1 );
-
 
 	$.get("php/betterMovies.php",function(data){
 
-		//console.log(JSON.parse(data));
+		console.log(JSON.parse(data));
 
 		var array = JSON.parse(data);
 		//console.log(array);
@@ -100,13 +98,25 @@
 	});
 
 
-
 	function makeDaTrees(data){
 
    	for(var i = 0; i < data.length; i++ ) {
 
    		var movieColor = data[i][2];
-   		console.log(movieColor);
+
+   		var rating = parseInt(data[i][3])/10;
+
+   		var year = (2017-parseInt(data[i][1]))/100*2.6*5;
+
+   		console.log(data[i][1], year);
+
+   		if(rating != rating) {
+			rating = 0.1;
+   		}
+
+   		if(year != year) {
+			year = 0.5;
+   		}
 
    		var Box_material = new THREE.MeshPhongMaterial( {
        		color: 0x66493b,
@@ -121,9 +131,9 @@
        		specular: 0x222222,
        		shading: THREE.FlatShading
    		});
-
-    	var Box_geometry = new THREE.BoxGeometry(0.1,1,0.1); // generate psuedo-random geometry
-    	var BollGeo = new THREE.SphereGeometry( 0.3, 5, 5 );
+   		var polyGeo = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, rating, 1 );
+    	var Box_geometry = new THREE.BoxGeometry(0.1,year,0.1); // generate psuedo-random geometry
+    	//var BollGeo = new THREE.SphereGeometry( rating, 5, 5 );
 
        	var grayness = Math.random() * 0.5 + 0.25,
         mat = new THREE.MeshBasicMaterial();
@@ -138,11 +148,11 @@
        	var z = range * (0.5 - Math.random())
        	//console.log(heightMap);
        	//console.log(mesh);
-       	var y = THREEx.Terrain.planeToHeightMapCoords(heightMap, ground, x, z) + 0.4
+       	var y = THREEx.Terrain.planeToHeightMapCoords(heightMap, ground, x, z);
        	//y = 0;
        	cube.rotateY(-Math.PI/1.5)
        	cube.position.set(x,y,z);
-       	boll.position.set(x,y+0.5,z);
+       	boll.position.set(x,y+year/2,z);
        	//cube.grayness = grayness; // *** NOTE THIS
        	trees.add( boll );
        	trees.add( cube );
@@ -150,7 +160,7 @@
        	if(i%10==0) {
 
        		var light = new THREE.PointLight( 0xffffff, 1, 10 );
-			light.position.set( x, y+1, z );
+			light.position.set( x, y, z );
 			//scene.add( light );
 		}
    }
