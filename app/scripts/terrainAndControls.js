@@ -87,10 +87,12 @@
     4,5,6,    6,7,4
 	];
 
+	var arrayOfTreePos = [];
+
 
 	$.get("php/betterMovies.php",function(data){
 
-		console.log(JSON.parse(data));
+		//console.log(JSON.parse(data));
 
 		var array = JSON.parse(data);
 		//console.log(array);
@@ -108,7 +110,7 @@
 
    		var year = (2017-parseInt(data[i][1]))/100*2.6*5;
 
-   		console.log(data[i][1], year);
+   		//console.log(data[i][1], year);
 
    		if(rating != rating) {
 			rating = 0.1;
@@ -151,6 +153,14 @@
        	var y = THREEx.Terrain.planeToHeightMapCoords(heightMap, ground, x, z);
        	//y = 0;
        	cube.rotateY(-Math.PI/1.5)
+       	var treePosAndData = {};
+       	treePosAndData["data"] = data[i];
+       	treePosAndData["x"] = x;
+       	treePosAndData["y"] = y;
+       	treePosAndData["z"] = z;
+
+       	arrayOfTreePos.push(treePosAndData);
+
        	cube.position.set(x,y,z);
        	boll.position.set(x,y+year/2,z);
        	//cube.grayness = grayness; // *** NOTE THIS
@@ -164,11 +174,17 @@
 			//scene.add( light );
 		}
    }
+
    	trees.scale.multiplyScalar(1);
    	trees.castShadow = true;
    	scene.add( trees );
 
    }
+
+
+   //console.log(treePosAndData);
+
+   //console.log(arrayOfTreePos);
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		helpers to debug						//
