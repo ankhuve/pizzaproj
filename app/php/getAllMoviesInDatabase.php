@@ -6,9 +6,14 @@ $query = "SELECT * FROM movies";
 
 $result = queryDb($conn, $query);
 
+$movies = [];
+
 if($result){
-    echo( "<br><br>The query returned the following results: <br>" );
+    //echo( "<br><br>The query returned the following results: <br>" );
     while($row = mysqli_fetch_assoc($result)) {
-        echo "<br>Imdb-ID: " . $row["imdb_id"]. " - Movie name: " . $row["name"]. " - Year: " . $row["year"];
+    	$movies[] = $row["name"];
+        //echo "<br>Imdb-ID: " . $row["imdb_id"]. " - Movie name: " . $row["name"]. " - Year: " . $row["year"];
     }
+
+    echo json_encode($movies);
 }
