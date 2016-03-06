@@ -63,7 +63,6 @@
 	// ground.scale.multiplyScalar(10)
 
 
-
 	scene.fog = new THREE.Fog(0x000000,0,50);
 
 
@@ -88,7 +87,6 @@
 	];
 
 	var arrayOfTreePos = [];
-
 
 	$.get("php/betterMovies.php",function(data){
 
@@ -162,7 +160,7 @@
        	arrayOfTreePos.push(treePosAndData);
 
        	cube.position.set(x,y,z);
-       	boll.position.set(x,y+year/2,z);
+       	boll.position.set(x,y+year/2+rating-0.1,z);
        	//cube.grayness = grayness; // *** NOTE THIS
        	trees.add( boll );
        	trees.add( cube );
@@ -199,15 +197,73 @@
 	//		comment								//
 	//////////////////////////////////////////////////////////////////////////////////
 
-	var player	= new THREEx.MinecraftPlayer()
+	String.prototype.replaceAll = function(target, replacement) {
+  		return this.split(target).join(replacement);
+	};
+
+		var player	= new THREEx.MinecraftPlayer()
 	scene.add(player.character.root)
 	updateFcts.push(function(delta, now){
 		player.update(delta, now)
 	})
+
+	var prevPos = {"x":0, "y":0, "z":0};
+	var moviePrev = "";
 	
 	updateFcts.push(function(delta, now){
 		var position	= player.character.root.position
 		position.y	= THREEx.Terrain.planeToHeightMapCoords(heightMap, ground, position.x, position.z)
+		if(prevPos.x==position.x && prevPos.z == position.z) {
+
+		} else {
+			//console.log(position);
+			prevPos.x = position.x;
+			prevPos.z = position.z;
+			prevPos.y = position.y;
+
+			for(var i in arrayOfTreePos) {
+
+				if(arrayOfTreePos[i].x>position.x-1 && arrayOfTreePos[i].x<position.x+1 && arrayOfTreePos[i].z>position.z-1 && arrayOfTreePos[i].z<position.z+1) {
+					if(moviePrev != arrayOfTreePos[i].data[0]) {
+
+						//console.log(arrayOfTreePos[i].data[0])
+						moviePrev = arrayOfTreePos[i].data[0];
+
+						filmTitel = moviePrev;
+
+						$.getJSON('https://www.googleapis.com/freebase/v1/mqlread?query=[{"type":"/film/film","name":"'+filmTitel+'","featured_song":[]}]&key=AIzaSyCFvHOOiVNFilGS1xmd8Jwtr_eJCNr6bG4', function(response) {
+   							console.log(response);
+   							if(response.result.length>0) {
+   								if(response.result[0].featured_song.length>0) {
+   									
+   									themesong = response.result[0].featured_song[0];
+
+   									searchString = themesong.replaceAll(" ", "+");
+
+   									//console.log(themesong);
+   	
+   									auth = "BQDxYhm7Q9JHbcFMF510qLhpHJe-6cWEYDuiS5rRaNbz_G2R7WQawWMrGA5Q5YI6BoY-GNSgXGP7Fkdffr6w7XrMFXoBm1lCDgs9Qcltqeqc98y5uxUG0PzUA7WxLAgtHk6X7Cz2MxiyOQ";
+   									   $.ajax({
+   											url: 'https://api.spotify.com/v1/search?q='+searchString+'&type=track',
+   											headers: {
+       										'Authorization': 'Bearer ' + auth
+   										},
+   										success: function(response) {
+								       		var songURL = response.tracks.items[0].preview_url;
+									       //console.log(songURL);
+									       var audio = new Audio(songURL);
+											audio.play();
+								   			}
+										});
+   								}
+   							}
+ 						});
+
+					}
+
+				}
+			}
+		} 
 	})
 	
 	
