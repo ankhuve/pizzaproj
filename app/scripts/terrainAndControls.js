@@ -230,6 +230,7 @@
 						moviePrev = arrayOfTreePos[i].data[0];
 
 						filmTitel = moviePrev;
+						console.log(filmTitel);
 
 						$.getJSON('https://www.googleapis.com/freebase/v1/mqlread?query=[{"type":"/film/film","name":"'+filmTitel+'","featured_song":[]}]&key=AIzaSyCFvHOOiVNFilGS1xmd8Jwtr_eJCNr6bG4', function(response) {
    							console.log(response);
