@@ -235,8 +235,10 @@
 
 						moviePrev = arrayOfTreePos[i].data[0];
 
-						console.log(moviePrev);
-						console.log(arrayOfTreePos[i].data[5]);
+						//console.log(moviePrev);
+						console.log(arrayOfTreePos[i].data);
+
+						$("#informationHolder").html(arrayOfTreePos[i].data[0]);
 
 						audio = new Audio(arrayOfTreePos[i].data[9]);
 						audio.play();
@@ -255,6 +257,7 @@
 					//console.log(audio.volume);
 
 					if(distanceMax>2.8) {
+						$("#informationHolder").html("");
 						audio.volume = 0;
 						audio.pause();
 						moviePrev = "";
