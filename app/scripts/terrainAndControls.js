@@ -233,7 +233,7 @@
 						console.log(filmTitel);
 
 						$.getJSON('https://www.googleapis.com/freebase/v1/mqlread?query=[{"type":"/film/film","name":"'+filmTitel+'","featured_song":[]}]&key=AIzaSyCFvHOOiVNFilGS1xmd8Jwtr_eJCNr6bG4', function(response) {
-   							console.log(response);
+   							//console.log(response);
    							if(response.result.length>0) {
    								if(response.result[0].featured_song.length>0) {
    									
@@ -241,9 +241,10 @@
 
    									searchString = themesong.replaceAll(" ", "+");
 
-   									//console.log(themesong);
+   									console.log(themesong);
+
+   										auth = "BQAil97A9jQXPaJp7SBkd7AUCX-izoLRjurO59priZgJV5CeEEwfr7uM8fh3WFoLGIpJTcilIffUAfNQP4JY8FNkiSDtkO1jDEQtFh_Shf9y--TIuRHaVLXN9-s3CiQtpCD7mtBOgmLHkg";
    	
-   									auth = "BQDxYhm7Q9JHbcFMF510qLhpHJe-6cWEYDuiS5rRaNbz_G2R7WQawWMrGA5Q5YI6BoY-GNSgXGP7Fkdffr6w7XrMFXoBm1lCDgs9Qcltqeqc98y5uxUG0PzUA7WxLAgtHk6X7Cz2MxiyOQ";
    									   $.ajax({
    											url: 'https://api.spotify.com/v1/search?q='+searchString+'&type=track',
    											headers: {
@@ -254,6 +255,8 @@
 									       //console.log(songURL);
 									       var audio = new Audio(songURL);
 											audio.play();
+
+											setTimeout(function(){ audio.pause(); }, 3000);
 								   			}
 										});
    								}
