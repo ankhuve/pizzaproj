@@ -228,6 +228,9 @@
 					if(moviePrev != arrayOfTreePos[i].data[0]) {
 
 						//console.log(arrayOfTreePos[i].data[0])
+
+
+
 						moviePrev = arrayOfTreePos[i].data[0];
 
 						console.log(moviePrev);
