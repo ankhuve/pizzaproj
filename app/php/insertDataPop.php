@@ -80,17 +80,19 @@ foreach ($popMovies as $item) {
 
         $previewURL = $items[0]->preview_url;
 
-        // echo $movies . "<br />";
-        // echo $imdbID . "<br />";
-        // echo $year . "<br />";
-        // echo $rating . "<br />";
-        // echo $poster . "<br />";
-        // echo $rgb . "<br />";
-        // echo $themeSong . "<br />";
-        // echo $genre . "<br />";
-        // echo $plot . "<br />";
-        // echo $previewURL . "<br />";
-        // echo "<br />";
+        echo $movies . "<br />";
+        echo $imdbID . "<br />";
+        echo $year . "<br />";
+        echo $rating . "<br />";
+        echo $poster . "<br />";
+        echo $rgb . "<br />";
+        echo $themeSong . "<br />";
+        echo $genre . "<br />";
+        echo $plot . "<br />";
+        echo $previewURL . "<br />";
+        echo $actors . "<br />";
+        echo $directedBy . "<br />";
+        echo "<br />";
 
         $parts[] = '("' . $movies . '","' . $imdbID . '",' . $year . ',"' . $rgb . '",' . $rating . ', "' . $themeSong . '", "' . $poster . '","' . $genre . '","' . $plot . '","' . $previewURL . '","' . $actors . '","' . $directedBy .'")';
 
@@ -110,12 +112,12 @@ $sql .= "VALUES " . implode(", ", $parts);
 
 //var_dump($sql);
 
-//execute the query, tell us how it went
-if (mysqli_query($conn, $sql)) {
-    echo "New records created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
+// //execute the query, tell us how it went
+// if (mysqli_query($conn, $sql)) {
+//     echo "New records created successfully";
+// } else {
+//     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+// }
 
 //echo json_encode($moviesArray);
 
