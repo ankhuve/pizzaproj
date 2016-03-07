@@ -252,7 +252,7 @@
 
 					audio.volume = distVolume;
 
-					console.log(audio.volume);
+					//console.log(audio.volume);
 
 					if(distanceMax>2.8) {
 						audio.volume = 0;
