@@ -197,6 +197,7 @@
 	//		comment								//
 	//////////////////////////////////////////////////////////////////////////////////
 
+
 	String.prototype.replaceAll = function(target, replacement) {
   		return this.split(target).join(replacement);
 	};
@@ -231,9 +232,9 @@
 
 						console.log(moviePrev);
 						console.log(arrayOfTreePos[i].data[5]);
-
 						var audio = new Audio(arrayOfTreePos[i].data[9]);
 						audio.play();
+						audio.volume = 1;
 						setTimeout(function(){ audio.pause(); }, 3000);
 
 					}
