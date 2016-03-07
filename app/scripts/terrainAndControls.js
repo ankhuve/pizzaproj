@@ -93,7 +93,7 @@
 		//console.log(JSON.parse(data));
 
 		var array = JSON.parse(data);
-		console.log(array);
+		//console.log(array);
 		makeDaTrees(array);
 	});
 
@@ -229,30 +229,12 @@
 						//console.log(arrayOfTreePos[i].data[0])
 						moviePrev = arrayOfTreePos[i].data[0];
 
-						filmTitel = moviePrev;
-						console.log(arrayOfTreePos[i].data);
-						console.log(filmTitel);
+						console.log(moviePrev);
+						console.log(arrayOfTreePos[i].data[5]);
 
-						searchString = arrayOfTreePos[i].data[5].replaceAll(" ", "+");
-
-   									console.log(arrayOfTreePos[i].data[5]);
-
-										auth = "BQBFUwCyJ0ePrj7Vjggi88Z4VKbVF0ZUeQzGFZLhwI5D938nSVxzvXn7T1sgSZWADZY8VXd7Sb_64g2-ipm54nFNxpGwV-dMYw5P8Ra9k3Dvvr5ZjI0mh_tLTA2Tn0M232WAB4_ZQJdv0g";   	
-   									   $.ajax({
-   											url: 'https://api.spotify.com/v1/search?q='+searchString+'&type=track',
-   											headers: {
-       										'Authorization': 'Bearer ' + auth
-   										},
-   										success: function(response) {
-   											console.log(response);
-								       		var songURL = response.tracks.items[0].preview_url;
-									       //console.log(songURL);
-									       var audio = new Audio(songURL);
-											audio.play();
-
-											setTimeout(function(){ audio.pause(); }, 3000);
-								   			}
-										});
+						var audio = new Audio(arrayOfTreePos[i].data[9]);
+						audio.play();
+						setTimeout(function(){ audio.pause(); }, 3000);
 
 					}
 
