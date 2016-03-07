@@ -233,16 +233,9 @@
 						console.log(arrayOfTreePos[i].data);
 						console.log(filmTitel);
 
-						$.getJSON('https://www.googleapis.com/freebase/v1/mqlread?query=[{"type":"/film/film","name":"'+filmTitel+'","featured_song":[]}]&key=AIzaSyCFvHOOiVNFilGS1xmd8Jwtr_eJCNr6bG4', function(response) {
-   							//console.log(response);
-   							if(response.result.length>0) {
-   								if(response.result[0].featured_song.length>0) {
-   									
-   									themesong = response.result[0].featured_song[0];
+						searchString = arrayOfTreePos[i].data[5].replaceAll(" ", "+");
 
-   									searchString = themesong.replaceAll(" ", "+");
-
-   									console.log(themesong);
+   									console.log(arrayOfTreePos[i].data[5]);
 
 										auth = "BQBFUwCyJ0ePrj7Vjggi88Z4VKbVF0ZUeQzGFZLhwI5D938nSVxzvXn7T1sgSZWADZY8VXd7Sb_64g2-ipm54nFNxpGwV-dMYw5P8Ra9k3Dvvr5ZjI0mh_tLTA2Tn0M232WAB4_ZQJdv0g";   	
    									   $.ajax({
@@ -260,9 +253,6 @@
 											setTimeout(function(){ audio.pause(); }, 3000);
 								   			}
 										});
-   								}
-   							}
- 						});
 
 					}
 
