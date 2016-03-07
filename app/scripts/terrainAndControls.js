@@ -197,7 +197,7 @@
 	//		comment								//
 	//////////////////////////////////////////////////////////////////////////////////
 
-	var audio;
+	var audio, audioTimer;
 
 
 	String.prototype.replaceAll = function(target, replacement) {
@@ -241,14 +241,14 @@
 						audio = new Audio(arrayOfTreePos[i].data[9]);
 						audio.play();
 						audio.volume = 0;
-						//setTimeout(function(){ audio.pause(); }, 10000);
+						audioTimer = setTimeout(function(){ $(audio).animate({volume: 0}, 1000); }, 29000);
 
 					}
 
 					var distanceX = Math.abs(arrayOfTreePos[i].x-position.x);
 					var distanceY = Math.abs(arrayOfTreePos[i].z-position.z);
 					var distanceMax = Math.max(distanceX, distanceY);
-					var distVolume = (howFarAway-distanceMax)/(howFarAway*4);
+					var distVolume = (howFarAway-distanceMax)/(howFarAway*8);
 
 					audio.volume = distVolume;
 
@@ -258,6 +258,7 @@
 						audio.volume = 0;
 						audio.pause();
 						moviePrev = "";
+						clearTimeout(audioTimer);
 					}
 
 				}
