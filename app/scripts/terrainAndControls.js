@@ -88,7 +88,7 @@
 
 	var arrayOfTreePos = [];
 
-	$.get("php/betterMovies.php",function(data){
+	$.get("php/betterMoviesPop.php",function(data){
 
 		//console.log(JSON.parse(data));
 

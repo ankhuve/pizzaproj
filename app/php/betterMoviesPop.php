@@ -3,7 +3,7 @@ include_once("config.php");
 include_once("functions.php");
 include_once("imageColor.php");
 
-$query = "SELECT * FROM movies";
+$query = "SELECT * FROM moviesPop";
 
 $result = queryDb($conn, $query);
 
@@ -27,6 +27,7 @@ if($result){
       $poster = $movies->Poster;
       $rating = $movies->imdbRating;
       $runtime = $movies-> Runtime;
+
 
       if (strpos($poster, 'http') !== false) {
         $posterColor = imageColor::averageResize(imagecreatefromjpeg($poster));
