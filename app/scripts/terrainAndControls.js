@@ -197,6 +197,8 @@
 	//		comment								//
 	//////////////////////////////////////////////////////////////////////////////////
 
+	var audio;
+
 
 	String.prototype.replaceAll = function(target, replacement) {
   		return this.split(target).join(replacement);
@@ -224,22 +226,38 @@
 
 			for(var i in arrayOfTreePos) {
 
-				if(arrayOfTreePos[i].x>position.x-1 && arrayOfTreePos[i].x<position.x+1 && arrayOfTreePos[i].z>position.z-1 && arrayOfTreePos[i].z<position.z+1) {
+				howFarAway = 3;
+
+				if(arrayOfTreePos[i].x>position.x-howFarAway && arrayOfTreePos[i].x<position.x+howFarAway && arrayOfTreePos[i].z>position.z-howFarAway && arrayOfTreePos[i].z<position.z+howFarAway) {
+				
+					
 					if(moviePrev != arrayOfTreePos[i].data[0]) {
-
-						//console.log(arrayOfTreePos[i].data[0])
-
-
 
 						moviePrev = arrayOfTreePos[i].data[0];
 
 						console.log(moviePrev);
 						console.log(arrayOfTreePos[i].data[5]);
-						var audio = new Audio(arrayOfTreePos[i].data[9]);
-						audio.play();
-						audio.volume = 1;
-						setTimeout(function(){ audio.pause(); }, 3000);
 
+						audio = new Audio(arrayOfTreePos[i].data[9]);
+						audio.play();
+						audio.volume = 0;
+						//setTimeout(function(){ audio.pause(); }, 10000);
+
+					}
+
+					var distanceX = Math.abs(arrayOfTreePos[i].x-position.x);
+					var distanceY = Math.abs(arrayOfTreePos[i].z-position.z);
+					var distanceMax = Math.max(distanceX, distanceY);
+					var distVolume = (howFarAway-distanceMax)/howFarAway;
+
+					audio.volume = distVolume;
+
+					console.log(distanceMax);
+
+					if(distanceMax>2.8) {
+						audio.volume = 0;
+						audio.pause();
+						moviePrev = "";
 					}
 
 				}
