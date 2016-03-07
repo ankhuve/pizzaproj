@@ -248,11 +248,11 @@
 					var distanceX = Math.abs(arrayOfTreePos[i].x-position.x);
 					var distanceY = Math.abs(arrayOfTreePos[i].z-position.z);
 					var distanceMax = Math.max(distanceX, distanceY);
-					var distVolume = (howFarAway-distanceMax)/howFarAway;
+					var distVolume = (howFarAway-distanceMax)/(howFarAway*4);
 
 					audio.volume = distVolume;
 
-					console.log(distanceMax);
+					console.log(audio.volume);
 
 					if(distanceMax>2.8) {
 						audio.volume = 0;
