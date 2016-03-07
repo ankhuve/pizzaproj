@@ -88,7 +88,7 @@
 
 	var arrayOfTreePos = [];
 
-	$.get("php/betterMovies.php",function(data){
+	$.get("php/betterMoviesPop.php",function(data){
 
 		//console.log(JSON.parse(data));
 
@@ -197,6 +197,7 @@
 	//		comment								//
 	//////////////////////////////////////////////////////////////////////////////////
 
+
 	String.prototype.replaceAll = function(target, replacement) {
   		return this.split(target).join(replacement);
 	};
@@ -229,36 +230,12 @@
 						//console.log(arrayOfTreePos[i].data[0])
 						moviePrev = arrayOfTreePos[i].data[0];
 
-						filmTitel = moviePrev;
-						console.log(filmTitel);
-
-						$.getJSON('https://www.googleapis.com/freebase/v1/mqlread?query=[{"type":"/film/film","name":"'+filmTitel+'","featured_song":[]}]&key=AIzaSyCFvHOOiVNFilGS1xmd8Jwtr_eJCNr6bG4', function(response) {
-   							console.log(response);
-   							if(response.result.length>0) {
-   								if(response.result[0].featured_song.length>0) {
-   									
-   									themesong = response.result[0].featured_song[0];
-
-   									searchString = themesong.replaceAll(" ", "+");
-
-   									//console.log(themesong);
-   	
-   									auth = "BQDxYhm7Q9JHbcFMF510qLhpHJe-6cWEYDuiS5rRaNbz_G2R7WQawWMrGA5Q5YI6BoY-GNSgXGP7Fkdffr6w7XrMFXoBm1lCDgs9Qcltqeqc98y5uxUG0PzUA7WxLAgtHk6X7Cz2MxiyOQ";
-   									   $.ajax({
-   											url: 'https://api.spotify.com/v1/search?q='+searchString+'&type=track',
-   											headers: {
-       										'Authorization': 'Bearer ' + auth
-   										},
-   										success: function(response) {
-								       		var songURL = response.tracks.items[0].preview_url;
-									       //console.log(songURL);
-									       var audio = new Audio(songURL);
-											audio.play();
-								   			}
-										});
-   								}
-   							}
- 						});
+						console.log(moviePrev);
+						console.log(arrayOfTreePos[i].data[5]);
+						var audio = new Audio(arrayOfTreePos[i].data[9]);
+						audio.play();
+						audio.volume = 1;
+						setTimeout(function(){ audio.pause(); }, 3000);
 
 					}
 

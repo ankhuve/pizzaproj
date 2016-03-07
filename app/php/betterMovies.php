@@ -28,7 +28,6 @@ if($result){
       $rating = $movies->imdbRating;
       $runtime = $movies-> Runtime;
 
-
       if (strpos($poster, 'http') !== false) {
         $posterColor = imageColor::averageResize(imagecreatefromjpeg($poster));
 
