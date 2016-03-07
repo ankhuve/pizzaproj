@@ -93,7 +93,7 @@
 		//console.log(JSON.parse(data));
 
 		var array = JSON.parse(data);
-		//console.log(array);
+		console.log(array);
 		makeDaTrees(array);
 	});
 
@@ -230,6 +230,7 @@
 						moviePrev = arrayOfTreePos[i].data[0];
 
 						filmTitel = moviePrev;
+						console.log(arrayOfTreePos[i].data);
 						console.log(filmTitel);
 
 						$.getJSON('https://www.googleapis.com/freebase/v1/mqlread?query=[{"type":"/film/film","name":"'+filmTitel+'","featured_song":[]}]&key=AIzaSyCFvHOOiVNFilGS1xmd8Jwtr_eJCNr6bG4', function(response) {
