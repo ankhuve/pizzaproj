@@ -77,12 +77,12 @@ $sql .= "VALUES " . implode(", ", $parts);
 
 //var_dump($sql);
 
-//execute the query, tell us how it went
-if (mysqli_query($conn, $sql)) {
-    echo "New records created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
+// //execute the query, tell us how it went
+// if (mysqli_query($conn, $sql)) {
+//     echo "New records created successfully";
+// } else {
+//     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+// }
 
 //echo json_encode($moviesArray);
 

@@ -243,14 +243,14 @@
 
    									console.log(themesong);
 
-   										auth = "BQAil97A9jQXPaJp7SBkd7AUCX-izoLRjurO59priZgJV5CeEEwfr7uM8fh3WFoLGIpJTcilIffUAfNQP4JY8FNkiSDtkO1jDEQtFh_Shf9y--TIuRHaVLXN9-s3CiQtpCD7mtBOgmLHkg";
-   	
+										auth = "BQBFUwCyJ0ePrj7Vjggi88Z4VKbVF0ZUeQzGFZLhwI5D938nSVxzvXn7T1sgSZWADZY8VXd7Sb_64g2-ipm54nFNxpGwV-dMYw5P8Ra9k3Dvvr5ZjI0mh_tLTA2Tn0M232WAB4_ZQJdv0g";   	
    									   $.ajax({
    											url: 'https://api.spotify.com/v1/search?q='+searchString+'&type=track',
    											headers: {
        										'Authorization': 'Bearer ' + auth
    										},
    										success: function(response) {
+   											console.log(response);
 								       		var songURL = response.tracks.items[0].preview_url;
 									       //console.log(songURL);
 									       var audio = new Audio(songURL);
