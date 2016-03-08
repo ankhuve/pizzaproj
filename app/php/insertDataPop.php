@@ -41,6 +41,8 @@ foreach ($popMovies as $item) {
     $poster = $allMovies->Poster;
     $genre = $allMovies->Genre;
     $plot = $allMovies->Plot;
+    $actors = $allMovies->Actors;
+    $directedBy = $allMovies->Director;
 
     $json_data_theme_song = file_get_contents('https://www.googleapis.com/freebase/v1/mqlread?query=[{"type":"/film/film","name":"'.$fixedItem.'","featured_song":[],"gross_revenue":[]}]&key=AIzaSyCFvHOOiVNFilGS1xmd8Jwtr_eJCNr6bG4');
     $allMoviesThemeSong = json_decode( $json_data_theme_song );
@@ -68,10 +70,12 @@ foreach ($popMovies as $item) {
 
         $spotifyURL = 'https://api.spotify.com/v1/search?q='.urlencode($movies.' '.$themeSong).'&type=track';
         $items = spotify($spotifyURL);
+        //var_dump($items);
         
         if(empty($items)) {
             $spotifyURL = 'https://api.spotify.com/v1/search?q='.urlencode($themeSong).'&type=track';
             $items = spotify($spotifyURL);
+
         }
 
         $previewURL = $items[0]->preview_url;
@@ -86,9 +90,11 @@ foreach ($popMovies as $item) {
         echo $genre . "<br />";
         echo $plot . "<br />";
         echo $previewURL . "<br />";
+        echo $actors . "<br />";
+        echo $directedBy . "<br />";
         echo "<br />";
 
-        $parts[] = '("' . $movies . '","' . $imdbID . '",' . $year . ',"' . $rgb . '",' . $rating . ', "' . $themeSong . '", "' . $poster . '","' . $genre . '","' . $plot . '","' . $previewURL . '")';
+        $parts[] = '("' . $movies . '","' . $imdbID . '",' . $year . ',"' . $rgb . '",' . $rating . ', "' . $themeSong . '", "' . $poster . '","' . $genre . '","' . $plot . '","' . $previewURL . '","' . $actors . '","' . $directedBy .'")';
 
         //$query = "INSERT INTO moviesPop (name, imdbID, year, color, rating, themeSong, poster, genre, plot) VALUES ('$movies', '$imdbID', '$year','$rgb','$rating','$themeSong','$poster','$genre','$plot')";
 
@@ -101,12 +107,12 @@ foreach ($popMovies as $item) {
 
 
 // create the sql query
-$sql = "INSERT INTO moviesPop (name, imdbID, year, color, rating, themeSong, poster, genre, plot, preview) ";
+$sql = "INSERT INTO moviesPop (name, imdbID, year, color, rating, themeSong, poster, genre, plot, preview, actors, directedBy) ";
 $sql .= "VALUES " . implode(", ", $parts);
 
 //var_dump($sql);
 
-//execute the query, tell us how it went
+// //execute the query, tell us how it went
 // if (mysqli_query($conn, $sql)) {
 //     echo "New records created successfully";
 // } else {

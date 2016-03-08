@@ -1,6 +1,7 @@
 // Here we add our SCSS partials to make them into one stylesheet with scss+gulp magic
 @import "../../components/normalize.css";
 @import "partials/colors";
+@import "partials/tooltip";
 @import "partials/fonts";
 @import "partials/startPage";
 @import "partials/header";

@@ -14,6 +14,10 @@
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMapSoft = false;
 
+	// var backAudio = new Audio("background.mp3");
+	// backAudio.play();
+	// backAudio.volume = 0.1;
+
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		set 3 point lighting						//
@@ -129,7 +133,8 @@
        		color: new THREE.Color(movieColor),
        		shininess: 0,
        		specular: 0x222222,
-       		shading: THREE.FlatShading
+       		shading: THREE.FlatShading,
+       		displacementMap: ""
    		});
    		var polyGeo = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, rating, 1 );
     	var Box_geometry = new THREE.BoxGeometry(0.1,year,0.1); // generate psuedo-random geometry
@@ -235,8 +240,10 @@
 
 						moviePrev = arrayOfTreePos[i].data[0];
 
-						console.log(moviePrev);
-						console.log(arrayOfTreePos[i].data[5]);
+						//console.log(moviePrev);
+						console.log(arrayOfTreePos[i].data);
+
+						$("#informationHolder").html(arrayOfTreePos[i].data[0]);
 
 						audio = new Audio(arrayOfTreePos[i].data[9]);
 						audio.play();
@@ -255,6 +262,7 @@
 					//console.log(audio.volume);
 
 					if(distanceMax>2.8) {
+						$("#informationHolder").html("");
 						audio.volume = 0;
 						audio.pause();
 						moviePrev = "";
