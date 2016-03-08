@@ -14,6 +14,10 @@
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMapSoft = false;
 
+	// var backAudio = new Audio("background.mp3");
+	// backAudio.play();
+	// backAudio.volume = 0.1;
+
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		set 3 point lighting						//
@@ -129,7 +133,8 @@
        		color: new THREE.Color(movieColor),
        		shininess: 0,
        		specular: 0x222222,
-       		shading: THREE.FlatShading
+       		shading: THREE.FlatShading,
+       		displacementMap: ""
    		});
    		var polyGeo = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, rating, 1 );
     	var Box_geometry = new THREE.BoxGeometry(0.1,year,0.1); // generate psuedo-random geometry
