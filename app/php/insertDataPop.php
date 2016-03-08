@@ -31,8 +31,13 @@ function spotify($spotifyURL) {
 foreach ($popMovies as $item) {
     $fixedItem = str_replace(" ", "+", $item);
     //$json_data = file_get_contents('http://www.omdbapi.com/?s='.$fixedItem.'&type=movie');
-    $json_data = file_get_contents('http://www.omdbapi.com/?t='.$fixedItem.'&y=&plot=short&r=json');
+    $json_data = file_get_contents('http://www.omdbapi.com/?t='.$fixedItem.'&type=movie&y=&plot=short&r=json');
+    //echo($json_data);
+    
+        
     $allMovies = json_decode( $json_data );
+    //echo($allMovies->Response);
+    if ($allMovies->Response != "False"){
     //var_dump($allMovies);
     $movies = $allMovies->Title;
     $year = $allMovies->Year;
@@ -43,30 +48,37 @@ foreach ($popMovies as $item) {
     $plot = $allMovies->Plot;
     $actors = $allMovies->Actors;
     $directedBy = $allMovies->Director;
-
+    
     $json_data_theme_song = file_get_contents('https://www.googleapis.com/freebase/v1/mqlread?query=[{"type":"/film/film","name":"'.$fixedItem.'","featured_song":[],"gross_revenue":[]}]&key=AIzaSyCFvHOOiVNFilGS1xmd8Jwtr_eJCNr6bG4');
     $allMoviesThemeSong = json_decode( $json_data_theme_song );
 
+    $previewURL = "";
     $result = $allMoviesThemeSong->result;
+    if(count($result)>0){
     $featuredSongArr = $result[0]->featured_song;
-
+    
+        $featuredSong ="";
     //var_dump($featuredSongArr);
     //echo "<br />";
-
+        if(count($featuredSongArr)>0) {
     $featuredSong = $featuredSongArr[0];
+        }
+    
+    
+    //        if(strpos($poster, 'http') !== false) {
+//            $posterColor = imageColor::averageResize(imagecreatefromjpeg($poster));
+//            $red = $posterColor["red"];
+//            $green = $posterColor["green"];
+//            $blue = $posterColor["blue"];
+//            $rgb = "rgb(" . $red . "," . $green . "," . $blue . ")";
+//        } else {
+//            $rgb = "rgb(0,0,0)";
+//        }
+        $rgb = "rgb(0,0,0)";
 
     if(strlen($featuredSong)>0) {
         $themeSong = $featuredSong;
 
-        if(strpos($poster, 'http') !== false) {
-            $posterColor = imageColor::averageResize(imagecreatefromjpeg($poster));
-            $red = $posterColor["red"];
-            $green = $posterColor["green"];
-            $blue = $posterColor["blue"];
-            $rgb = "rgb(" . $red . "," . $green . "," . $blue . ")";
-        } else {
-            $rgb = "rgb(0,0,0)";
-        }
 
         $spotifyURL = 'https://api.spotify.com/v1/search?q='.urlencode($movies.' '.$themeSong).'&type=track';
         $items = spotify($spotifyURL);
@@ -94,30 +106,37 @@ foreach ($popMovies as $item) {
         echo $directedBy . "<br />";
         echo "<br />";
 
-        $parts[] = '("' . $movies . '","' . $imdbID . '",' . $year . ',"' . $rgb . '",' . $rating . ', "' . $themeSong . '", "' . $poster . '","' . $genre . '","' . $plot . '","' . $previewURL . '","' . $actors . '","' . $directedBy .'")';
-
+       
         //$query = "INSERT INTO moviesPop (name, imdbID, year, color, rating, themeSong, poster, genre, plot) VALUES ('$movies', '$imdbID', '$year','$rgb','$rating','$themeSong','$poster','$genre','$plot')";
 
         //mysqli_query($conn, $query);
+    }
 
     } 
+    
+     $parts[] = '("' . $movies . '","' . $imdbID . '",' . $year . ',"' . $rgb . '",' . $rating . ', "' . $themeSong . '", "' . $poster . '","' . $genre . '","' . $plot . '","' . $previewURL . '","' . $actors . '","' . $directedBy .'")';
+
     //$movieObject = [$movies, $imdbID, $year, $rgb, $rating, $themeSong, $genre, $plot];
     //$moviesArray[] = $movieObject;
 }
+    
+}
+
+
 
 
 // create the sql query
-$sql = "INSERT INTO moviesPop (name, imdbID, year, color, rating, themeSong, poster, genre, plot, preview, actors, directedBy) ";
+$sql = "INSERT INTO movieTest (name, imdbID, year, color, rating, themeSong, poster, genre, plot, preview, actors, directedBy) ";
 $sql .= "VALUES " . implode(", ", $parts);
 
 //var_dump($sql);
 
-// //execute the query, tell us how it went
-// if (mysqli_query($conn, $sql)) {
-//     echo "New records created successfully";
-// } else {
-//     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-// }
+ //execute the query, tell us how it went
+ if (mysqli_query($conn, $sql)) {
+     echo "New records created successfully";
+ } else {
+     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+ }
 
 //echo json_encode($moviesArray);
 
