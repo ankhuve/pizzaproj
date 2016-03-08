@@ -1,1 +1,0 @@
-//$("#helloWorld").hide(3000); // we got jQuery!

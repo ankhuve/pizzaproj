@@ -1,6 +1,6 @@
 var THREEx	= THREEx	|| {}
 
-THREEx.MinecraftPlayer	= function(){
+THREEx.MinecraftPlayer	= function(speedNumb){
 	
 	//////////////////////////////////////////////////////////////////////////////////
 	//		update functions						//
@@ -57,7 +57,7 @@ THREEx.MinecraftPlayer	= function(){
 	//////////////////////////////////////////////////////////////////////////////////
 	//		controls							//
 	//////////////////////////////////////////////////////////////////////////////////	
-	var controls	= new THREEx.MinecraftControls(character.root)
+	var controls	= new THREEx.MinecraftControls(speedNumb, character.root)
 	this.controls	= controls
 	updateFcts.push(function(delta, now){
 		controls.update(delta, now)
