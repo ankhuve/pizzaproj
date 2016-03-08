@@ -204,12 +204,14 @@
 
 	var audio, audioTimer;
 
+	var speedNumb = 10;
+
 
 	String.prototype.replaceAll = function(target, replacement) {
   		return this.split(target).join(replacement);
 	};
 
-		var player	= new THREEx.MinecraftPlayer()
+		var player	= new THREEx.MinecraftPlayer(speedNumb)
 	scene.add(player.character.root)
 	updateFcts.push(function(delta, now){
 		player.update(delta, now)

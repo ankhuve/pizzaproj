@@ -1,11 +1,11 @@
 var THREEx	= THREEx || {};
 
-THREEx.MinecraftControls	= function(object3d, input){
+THREEx.MinecraftControls	= function(speedNumb, object3d, input){
 	// arguments default values
 	input		= input	|| {}
 
 	// handle arguments default values
-	this.speed	= 10;
+	this.speed	= speedNumb;
 	this.lateralMove= 'rotationY';
 	this.input	= input;
 	this.object3d	= object3d;
