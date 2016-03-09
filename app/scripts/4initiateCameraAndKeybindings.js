@@ -110,12 +110,13 @@ var canJump = false;
 
 var prevTime = performance.now();
 var velocity = new THREE.Vector3();
+var movementSpeed = 100;
 
 function init() {
 
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
 
-	camera.position.y = -3;
+	camera.position.y = 0;
 	camera.position.z = 0;
 
 
@@ -133,7 +134,8 @@ function init() {
 
 			case 37: // left
 			case 65: // a
-				moveLeft = true; break;
+				moveLeft = true;
+				break;
 
 			case 40: // down
 			case 83: // s
@@ -145,10 +147,10 @@ function init() {
 				moveRight = true;
 				break;
 
-			case 32: // space
-				if ( canJump === true ) velocity.y += 350;
-				canJump = false;
-				break;
+			//case 32: // kanske lägga till flygfunktion?! trycker man space så börjar man flyga eller nåt
+			//	if ( canJump === true ) velocity.y += 350;
+			//	canJump = false;
+			//	break;
 
 		}
 
