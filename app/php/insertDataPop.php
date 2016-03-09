@@ -45,7 +45,10 @@ foreach ($popMovies as $item) {
     $rating = $allMovies->imdbRating;
     $poster = $allMovies->Poster;
     $genre = $allMovies->Genre;
-    $plot = $allMovies->Plot;
+        
+    $plut = $allMovies->Plot;
+    $plot = mysqli::real_escape_string($plut);
+        
     $actors = $allMovies->Actors;
     $directedBy = $allMovies->Director;
     
