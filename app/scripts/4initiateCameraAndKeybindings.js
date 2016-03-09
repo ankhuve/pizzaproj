@@ -25,6 +25,7 @@ if ( havePointerLock ) {
 			controls.enabled = true;
 
 			blocker.style.display = 'none';
+			$("#centerSign").css("display", "block");
 
 		} else {
 
@@ -35,6 +36,7 @@ if ( havePointerLock ) {
 			blocker.style.display = 'box';
 
 			instructions.style.display = '';
+			$("#centerSign").css("display", "none");
 
 		}
 
