@@ -111,6 +111,10 @@ function makeDaTrees(data){
         cube.position.set(x, y, z);
         boll.position.set(x, y + treeStemHeight / 2 + treeCrownSize - 0.1, z);
         //cube.grayness = grayness; // *** NOTE THIS
+
+        // set color underneath tree
+        colorGround(x,z);
+
         trees.add( boll );
         trees.add( cube );
 
@@ -126,4 +130,50 @@ function makeDaTrees(data){
     trees.castShadow = true;
     scene.add( trees );
 
+    // now that we changed the color of vertices, add ground
+    scene.add( ground );
+
 }
+
+function colorGround(xVar, zVar) {
+    console.log("-");
+    console.log(xVar, zVar);
+
+    var vertexRange = 1;
+    var mapToCoord = heightMap.length/2-1;
+    var vertexColor = new THREE.Color("rgb(255,0,0)")
+    //var xVar = 0;
+    //var zVar = 0;
+    xVar +=mapToCoord;
+    zVar +=mapToCoord;
+    xVar = Math.floor(xVar);
+    zVar = Math.floor(zVar);
+
+    for(var i = 0; i < ground.geometry.faces.length; i++){
+        var vertexIdx = ground.geometry.faces[i].a;
+        var heightmapWidth = heightMap.length;
+        var xVertex = Math.floor(vertexIdx % heightmapWidth);
+        var zVertex = Math.floor(vertexIdx / heightmapWidth);
+
+        if((xVertex>xVar-vertexRange) && (xVertex<xVar+vertexRange) && (zVertex>zVar-vertexRange) && (zVertex<zVar+vertexRange)) {
+
+            ground.geometry.faces[i].vertexColors = [];
+            ground.geometry.faces[i].vertexColors.push(vertexColor);
+            ground.geometry.faces[i].vertexColors.push(vertexColor);
+            ground.geometry.faces[i].vertexColors.push(vertexColor);
+
+            //console.log(ground.geometry.faces[i]);
+            console.log(xVar, zVar);
+            console.log(xVertex, zVertex);
+            console.log("-");
+
+        }
+    }
+
+}
+
+
+
+
+
+

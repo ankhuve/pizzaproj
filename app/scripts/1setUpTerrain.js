@@ -49,16 +49,16 @@ var material	= new THREE.MeshPhongMaterial({
     shading		: THREE.FlatShading,
     shininess: 0,
     // shading		: THREE.SmoothShading,
-    color: 0x176fd4,
-    //vertexColors 	: THREE.VertexColors,
+    //color: 0x176fd4,
+    vertexColors 	: THREE.VertexColors,
 });
+
 var ground	= new THREE.Mesh( geometry, material );
-scene.add( ground );
+
 ground.rotateX(-Math.PI/2);
 ground.scale.x	= 20*10;
 ground.scale.y	= 20*10;
 ground.scale.z	= 1*10;
 // ground.scale.multiplyScalar(10)
-
 
 scene.fog = new THREE.Fog(0x000000,0,50);
