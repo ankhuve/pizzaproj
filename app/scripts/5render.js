@@ -1,24 +1,12 @@
+var prevPos = {"x":0, "y":0, "z":0};
+var moviePrev = "";
 
-	//////////////////////////////////////////////////////////////////////////////////
-	//		render the scene						//
-	//////////////////////////////////////////////////////////////////////////////////
-	updateFcts.push(function(){
-		renderer.render( scene, camera );		
-	})
-	
-	//////////////////////////////////////////////////////////////////////////////////
-	//		loop runner							//
-	//////////////////////////////////////////////////////////////////////////////////
-	var lastTimeMsec= null
-	requestAnimationFrame(function animate(nowMsec){
-		// keep looping
-		requestAnimationFrame( animate );
-		// measure time
-		lastTimeMsec	= lastTimeMsec || nowMsec-1000/60
-		var deltaMsec	= Math.min(200, nowMsec - lastTimeMsec)
-		lastTimeMsec	= nowMsec
-		// call each update function
-		updateFcts.forEach(function(updateFn){
-			updateFn(deltaMsec/1000, nowMsec/1000)
-		})
-	})
+function animate() {
+
+    requestAnimationFrame( animate );
+
+    movementAndDetailsOnDemand();
+
+    renderer.render( scene, camera );
+
+}
