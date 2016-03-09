@@ -122,6 +122,7 @@ function init() {
 	camera.position.z = 0;
 
 
+
 	controls = new THREE.PointerLockControls( camera );
 	scene.add( controls.getObject() );
 
