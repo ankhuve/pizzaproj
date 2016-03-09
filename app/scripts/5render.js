@@ -3,6 +3,10 @@ var moviePrev = "";
 
 function animate() {
 
+	if(!controls.enabled) {
+		camera.rotation.y -= Math.PI/5000;
+	}
+
     requestAnimationFrame( animate );
 
     movementAndDetailsOnDemand();
