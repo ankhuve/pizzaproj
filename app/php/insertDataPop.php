@@ -39,9 +39,10 @@ foreach ($popMovies as $item) {
     $allMovies = json_decode( $json_data );
     //echo($allMovies->Response);
     if ($allMovies->Response != "False"){
-    //var_dump($allMovies);
+        
     $moviez = $allMovies->Title;
     $movies = str_replace("'", "", $moviez);
+    //$movies = mysql_real_escape_string($allMovies->Title);
     $year = $allMovies->Year;
     $imdbID = $allMovies->imdbID;
     $rating = ( float ) $allMovies->imdbRating;
@@ -51,11 +52,13 @@ foreach ($popMovies as $item) {
     $plet = $allMovies->Plot;
     $plut = str_replace("'", "", $plet);
     $plot = str_replace('"', '', $plut);
-        
+    //$plot = mysql_real_escape_string($allMovies->Plot);
     $actorz = $allMovies->Actors;
     $actors = str_replace("'", "", $actorz);
+    //$actors = mysql_real_escape_string($allMovies->Actors);
     $directedByz = $allMovies->Director;
     $directedBy = str_replace("'", "", $directedByz);
+    //$directedBy = mysql_real_escape_string($allMovies->Director);
     
     $json_data_theme_song = file_get_contents('https://www.googleapis.com/freebase/v1/mqlread?query=[{"type":"/film/film","name":"'.$fixedItem.'","featured_song":[],"gross_revenue":[]}]&key=AIzaSyCFvHOOiVNFilGS1xmd8Jwtr_eJCNr6bG4');
     $allMoviesThemeSong = json_decode( $json_data_theme_song );
@@ -73,16 +76,16 @@ foreach ($popMovies as $item) {
         }
     
     
-    //        if(strpos($poster, 'http') !== false) {
-//            $posterColor = imageColor::averageResize(imagecreatefromjpeg($poster));
-//            $red = $posterColor["red"];
-//            $green = $posterColor["green"];
-//            $blue = $posterColor["blue"];
-//            $rgb = "rgb(" . $red . "," . $green . "," . $blue . ")";
-//        } else {
-//            $rgb = "rgb(0,0,0)";
-//        }
-        $rgb = "rgb(0,0,0)";
+        if(strpos($poster, 'http') !== false) {
+            $posterColor = imageColor::averageResize(imagecreatefromjpeg($poster));
+            $red = $posterColor["red"];
+            $green = $posterColor["green"];
+            $blue = $posterColor["blue"];
+            $rgb = "rgb(" . $red . "," . $green . "," . $blue . ")";
+        } else {
+            $rgb = "rgb(0,0,0)";
+        }
+        //$rgb = "rgb(0,0,0)";
         $themeSong = "";
 
     if(strlen($featuredSong)>0) {
