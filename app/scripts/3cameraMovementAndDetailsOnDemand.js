@@ -1,5 +1,6 @@
-var audio, audioTimer;
-var speedNumb = 10;
+var audio;
+var howFarAway = 3;
+var audioPlaying = false;
 
 function movementAndDetailsOnDemand(){
     if ( controlsEnabled ) {
@@ -41,11 +42,10 @@ function movementAndDetailsOnDemand(){
             prevPos.z = position.z;
             prevPos.y = position.y;
 
-            var howFarAway = 3;
+
+
 
             for(var i in arrayOfTreePos) {
-
-
 
                 if(arrayOfTreePos[i].x>position.x-howFarAway && arrayOfTreePos[i].x<position.x+howFarAway && arrayOfTreePos[i].z>position.z-howFarAway && arrayOfTreePos[i].z<position.z+howFarAway) {
 
@@ -54,15 +54,16 @@ function movementAndDetailsOnDemand(){
 
                         moviePrev = arrayOfTreePos[i].data[0];
 
-                        //console.log(moviePrev);
-                        console.log(arrayOfTreePos[i].data);
-
                         $("#informationHolder").html(arrayOfTreePos[i].data[0] + " (" + arrayOfTreePos[i].data[1] + ")");
 
-                        audio = new Audio(arrayOfTreePos[i].data[9]);
-                        audio.play();
-                        audio.volume = 0;
-                        audioTimer = setTimeout(function(){ $(audio).animate({volume: 0}, 1000); }, 29000);
+
+                        if(!audioPlaying){
+                            audio = new Audio(arrayOfTreePos[i].data[9]);
+                            audio.pause();
+                            audio.play();
+                            audioPlaying = true;
+                        }
+
 
                     }
 
@@ -73,14 +74,12 @@ function movementAndDetailsOnDemand(){
 
                     audio.volume = distVolume;
 
-                    //console.log(audio.volume);
-
                     if(distanceMax>2.8) {
                         $("#informationHolder").html("");
                         audio.volume = 0;
                         audio.pause();
+                        audioPlaying = false;
                         moviePrev = "";
-                        clearTimeout(audioTimer);
                     }
                 }
             }

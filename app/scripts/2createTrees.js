@@ -48,7 +48,7 @@ function createYearScale( data ) {
     console.log(botValue, topValue);
     return d3.scale.linear()
         .domain([botValue, topValue])
-        .range([0, range]);
+        .range([-range, range]);
 
 
 }
