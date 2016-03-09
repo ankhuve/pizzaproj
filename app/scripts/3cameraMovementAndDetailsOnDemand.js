@@ -57,7 +57,7 @@ function movementAndDetailsOnDemand(){
                         //console.log(moviePrev);
                         console.log(arrayOfTreePos[i].data);
 
-                        $("#informationHolder").html(arrayOfTreePos[i].data[0]);
+                        $("#informationHolder").html(arrayOfTreePos[i].data[0] + " (" + arrayOfTreePos[i].data[1] + ")");
 
                         audio = new Audio(arrayOfTreePos[i].data[9]);
                         audio.play();

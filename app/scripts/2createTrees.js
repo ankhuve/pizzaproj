@@ -30,23 +30,45 @@ $.get("php/betterMoviesPop.php",function(data){
 });
 
 
+function createYearScale( data ) {
+    var botValue = 2050;
+    var topValue = 1;
+    data.forEach(function( movie ){
+        var releaseYear = movie[1];
+
+        if (releaseYear > topValue) {
+            topValue = releaseYear;
+        } else {
+            if (releaseYear < botValue) {
+                botValue = releaseYear;
+            }
+        }
+    });
+
+    console.log(botValue, topValue);
+    return d3.scale.linear()
+        .domain([botValue, topValue])
+        .range([0, range]);
+
+
+}
+
+
 function makeDaTrees(data){
+
+    var releaseYearScale = createYearScale(data);
 
     for(var i = 0; i < data.length; i++ ) {
 
-        var movieColor = data[i][2];
+        // set data variables
+        var yearOfRelease = parseInt(data[i][1]);
+        var imdbRating = parseInt(data[i][3]);
+        var moviePosterColor = data[i][2];
 
-        var rating = parseInt(data[i][3])/10;
-
-        var year = (2017-parseInt(data[i][1]))/100*2.6*5;
-
-        if(rating != rating) {
-            rating = 0.1;
-        }
-
-        if(year != year) {
-            year = 0.5;
-        }
+        // decide tree geometry data
+        var treeCrownColor = moviePosterColor; // based on average movie poster color
+        var treeCrownSize = imdbRating / 10; // based on movie rating
+        var treeStemHeight = (2017 - yearOfRelease) / 100 * 13; // based on year of release
 
         var Box_material = new THREE.MeshPhongMaterial( {
             color: 0x66493b,
@@ -56,15 +78,16 @@ function makeDaTrees(data){
         });
 
         var Boll_material = new THREE.MeshPhongMaterial( {
-            color: new THREE.Color(movieColor),
+            color: new THREE.Color(treeCrownColor),
             shininess: 0,
             specular: 0x222222,
             shading: THREE.FlatShading,
             displacementMap: ""
         });
-        var polyGeo = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, rating, 1 );
-        var Box_geometry = new THREE.BoxGeometry(0.1,year,0.1); // generate psuedo-random geometry
-        //var BollGeo = new THREE.SphereGeometry( rating, 5, 5 );
+
+        var polyGeo = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, treeCrownSize, 1 );
+        var Box_geometry = new THREE.BoxGeometry(0.1, treeStemHeight, 0.1); // generate psuedo-random geometry
+        //var BollGeo = new THREE.SphereGeometry( treeCrownSize, 5, 5 );
 
         var grayness = Math.random() * 0.5 + 0.25,
             mat = new THREE.MeshBasicMaterial();
@@ -75,7 +98,7 @@ function makeDaTrees(data){
         boll.castShadow = true;
         //cube.receiveShadow = true;
         mat.color.setRGB( grayness, grayness, grayness );
-        var x =  range * (0.5 - Math.random());
+        var x =  releaseYearScale(yearOfRelease);
         var z = range * (0.5 - Math.random());
         var y = THREEx.Terrain.planeToHeightMapCoords(heightMap, ground, x, z);
 
@@ -88,8 +111,8 @@ function makeDaTrees(data){
 
         arrayOfTreePos.push(treePosAndData);
 
-        cube.position.set(x,y,z);
-        boll.position.set(x,y+year/2+rating-0.1,z);
+        cube.position.set(x, y, z);
+        boll.position.set(x, y + treeStemHeight / 2 + treeCrownSize - 0.1, z);
         //cube.grayness = grayness; // *** NOTE THIS
         trees.add( boll );
         trees.add( cube );
