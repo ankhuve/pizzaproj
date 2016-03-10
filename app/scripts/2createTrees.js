@@ -140,7 +140,7 @@ function colorGround(xVar, zVar) {
     console.log("-");
     console.log(xVar, zVar);
 
-    var vertexRange = 1;
+    var vertexRange = 2;
     var mapToCoord = heightMap.length/2-1;
     var vertexColor = new THREE.Color("rgb(255,0,0)")
     //var xVar = 0;

@@ -59,6 +59,6 @@ ground.rotateX(-Math.PI/2);
 ground.scale.x	= 20;
 ground.scale.y	= 20;
 ground.scale.z	= 1;
-ground.scale.multiplyScalar(6.35)
+ground.scale.multiplyScalar(heightMap.length/20);
 
 scene.fog = new THREE.Fog(0x000000,0,50);
