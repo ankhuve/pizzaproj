@@ -56,9 +56,9 @@ var material	= new THREE.MeshPhongMaterial({
 var ground	= new THREE.Mesh( geometry, material );
 
 ground.rotateX(-Math.PI/2);
-ground.scale.x	= 20*10;
-ground.scale.y	= 20*10;
-ground.scale.z	= 1*10;
-// ground.scale.multiplyScalar(10)
+ground.scale.x	= 20;
+ground.scale.y	= 20;
+ground.scale.z	= 1;
+ground.scale.multiplyScalar(6.35)
 
 scene.fog = new THREE.Fog(0x000000,0,50);
