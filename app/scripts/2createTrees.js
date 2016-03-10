@@ -55,7 +55,7 @@ function makeDaTrees(data){
 
     var releaseYearScale = createYearScale(data);
 
-    console.log(data);
+    //console.log(data);
 
     for(var i = 0; i < data.length; i++ ) {
 
@@ -100,70 +100,32 @@ function makeDaTrees(data){
         mat.color.setRGB( grayness, grayness, grayness );
         var x =  releaseYearScale(yearOfRelease);
         var z = range * (0.5 - Math.random());
-        //var z = -10;
 
-        //console.log(z);
-        // check for trees nearby with range and coordinates
+        // check if trees are nearby, inrease z until no collision detected
 
-        // var treeRange = 10;
-        // for(var i = 0; i <arrayOfTreePos.length; i++) {
-        //     alreadyX = arrayOfTreePos[i].x;
-        //     alreadyZ = arrayOfTreePos[i].z;
-        //     var checkIfTreeNearby = true;
+        var constCheck = true;
+        var treeRange = 5;
 
-        //     while(checkIfTreeNearby) {
-        //         if((alreadyX>x-treeRange) && (alreadyX<x+treeRange) && (alreadyZ>z-treeRange) && (alreadyZ<z+treeRange)) {
-        //             console.log(x, z);
-        //             z = range * (0.5 - Math.random());
-        //             console.log("krock");
-        //         } else {
+        while(constCheck) {
+            var collisionNumb = 0;
+            for(var j = 0; j <arrayOfTreePos.length; j++) {
+                if(data[i][0]!=arrayOfTreePos[j].data[0]){
+                    var innerTreeX = arrayOfTreePos[j].x;
+                    var innerTreeZ = arrayOfTreePos[j].z;
+                    var hypo = Math.hypot(Math.abs(x-innerTreeX),Math.abs(z-innerTreeZ));
+                    if(hypo<treeRange) {
+                        z += 1;
+                        collisionNumb++;
+                    }
+                }
+            }
 
-        //             checkIfTreeNearby = false;
-        //         }
-        //     }
+            if(collisionNumb==0) {
+                constCheck = false;
+            }
+            
+        }
 
-
-        // }
-
-        // check for trees nearby with length of vector instead (none is working)
-
-        // for(var k = 0; k <arrayOfTreePos.length; k++) {
-        //     alreadyX = arrayOfTreePos[k].x;
-        //     alreadyZ = arrayOfTreePos[k].z;
-        //     var treeRange = 10;
-        //     var checkIfTreeNearby = true;
-
-        //     xLength = Math.abs(alreadyX-x);
-        //     zLength = Math.abs(alreadyZ-z);
-
-        //     var hypo = Math.hypot(xLength,zLength);
-
-        //     hypo = Math.ceil(hypo);
-
-        //     while(checkIfTreeNearby) {
-
-        //         zLength = Math.abs(alreadyZ-z);
-        //         hypo = Math.hypot(xLength,zLength);
-        //         hypo = Math.ceil(hypo);
-
-        //             if(hypo<treeRange) {
-        //                 z = range * (0.5 - Math.random());
-     
-        //                 //k = 0;
-        //                 //console.log(arrayOfTreePos[i].data[0], " krock ", x, z, alreadyX, alreadyZ);
-        //                 //console.log(arrayOfTreePos[i].data[0], hypo);
-        //             } else {
-        //                 //console.log(arrayOfTreePos[k].data[0], hypo, data[i][0]);
-        //                 //console.log("x old", alreadyX, "z old", alreadyZ, "x nya", x, "z nya", z);
-        //                 checkIfTreeNearby = false;
-        //             }
-                
-        //     }
-
-        // }
-
-        //console.log(z);
-        //console.log("-");
         var y = THREEx.Terrain.planeToHeightMapCoords(heightMap, ground, x, z);
 
         cube.rotateY(-Math.PI/1.5);
@@ -198,13 +160,43 @@ function makeDaTrees(data){
     trees.scale.multiplyScalar(1);
     trees.castShadow = true;
 
+
+    // for(var i = 0 ; i <arrayOfTreePos.length; i++) {
+    //     //console.log(arrayOfTreePos[i]);
+    //     var constCheck = true;
+
+    //     while(constCheck) {
+    //         var collisionNumb = 0;
+    //         for(var j = 0; j <arrayOfTreePos.length; j++) {
+    //             if(arrayOfTreePos[j].data[0]!=arrayOfTreePos[i].data[0]){
+    //                 var outerTreeX = arrayOfTreePos[i].x;
+    //                 var outerTreeZ = arrayOfTreePos[i].z;
+    //                 var innerTreeX = arrayOfTreePos[j].x;
+    //                 var innerTreeZ = arrayOfTreePos[j].z;
+    //                 var hypo = Math.hypot(Math.abs(outerTreeX-innerTreeX),Math.abs(outerTreeZ-innerTreeZ));
+    //                 if(hypo<10) {
+    //                     console.log(hypo);
+    //                     arrayOfTreePos[i].z += 1;
+    //                     collisionNumb++;
+    //                 }
+    //             }
+    //         }
+
+    //         if(collisionNumb==0) {
+    //             constCheck = false;
+    //         }
+            
+    //     }
+
+    // }
+
     //console.log(arrayOfTreePos);
 
         // for(var i = 0; i <arrayOfTreePos.length; i++) {
         //     alreadyX = arrayOfTreePos[i].x;
         //     alreadyZ = arrayOfTreePos[i].z;
         //     var numbColl = 0;
-        //     var treeRange = 10;
+        //     var treeRange = 3;
 
         //     for(var j = 0; j <arrayOfTreePos.length; j++) {
         //         alreadyXinner = arrayOfTreePos[j].x;
@@ -215,10 +207,6 @@ function makeDaTrees(data){
         //         } 
         //     }
         // }
-
-
-
-
 
 
 
