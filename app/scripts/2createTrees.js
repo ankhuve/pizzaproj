@@ -97,7 +97,30 @@ function makeDaTrees(data){
         mat.color.setRGB( grayness, grayness, grayness );
         var x =  releaseYearScale(yearOfRelease);
         var z = range * (0.5 - Math.random());
-        //var z = 0;
+        //var z = -10;
+
+        //console.log(z);
+        // check for trees nearby
+        var treeRange = 10;
+        for(var i = 0; i <arrayOfTreePos.length; i++) {
+            alreadyX = arrayOfTreePos[i].x;
+            alreadyZ = arrayOfTreePos[i].z;
+            var checkIfTreeNearby = true;
+
+            while(checkIfTreeNearby) {
+                if((alreadyX>x-treeRange) && (alreadyX<x+treeRange) && (alreadyZ>z-treeRange) && (alreadyZ<z+treeRange)) {
+                    z = range * (0.5 - Math.random());
+                    console.log("krock");
+                } else {
+                    checkIfTreeNearby = false;
+                }
+            }
+
+
+        }
+
+        //console.log(z);
+        console.log("-");
         var y = THREEx.Terrain.planeToHeightMapCoords(heightMap, ground, x, z);
 
         cube.rotateY(-Math.PI/1.5);
@@ -129,6 +152,24 @@ function makeDaTrees(data){
 
     trees.scale.multiplyScalar(1);
     trees.castShadow = true;
+
+        // for(var i = 0; i <arrayOfTreePos.length; i++) {
+        //     alreadyX = arrayOfTreePos[i].x;
+        //     alreadyZ = arrayOfTreePos[i].z;
+        //     var numbColl = 0;
+        //     var treeRange = 10;
+
+        //     for(var j = 0; j <arrayOfTreePos.length; j++) {
+        //         alreadyXinner = arrayOfTreePos[j].x;
+        //         alreadyZinner = arrayOfTreePos[j].z;
+        //         if((alreadyX>alreadyXinner-treeRange) && (alreadyX<alreadyXinner+treeRange) && (alreadyZ>alreadyZinner-treeRange) && (alreadyZ<alreadyZinner+treeRange)) {
+        //             console.log(numbColl);
+        //             numbColl++;
+        //         } 
+        //     }
+        // }
+
+
     scene.add( trees );
 
     // now that we changed the color of vertices, add ground
@@ -137,26 +178,40 @@ function makeDaTrees(data){
 }
 
 function colorGround(xVar, zVar) {
-    console.log("-");
-    console.log(xVar, zVar);
+    //console.log("-");
 
-    var vertexRange = 1;
+    var vertexRange = 2;
     var mapToCoord = heightMap.length/2-1;
     var vertexColor = new THREE.Color("rgb(255,0,0)")
     //var xVar = 0;
     //var zVar = 0;
+
+    //console.log(xVar, zVar);
+
+    addX = 1;
+
+    addZ = -zVar/(heightMap.length*2);
+
     xVar +=mapToCoord;
     zVar +=mapToCoord;
-    xVar = Math.floor(xVar);
-    zVar = Math.floor(zVar);
+    xVar = xVar+addX;
+    zVar = zVar+addZ;
 
     for(var i = 0; i < ground.geometry.faces.length; i++){
-        var vertexIdx = ground.geometry.faces[i].a;
+        var vertexIdxA = ground.geometry.faces[i].a;
+        var vertexIdxA = ground.geometry.faces[i].b;
+        var vertexIdxA = ground.geometry.faces[i].c;
         var heightmapWidth = heightMap.length;
-        var xVertex = Math.floor(vertexIdx % heightmapWidth);
-        var zVertex = Math.floor(vertexIdx / heightmapWidth);
+        var xVertexA = Math.floor(vertexIdxA % heightmapWidth);
+        var zVertexA = Math.floor(vertexIdxA / heightmapWidth);
 
-        if((xVertex>xVar-vertexRange) && (xVertex<xVar+vertexRange) && (zVertex>zVar-vertexRange) && (zVertex<zVar+vertexRange)) {
+        var xVertexB = Math.floor(vertexIdxA % heightmapWidth);
+        var zVertexB = Math.floor(vertexIdxA / heightmapWidth);
+
+        var xVertexC = Math.floor(vertexIdxA % heightmapWidth);
+        var zVertexC = Math.floor(vertexIdxA / heightmapWidth);
+
+        if((xVertexA>xVar-vertexRange) && (xVertexA<xVar+vertexRange) && (zVertexA>zVar-vertexRange) && (zVertexA<zVar+vertexRange)) {
 
             ground.geometry.faces[i].vertexColors = [];
             ground.geometry.faces[i].vertexColors.push(vertexColor);
@@ -164,9 +219,8 @@ function colorGround(xVar, zVar) {
             ground.geometry.faces[i].vertexColors.push(vertexColor);
 
             //console.log(ground.geometry.faces[i]);
-            console.log(xVar, zVar);
-            console.log(xVertex, zVertex);
-            console.log("-");
+            //console.log(xVertexA,zVertexA,xVertexB,zVertexB,xVertexC,zVertexC);
+            //console.log(ground.geometry.faces[i]);
 
         }
     }
