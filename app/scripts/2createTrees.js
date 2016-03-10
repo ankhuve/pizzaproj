@@ -96,7 +96,8 @@ function makeDaTrees(data){
         //cube.receiveShadow = true;
         mat.color.setRGB( grayness, grayness, grayness );
         var x =  releaseYearScale(yearOfRelease);
-        var z = range * (0.5 - Math.random());
+        //var z = range * (0.5 - Math.random());
+        var z = 0;
         var y = THREEx.Terrain.planeToHeightMapCoords(heightMap, ground, x, z);
 
         cube.rotateY(-Math.PI/1.5);
