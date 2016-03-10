@@ -254,22 +254,22 @@ THREEx.Terrain.heightMapToVertexColor	= function(heightMap, geometry){
  * @return {THREE.Color} the color for this height
  */
 THREEx.Terrain.heightToColor	= (function(){
-	var color	= new THREE.Color()
+	var color	= new THREE.Color("rgb(171,212,106)")
 	return function(height){
-		// compute color based on height
-		if( height < 0.5 ){
-			height		= (height*2)*0.5 + 0.2
-			color.setRGB(0,0, height)
-		}else if( height < 0.7 ){
-			height		= (height-0.5)/0.2
-			height		= height*0.5 + 0.2
-			color.setRGB(0,height, 0)
-		}else{
-			height		= (height-0.7)/0.3
-			height		= height*0.5 + 0.5
-			color.setRGB(height,height, height)
-		}
-		// color.setRGB(1,1,1)
+		// // compute color based on height
+		// if( height < 0.5 ){
+		// 	height		= (height*2)*0.5 + 0.2
+		// 	color.setRGB(0,0, height)
+		// }else if( height < 0.7 ){
+		// 	height		= (height-0.5)/0.2
+		// 	height		= height*0.5 + 0.2
+		// 	color.setRGB(0,height, 0)
+		// }else{
+		// 	height		= (height-0.7)/0.3
+		// 	height		= height*0.5 + 0.5
+		// 	color.setRGB(height,height, height)
+		// }
+		// color("rgb(171,212,106)");
 		return color;		
 	}
 })()
