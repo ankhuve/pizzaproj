@@ -55,7 +55,10 @@ function makeDaTrees(data){
 
     var releaseYearScale = createYearScale(data);
 
+    console.log(data);
+
     for(var i = 0; i < data.length; i++ ) {
+
 
         // set data variables
         var yearOfRelease = parseInt(data[i][1]);
@@ -100,27 +103,67 @@ function makeDaTrees(data){
         //var z = -10;
 
         //console.log(z);
-        // check for trees nearby
-        var treeRange = 10;
-        for(var i = 0; i <arrayOfTreePos.length; i++) {
-            alreadyX = arrayOfTreePos[i].x;
-            alreadyZ = arrayOfTreePos[i].z;
-            var checkIfTreeNearby = true;
+        // check for trees nearby with range and coordinates
 
-            while(checkIfTreeNearby) {
-                if((alreadyX>x-treeRange) && (alreadyX<x+treeRange) && (alreadyZ>z-treeRange) && (alreadyZ<z+treeRange)) {
-                    z = range * (0.5 - Math.random());
-                    console.log("krock");
-                } else {
-                    checkIfTreeNearby = false;
-                }
-            }
+        // var treeRange = 10;
+        // for(var i = 0; i <arrayOfTreePos.length; i++) {
+        //     alreadyX = arrayOfTreePos[i].x;
+        //     alreadyZ = arrayOfTreePos[i].z;
+        //     var checkIfTreeNearby = true;
+
+        //     while(checkIfTreeNearby) {
+        //         if((alreadyX>x-treeRange) && (alreadyX<x+treeRange) && (alreadyZ>z-treeRange) && (alreadyZ<z+treeRange)) {
+        //             console.log(x, z);
+        //             z = range * (0.5 - Math.random());
+        //             console.log("krock");
+        //         } else {
+
+        //             checkIfTreeNearby = false;
+        //         }
+        //     }
 
 
-        }
+        // }
+
+        // check for trees nearby with length of vector instead (none is working)
+
+        // for(var k = 0; k <arrayOfTreePos.length; k++) {
+        //     alreadyX = arrayOfTreePos[k].x;
+        //     alreadyZ = arrayOfTreePos[k].z;
+        //     var treeRange = 10;
+        //     var checkIfTreeNearby = true;
+
+        //     xLength = Math.abs(alreadyX-x);
+        //     zLength = Math.abs(alreadyZ-z);
+
+        //     var hypo = Math.hypot(xLength,zLength);
+
+        //     hypo = Math.ceil(hypo);
+
+        //     while(checkIfTreeNearby) {
+
+        //         zLength = Math.abs(alreadyZ-z);
+        //         hypo = Math.hypot(xLength,zLength);
+        //         hypo = Math.ceil(hypo);
+
+        //             if(hypo<treeRange) {
+        //                 z = range * (0.5 - Math.random());
+     
+        //                 //k = 0;
+        //                 //console.log(arrayOfTreePos[i].data[0], " krock ", x, z, alreadyX, alreadyZ);
+        //                 //console.log(arrayOfTreePos[i].data[0], hypo);
+        //             } else {
+        //                 //console.log(arrayOfTreePos[k].data[0], hypo, data[i][0]);
+        //                 //console.log("x old", alreadyX, "z old", alreadyZ, "x nya", x, "z nya", z);
+        //                 checkIfTreeNearby = false;
+        //             }
+                
+        //     }
+
+        // }
 
         //console.log(z);
-        console.log("-");
+        //console.log("-");
         var y = THREEx.Terrain.planeToHeightMapCoords(heightMap, ground, x, z);
 
         cube.rotateY(-Math.PI/1.5);
@@ -131,6 +174,8 @@ function makeDaTrees(data){
         treePosAndData["z"] = z;
 
         arrayOfTreePos.push(treePosAndData);
+
+        //console.log(arrayOfTreePos[i].x, arrayOfTreePos[i].z);
 
         cube.position.set(x, y, z);
         boll.position.set(x, y + treeStemHeight / 2 + treeCrownSize - 0.1, z);
@@ -153,6 +198,8 @@ function makeDaTrees(data){
     trees.scale.multiplyScalar(1);
     trees.castShadow = true;
 
+    //console.log(arrayOfTreePos);
+
         // for(var i = 0; i <arrayOfTreePos.length; i++) {
         //     alreadyX = arrayOfTreePos[i].x;
         //     alreadyZ = arrayOfTreePos[i].z;
@@ -168,6 +215,11 @@ function makeDaTrees(data){
         //         } 
         //     }
         // }
+
+
+
+
+
 
 
     scene.add( trees );
