@@ -2,7 +2,7 @@
 var trees = new THREE.Object3D();
 
 //var cubes = new THREE.Object3D();
-var range = 60;
+var range = 50;
 
 
 var verticesOfCube = [
@@ -96,8 +96,8 @@ function makeDaTrees(data){
         //cube.receiveShadow = true;
         mat.color.setRGB( grayness, grayness, grayness );
         var x =  releaseYearScale(yearOfRelease);
-        //var z = range * (0.5 - Math.random());
-        var z = 0;
+        var z = range * (0.5 - Math.random());
+        //var z = 0;
         var y = THREEx.Terrain.planeToHeightMapCoords(heightMap, ground, x, z);
 
         cube.rotateY(-Math.PI/1.5);
