@@ -68,7 +68,15 @@ function movementAndDetailsOnDemand(){
                 }
             }
 
+            // TODO: titta vilket av träden som är närmast mig
+            var closestTree = howFarAway;
+            closeTrees.forEach(function( obj ){
+                var thisTreeDistanceFromSelf = obj.movie[2].distanceFromSelf;
+                if(thisTreeDistanceFromSelf < closestTree){ closestTree = obj }
+                console.log( obj.movie[2].distanceFromSelf )
+            });
             console.log(closeTrees.length);
+            console.log("...........................");
 
             if(closeTrees.length < 1) { // if we're not close to any trees anymore
                 $("#informationHolder").html("");
