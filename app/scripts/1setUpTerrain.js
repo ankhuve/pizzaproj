@@ -24,11 +24,11 @@ renderer.shadowMapSoft = false;
     // add a light in front
     var light	= new THREE.DirectionalLight('white', 5);
     light.position.set(0.5, 0.0, 2);
-    scene.add( light );
+    //scene.add( light );
     // add a light behind
     var light	= new THREE.DirectionalLight('white', 0.75*2);
     light.position.set(-0.5, -0.5, -2);
-    scene.add( light )
+    //scene.add( light )
 })();
 
 //////////////////////////////////////////////////////////////////////////////////

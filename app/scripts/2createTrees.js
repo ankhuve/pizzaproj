@@ -249,22 +249,19 @@ function colorGround(xVar, zVar) {
     zVar = zVar+addZ;
 
     for(var i = 0; i < ground.geometry.faces.length; i++){
+
+        var heightmapWidth = heightMap.length;
         
         var vertexIdxA = ground.geometry.faces[i].a;
         var vertexIdxB = ground.geometry.faces[i].b;
         var vertexIdxC = ground.geometry.faces[i].c;
 
-        var heightmapWidth = heightMap.length;
-
         var xVertexA = Math.floor(vertexIdxA % heightmapWidth);
         var zVertexA = Math.floor(vertexIdxA / heightmapWidth);
-
         var xVertexB = Math.floor(vertexIdxB % heightmapWidth);
         var zVertexB = Math.floor(vertexIdxB / heightmapWidth);
-
         var xVertexC = Math.floor(vertexIdxC % heightmapWidth);
         var zVertexC = Math.floor(vertexIdxC / heightmapWidth);
-
 
         var hypoA = Math.hypot(Math.abs(xVertexA-xVar),Math.abs(zVertexA-zVar));
         var hypoB = Math.hypot(Math.abs(xVertexB-xVar),Math.abs(zVertexB-zVar));
@@ -272,8 +269,6 @@ function colorGround(xVar, zVar) {
         
         var hypoArr = [hypoA, hypoB, hypoC];
         var hypoArrLeft = [hypoA, hypoB, hypoC];
-
-        //console.log(hypoArr);
 
         var minHypo = Math.min(hypoA,hypoB,hypoC);
         var maxHypo = Math.max(hypoA,hypoB,hypoC);
@@ -287,11 +282,8 @@ function colorGround(xVar, zVar) {
         var leftHypo = hypoArr[0];
 
         var leftHypoIndex = hypoArrLeft.indexOf(leftHypo);
-        
-        //console.log(minHypo, maxHypo, leftHypo);
 
         if(minHypo<vertexRange) {
-            //console.log(minHypo, maxHypo, leftHypo);
 
             ground.geometry.faces[i].vertexColors.splice(minHypoIndex, 1, vertexColorOne);
 
@@ -306,9 +298,6 @@ function colorGround(xVar, zVar) {
             } else {
                 ground.geometry.faces[i].vertexColors.splice(leftHypoIndex, 1, vertexColorOne);
             }
-
-            //console.log(ground.geometry.faces[i].vertexColors);
-            //console.log("-");
         }
 
     }
