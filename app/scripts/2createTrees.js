@@ -114,7 +114,12 @@ function makeDaTrees(data){
                     var innerTreeZ = arrayOfTreePos[j].z;
                     var hypo = Math.hypot(Math.abs(x-innerTreeX),Math.abs(z-innerTreeZ));
                     if(hypo<treeRange) {
-                        z += 1;
+                        if(z<0) {
+                            z-=1;
+                        } else {
+                           z += 1; 
+                        }
+                        
                         collisionNumb++;
                     }
                 }
