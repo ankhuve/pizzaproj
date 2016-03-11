@@ -82,7 +82,7 @@ class imageColor
 		return $color;
 	}
 	
-	function averageResize($image)
+	static function averageResize($image)
 	{
 		$width = imagesx($image);
 		$height = imagesy($image);
