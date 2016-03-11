@@ -87,7 +87,7 @@ foreach ($popMovies as $item) {
             $blue = $posterColor["blue"];
             $rgb = "rgb(" . $red . "," . $green . "," . $blue . ")";
         } else {
-            $rgb = "rgb(0,0,0)";
+            $rgb = "rgb(9,137,5)";
         }
      
         $themeSong = "";
