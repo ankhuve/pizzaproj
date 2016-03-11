@@ -131,8 +131,6 @@ function makeDaTrees(data){
             
         }
 
-        z = 0;
-
         var y = THREEx.Terrain.planeToHeightMapCoords(heightMap, ground, x, z);
 
         cube.rotateY(-Math.PI/1.5);
