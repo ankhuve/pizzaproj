@@ -1,4 +1,4 @@
-var audio;
+var audio = new Audio();
 var howFarAway = 3;
 var audioPlaying = false;
 
@@ -38,50 +38,45 @@ function movementAndDetailsOnDemand(){
         if(prevPos.x==position.x && prevPos.z == position.z) {
 
         } else {
+
             prevPos.x = position.x;
             prevPos.z = position.z;
             prevPos.y = position.y;
 
-
-
+            var closeTrees = []; // array with all the trees we are close to
 
             for(var i in arrayOfTreePos) {
+                var currObj = arrayOfTreePos[i];
 
-                if(arrayOfTreePos[i].x>position.x-howFarAway && arrayOfTreePos[i].x<position.x+howFarAway && arrayOfTreePos[i].z>position.z-howFarAway && arrayOfTreePos[i].z<position.z+howFarAway) {
+                var distanceX = Math.abs(currObj.x-position.x);
+                var distanceY = Math.abs(currObj.z-position.z);
+                var distanceMax = Math.max(distanceX, distanceY);
+                var distVolume = (howFarAway-distanceMax)/(howFarAway*8);
 
+                var isCurrentlyCloseToTree = currObj.x>position.x-howFarAway && currObj.x<position.x+howFarAway && currObj.z>position.z-howFarAway && currObj.z<position.z+howFarAway;
 
-                    if(moviePrev != arrayOfTreePos[i].data[0]) {
+                if(isCurrentlyCloseToTree) {
+                    var closeTree = { movie : [
+                        {name : currObj.data[0]},
+                        {data : currObj.data},
+                        {distanceFromSelf : distanceMax}
+                    ]};
 
-                        moviePrev = arrayOfTreePos[i].data[0];
+                    closeTrees.push( closeTree ); // push all trees we are close to
 
-                        $("#informationHolder").html(arrayOfTreePos[i].data[0] + " (" + arrayOfTreePos[i].data[1] + ")");
-
-
-                        if(!audioPlaying){
-                            audio = new Audio(arrayOfTreePos[i].data[9]);
-                            audio.pause();
-                            audio.play();
-                            audioPlaying = true;
-                        }
-
-
-                    }
-
-                    var distanceX = Math.abs(arrayOfTreePos[i].x-position.x);
-                    var distanceY = Math.abs(arrayOfTreePos[i].z-position.z);
-                    var distanceMax = Math.max(distanceX, distanceY);
-                    var distVolume = (howFarAway-distanceMax)/(howFarAway*8);
-
-                    audio.volume = distVolume;
-
-                    if(distanceMax>2.8) {
-                        $("#informationHolder").html("");
-                        audio.volume = 0;
-                        audio.pause();
-                        audioPlaying = false;
-                        moviePrev = "";
-                    }
+                    movieMusicPlayer(currObj, distVolume);
                 }
+            }
+
+            console.log(closeTrees.length);
+
+            if(closeTrees.length < 1) { // if we're not close to any trees anymore
+                $("#informationHolder").html("");
+
+                audio.volume = 0;
+                audio.pause();
+
+                audioPlaying = false;
             }
         }
 
@@ -90,3 +85,26 @@ function movementAndDetailsOnDemand(){
     }
 }
 
+function movieMusicPlayer( obj, distVolume ){
+    if(moviePrev != obj.data[0]) {
+        // if the nearby tree is a new one
+
+        moviePrev = obj.data[0];
+
+        audio.src = ""; // reset the previous song src
+        audio.load();
+        audio.src = obj.data[9];
+        audio.play();
+
+    } else{
+        // if it's the previous one, just continue playing it
+        audio.play();
+    }
+
+    $("#informationHolder").html(obj.data[0] + " (" + obj.data[1] + ")");
+
+    audioPlaying = true;
+    audio.volume = distVolume;
+
+
+}
