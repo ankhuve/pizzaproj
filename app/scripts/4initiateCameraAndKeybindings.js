@@ -1,7 +1,7 @@
 var camera, scene;
 var geometry, material, mesh;
 var controls;
-var mapCamera, mapWidth = 440, mapHeight = 360;
+var mapCamera, mapWidth = 300, mapHeight = 300;
 
 var objects = [];
 
@@ -12,13 +12,13 @@ var instructions = document.getElementById( 'instructions' );
 
 	// orthographic cameras (minimap)
 	mapCamera = new THREE.OrthographicCamera(
-    0,		// Left
-    window.innerWidth / 8,		// Right
-    window.innerHeight / 8,		// Top
-    0,	// Bottom
+    window.innerWidth / -10,		// Left
+    window.innerWidth / 10,		// Right
+    window.innerHeight / 5,		// Top
+    window.innerHeight / -5,	// Bottom
     -5000,            			// Near 
     10000 );           			// Far 
-	mapCamera.up = new THREE.Vector3(0,0,-1);
+	mapCamera.up = new THREE.Vector3(0,0,-1);  //rotation i x,y,z på mappen
 	mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
 
 	scene.add(mapCamera);
