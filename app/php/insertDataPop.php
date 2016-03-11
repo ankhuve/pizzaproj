@@ -62,6 +62,17 @@ foreach ($popMovies as $item) {
     $directedByz = $allMovies->Director;
     $directedBy = str_replace("'", "", $directedByz);
     
+        //checks if there is a poster, if there is it returns a rgb mean
+        if(strpos($poster, 'http') !== false) {
+            $posterColor = imageColor::averageResize(imagecreatefromjpeg($poster));
+            $red = $posterColor["red"];
+            $green = $posterColor["green"];
+            $blue = $posterColor["blue"];
+            $rgb = "rgb(" . $red . "," . $green . "," . $blue . ")";
+        } else {
+            $rgb = "rgb(9,137,5)";
+        }
+        
     //Get themesong
     $json_data_theme_song = file_get_contents('https://www.googleapis.com/freebase/v1/mqlread?query=[{"type":"/film/film","name":"'.$fixedItem.'","featured_song":[],"gross_revenue":[]}]&key=AIzaSyCFvHOOiVNFilGS1xmd8Jwtr_eJCNr6bG4');
     $allMoviesThemeSong = json_decode( $json_data_theme_song );
@@ -79,16 +90,7 @@ foreach ($popMovies as $item) {
     $featuredSong = $featuredSongArr[0];
         }
     
-    //checks if there is a poster, if there is it returns a rgb mean
-        if(strpos($poster, 'http') !== false) {
-            $posterColor = imageColor::averageResize(imagecreatefromjpeg($poster));
-            $red = $posterColor["red"];
-            $green = $posterColor["green"];
-            $blue = $posterColor["blue"];
-            $rgb = "rgb(" . $red . "," . $green . "," . $blue . ")";
-        } else {
-            $rgb = "rgb(9,137,5)";
-        }
+
      
         $themeSong = "";
 
