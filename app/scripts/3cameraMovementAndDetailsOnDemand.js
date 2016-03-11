@@ -43,8 +43,6 @@ function movementAndDetailsOnDemand(){
             prevPos.y = position.y;
 
 
-
-
             for(var i in arrayOfTreePos) {
 
                 if(arrayOfTreePos[i].x>position.x-howFarAway && arrayOfTreePos[i].x<position.x+howFarAway && arrayOfTreePos[i].z>position.z-howFarAway && arrayOfTreePos[i].z<position.z+howFarAway) {
