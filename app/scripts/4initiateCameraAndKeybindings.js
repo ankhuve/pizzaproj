@@ -1,7 +1,8 @@
+
 var camera, scene;
 var geometry, material, mesh;
 var controls;
-var mapCamera, mapWidth = 300, mapHeight = 300;
+var mapCamera, mapWidth = window.innerWidth, mapHeight = window.innerHeight + 220;
 
 var objects = [];
 
@@ -9,17 +10,18 @@ var raycaster;
 
 var blocker = document.getElementById( 'blocker' );
 var instructions = document.getElementById( 'instructions' );
-
+  
 	// orthographic cameras (minimap)
 	mapCamera = new THREE.OrthographicCamera(
-    window.innerWidth / -10,		// Left
-    window.innerWidth / 10,		// Right
-    window.innerHeight / 5,		// Top
-    window.innerHeight / -5,	// Bottom
+     -62,		// Left  // 
+    window.innerWidth / 2,		// Right 
+    window.innerHeight / 2,		// Top 
+    -200,	// Bottom 
     -5000,            			// Near 
     10000 );           			// Far 
 	mapCamera.up = new THREE.Vector3(0,0,-1);  //rotation i x,y,z på mappen
 	mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
+	mapCamera.position.y = 500;
 
 	scene.add(mapCamera);
 
@@ -130,7 +132,7 @@ var velocity = new THREE.Vector3();
 var movementSpeed = 100;
 
 function init() {
-	//minimap = document.getElementById( 'overviewTemp' );
+
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
 
 	camera.position.y = 0;
@@ -208,8 +210,8 @@ function init() {
 
 	document.addEventListener( 'keydown', onKeyDown, false );
 	document.addEventListener( 'keyup', onKeyUp, false );
-
 	window.addEventListener( 'resize', onWindowResize, false );
+
 
 }
 
@@ -221,4 +223,6 @@ function onWindowResize() {
 	renderer.setSize( window.innerWidth, window.innerHeight );
 
 }
+
+
 

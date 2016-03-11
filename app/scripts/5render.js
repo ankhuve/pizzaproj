@@ -12,6 +12,7 @@ function animate() {
 
     movementAndDetailsOnDemand();
 
+
 	// setViewport parameters:
 	renderer.setViewport( 0, 0, w, h );
 	renderer.clear();
@@ -21,7 +22,7 @@ function animate() {
 
 	// minimap (overhead orthogonal camera)
 	//  lower_left_x, lower_left_y, viewport_width, viewport_height
-	renderer.setViewport( 10, h - mapHeight - 10, mapWidth, mapHeight );
+	renderer.setViewport( 1, h - mapHeight - 10, mapWidth, mapHeight );
 	renderer.render( scene, mapCamera );
 
 
