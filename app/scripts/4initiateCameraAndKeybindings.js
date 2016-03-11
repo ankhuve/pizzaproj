@@ -1,6 +1,7 @@
 var camera, scene;
 var geometry, material, mesh;
 var controls;
+var mapCamera, mapWidth = 440, mapHeight = 360;
 
 var objects = [];
 
@@ -9,7 +10,21 @@ var raycaster;
 var blocker = document.getElementById( 'blocker' );
 var instructions = document.getElementById( 'instructions' );
 
-// http://www.html5rocks.com/en/tutorials/pointerlock/intro/
+	// orthographic cameras (minimap)
+	mapCamera = new THREE.OrthographicCamera(
+    0,		// Left
+    window.innerWidth / 8,		// Right
+    window.innerHeight / 8,		// Top
+    0,	// Bottom
+    -5000,            			// Near 
+    10000 );           			// Far 
+	mapCamera.up = new THREE.Vector3(0,0,-1);
+	mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
+
+	scene.add(mapCamera);
+
+	// EVENTS FOR MINMAP
+	THREEx.WindowResize(renderer, mapCamera);
 
 var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
@@ -115,7 +130,7 @@ var velocity = new THREE.Vector3();
 var movementSpeed = 100;
 
 function init() {
-
+	//minimap = document.getElementById( 'overviewTemp' );
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
 
 	camera.position.y = 0;
@@ -156,6 +171,10 @@ function init() {
 			//	break;
 
 		}
+	
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.setClearColor( 0x000000, 1 );
+		renderer.autoClear = false;
 
 	};
 
