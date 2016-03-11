@@ -50,7 +50,7 @@ var material	= new THREE.MeshPhongMaterial({
     shininess: 0,
     // shading		: THREE.SmoothShading,
     //color: 0x176fd4,
-    vertexColors 	: THREE.VertexColors,
+    vertexColors 	: THREE.VertexColors
 });
 
 var ground	= new THREE.Mesh( geometry, material );
@@ -59,6 +59,6 @@ ground.rotateX(-Math.PI/2);
 ground.scale.x	= 20;
 ground.scale.y	= 20;
 ground.scale.z	= 1;
-ground.scale.multiplyScalar(6.45)
+ground.scale.multiplyScalar(6.45);
 
 scene.fog = new THREE.Fog(0x000000,0,50);
