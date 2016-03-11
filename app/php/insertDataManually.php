@@ -8,8 +8,8 @@ $parts = [];
 
 
 
-//$search = $_GET["search"];
-$search = "boys";
+$search = $_GET["search"];
+//$search = "batman";
 
 // get first page with results so we can see how many results we got
 $json_data = file_get_contents('http://www.omdbapi.com/?s=' . $search . '&type=movie&page=1');
@@ -25,8 +25,7 @@ for($i = 2; $i <= $numPages; $i++){
     }
 }
 
-
-//$popMovies = array("The Lord of the Rings: The Fellowship of the Ring","Trainspotting","The Dark Knight Rises","Toy Story","The Lion King","The Shawshank Redemption","The Godfather","The Godfather: Part II","The Dark Knight","Pulp Fiction","Schindler's List","12 Angry Men", "Titanic");
+//function for getting previews of songs from spotify
 
 function spotify($spotifyURL) {
     $ch = curl_init();
@@ -46,23 +45,30 @@ function spotify($spotifyURL) {
     return $items;
 }
 
+//loops the popMovies array and finds the different attributes for every movie in the array
+
 foreach ($popMovies->Search as $item) {
-    
+    //Make the title usable in the api URL    
     $item1 = str_replace(" ", "+", $item->Title);
     $fixedItem = str_replace("&", "and", $item1);
-    //$json_data = file_get_contents('http://www.omdbapi.com/?s='.$fixedItem.'&type=movie');
+    //Gets the info on the film from OMDB
     $json_data = file_get_contents('http://www.omdbapi.com/?t='.$fixedItem.'&type=movie&y=&plot=short&r=json');
-    //echo($json_data);
     
-        
+    
+    //decodes the data from the api
     $allMovies = json_decode( $json_data );
-    //echo($allMovies->Response);
+    
+    //checks if there is a response from the api
     if ($allMovies->Response != "False"){
+    
+    //Creates variables from the attributes and stip them from ' and "
     $rating = ( float ) $allMovies->imdbRating;
         $votez = str_replace(",", "", $allMovies->imdbVotes);
     $votes = (int) $votez;
         
-        if ($rating > 6.9 && $votes > 50000){
+    //Make sure we don not get any unwanted movies
+        
+        if (($rating > 6.9 && $votes > 10000) OR $votes>50000){
             
     $moviez = $allMovies->Title;
     $movies = str_replace("'", "", $moviez);
@@ -83,33 +89,36 @@ foreach ($popMovies->Search as $item) {
     $directedByz = $allMovies->Director;
     $directedBy = str_replace("'", "", $directedByz);
     //$directedBy = mysql_real_escape_string($allMovies->Director);
+    
             
-            
-                    if(strpos($poster, 'http') !== false) {
+    //checks if there is a poster for that movie and extracts the color mean value
+        if(strpos($poster, 'http') !== false) {
             $posterColor = imageColor::averageResize(imagecreatefromjpeg($poster));
-            $red = $posterColor["red"];
+            $red =$posterColor["red"];
             $green = $posterColor["green"];
             $blue = $posterColor["blue"];
             $rgb = "rgb(" . $red . "," . $green . "," . $blue . ")";
         } else {
             $rgb = "rgb(0,0,0)";
         }
-        //$rgb = "rgb(0,0,0)";
+        
             
             $themeSong = "";
             $previewURL = "";
-    
+        
+    //Gets themesong from api with the use of the movie title
     $json_data_theme_song = file_get_contents('https://www.googleapis.com/freebase/v1/mqlread?query=[{"type":"/film/film","name":"'.$fixedItem.'","featured_song":[],"gross_revenue":[]}]&key=AIzaSyCFvHOOiVNFilGS1xmd8Jwtr_eJCNr6bG4');
     $allMoviesThemeSong = json_decode( $json_data_theme_song );
 
     $previewURL = "";
     $result = $allMoviesThemeSong->result;
+            
+    //if a themesong exists it will be used otherwise it will just return an empty string
     if(count($result)>0){
     $featuredSongArr = $result[0]->featured_song;
     
         $featuredSong ="";
-    //var_dump($featuredSongArr);
-    //echo "<br />";
+    
         if(count($featuredSongArr)>0) {
     $featuredSong = $featuredSongArr[0];
         }
@@ -135,7 +144,12 @@ foreach ($popMovies->Search as $item) {
 
         $previewURL = $items[0]->preview_url;
 
-       echo $movies . "<br />";
+       
+
+       
+        
+    }
+        echo $movies . "<br />";
         echo $votes. "<br />";
         echo $imdbID . "<br />";
         echo $year . "<br />";
@@ -150,22 +164,14 @@ foreach ($popMovies->Search as $item) {
 //        echo $directedBy . "<br />";
 //        echo "<br />";
 
-       
-        //$query = "INSERT INTO moviesPop (name, imdbID, year, color, rating, themeSong, poster, genre, plot) VALUES ('$movies', '$imdbID', '$year','$rgb','$rating','$themeSong','$poster','$genre','$plot')";
-
-        //mysqli_query($conn, $query);
-    }
-
     } 
+    
+    //adds all attribute variables to an array for future use in SQL query
     
      $parts[] = "('" . $movies . "','" . $imdbID . "'," . $year . ",'" . $rgb . "'," . $rating . ",'" . $themeSong .  "','" . $poster .  "','" . $genre .  "','" . $plot .  "','" . $previewURL .  "','" . $actors .  "','" . $directedBy . "')";
     
     
           
-//         '("' . $movies . '","' . $imdbID . '",' . $year . ',"' . $rgb . '",' . $rating . ', "' . $themeSong . '", "' . $poster . '","' . $genre . '","' . $plot . '","' . $previewURL . '","' . $actors . '","' . $directedBy .'")';
-
-    //$movieObject = [$movies, $imdbID, $year, $rgb, $rating, $themeSong, $genre, $plot];
-    //$moviesArray[] = $movieObject;
     }
 }
     
@@ -174,10 +180,9 @@ foreach ($popMovies->Search as $item) {
 
 
 // create the sql query
-$sql = "INSERT INTO movieTest (name, imdbID, year, color, rating, themeSong, poster, genre, plot, preview, actors, directedBy) ";
+$sql = "INSERT IGNORE INTO moviesFinal (name, imdbID, year, color, rating, themeSong, poster, genre, plot, preview, actors, directedBy) ";
 $sql .= "VALUES " . implode(", ", $parts);
 
-//var_dump($sql);
 
  //execute the query, tell us how it went
  if (mysqli_query($conn, $sql)) {
@@ -186,6 +191,5 @@ $sql .= "VALUES " . implode(", ", $parts);
      echo "Error: " . $sql . "<br>" . mysqli_error($conn);
  }
 
-//echo json_encode($moviesArray);
 
 ?>
