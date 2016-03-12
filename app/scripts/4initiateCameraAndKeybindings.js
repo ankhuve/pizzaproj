@@ -138,8 +138,6 @@ function init() {
 	camera.position.y = 0;
 	camera.position.z = 0;
 
-
-
 	controls = new THREE.PointerLockControls( camera );
 	scene.add( controls.getObject() );
 
@@ -173,12 +171,17 @@ function init() {
 			//	break;
 
 		}
-	
-		renderer.setSize( window.innerWidth, window.innerHeight );
-		renderer.setClearColor( 0x000000, 1 );
-		renderer.autoClear = false;
+		// moved this outside onKeyDown event to load camera instantly
+		// renderer.setSize( window.innerWidth, window.innerHeight );
+		// renderer.setClearColor( 0x000000, 1 );
+		// renderer.autoClear = false;
 
 	};
+
+	// I put this outside the onKeyDown event to load camera instantly
+	renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.setClearColor( 0x000000, 1 );
+		renderer.autoClear = false;
 
 	var onKeyUp = function ( event ) {
 
