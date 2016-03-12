@@ -13,7 +13,7 @@ var instructions = document.getElementById( 'instructions' );
 
 // blue marker that follows player
 var material = new THREE.MeshBasicMaterial({
-	color: 0x0000ff
+	color: 0xffffff
 });
 
 var radius = 2;
