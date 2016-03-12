@@ -11,35 +11,33 @@ var raycaster;
 var blocker = document.getElementById( 'blocker' );
 var instructions = document.getElementById( 'instructions' );
 
-// blue marker that follows player
+//  marker that follows player
 var material = new THREE.MeshBasicMaterial({
 	color: 0xffffff
 });
-
 var radius = 2;
 var segments = 32;
-
 var circleGeometry = new THREE.CircleGeometry( radius, segments );
 var circle = new THREE.Mesh( circleGeometry, material );
 circle.rotation.x = -Math.PI/2;
 scene.add( circle );
   
-	// orthographic cameras (minimap)
-	mapCamera = new THREE.OrthographicCamera(
-     -62,		// Left  // 
-    window.innerWidth / 2,		// Right 
-    window.innerHeight / 2,		// Top 
-    -200,	// Bottom 
-    -5000,            			// Near 
-    10000 );           			// Far 
-	mapCamera.up = new THREE.Vector3(0,0,-1);  //rotation i x,y,z på mappen
-	mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
-	mapCamera.position.y = 500;
+// orthographic cameras (minimap)
+mapCamera = new THREE.OrthographicCamera(
+ -62,		// Left  // 
+window.innerWidth / 2,		// Right 
+window.innerHeight / 2,		// Top 
+-200,	// Bottom 
+-5000,            			// Near 
+10000 );           			// Far 
+mapCamera.up = new THREE.Vector3(0,0,-1);  //rotation i x,y,z på mappen
+mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
+mapCamera.position.y = 500;
 
-	scene.add(mapCamera);
+scene.add(mapCamera);
 
-	// EVENTS FOR MINMAP
-	THREEx.WindowResize(renderer, mapCamera);
+// EVENTS FOR MINMAP
+THREEx.WindowResize(renderer, mapCamera);
 
 var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
@@ -152,6 +150,7 @@ function init() {
 	camera.position.z = 0;
 
 	controls = new THREE.PointerLockControls( camera );
+	controls.getObject().rotation.y = -Math.PI/2;
 	scene.add( controls.getObject() );
 
 	var onKeyDown = function ( event ) {
