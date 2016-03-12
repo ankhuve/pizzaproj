@@ -5,6 +5,9 @@ document.body.appendChild( renderer.domElement );
 
 var scene	= new THREE.Scene();
 
+// second scene for minimap, this scene contains everything from scene except the terrain
+var sceneMiniMap   = new THREE.Scene();
+
 renderer.shadowMap.enabled = true;
 renderer.shadowMapSoft = false;
 
@@ -21,15 +24,38 @@ renderer.shadowMapSoft = false;
     // add a ambient light
     var light	= new THREE.AmbientLight( 'white' );
     scene.add( light );
+    sceneMiniMap.add( light.clone() );
+
     // add a light in front
     var light	= new THREE.DirectionalLight('white', 5);
     light.position.set(0.5, 0.0, 2);
-    scene.add( light );
+    //scene.add( light );
     // add a light behind
     var light	= new THREE.DirectionalLight('white', 0.75*2);
     light.position.set(-0.5, -0.5, -2);
-    scene.add( light )
+
+
+    hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
+    hemiLight.color.setHSL( 0.6, 1, 0.6 );
+    hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
+    hemiLight.position.set( 0, 500, 0 );
+    //scene.add( hemiLight );
+    //scene.add( light )
 })();
+
+// skybox
+var geometry = new THREE.SphereGeometry(9500, 60, 40);  
+
+var material = new THREE.MeshBasicMaterial({
+    color: 0x69d0f9
+});
+
+skyBox = new THREE.Mesh(geometry, material);  
+skyBox.scale.set(-1, 1, 1);  
+skyBox.eulerOrder = 'XZY';  
+skyBox.renderDepth = 1000.0;  
+scene.add(skyBox);
+sceneMiniMap.add( skyBox.clone() );  
 
 //////////////////////////////////////////////////////////////////////////////////
 //		add an object and make it move					//
@@ -61,4 +87,4 @@ ground.scale.y	= 20;
 ground.scale.z	= 1;
 ground.scale.multiplyScalar(6.45);
 
-scene.fog = new THREE.Fog(0x000000,0,50);
+scene.fog = new THREE.Fog(0x69d0f9,0,80);

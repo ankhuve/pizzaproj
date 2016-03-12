@@ -78,6 +78,7 @@ function movementAndDetailsOnDemand(){
             console.log(closeTrees.length);
             console.log("...........................");
 
+
             if(closeTrees.length < 1) { // if we're not close to any trees anymore
                 $("#informationHolder").html("");
 

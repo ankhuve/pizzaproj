@@ -60,6 +60,7 @@ function makeDaTrees(data){
     for(var i = 0; i < data.length; i++ ) {
 
 
+
         // set data variables
         var yearOfRelease = parseInt(data[i][1]);
         var imdbRating = parseInt(data[i][3]);
@@ -85,14 +86,25 @@ function makeDaTrees(data){
             displacementMap: ""
         });
 
+        var Boll2_material = new THREE.MeshPhongMaterial( {
+            color: new THREE.Color("rgb(255,0,0)"),
+            shininess: 0,
+            specular: 0x222222,
+            shading: THREE.FlatShading,
+            displacementMap: ""
+        });
+
         var polyGeo = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, treeCrownSize, 1 );
         var Box_geometry = new THREE.BoxGeometry(0.1, treeStemHeight, 0.1); // generate psuedo-random geometry
+
+        var polyGeo2 = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, 0.1, 1 );
         //var BollGeo = new THREE.SphereGeometry( treeCrownSize, 5, 5 );
 
         var grayness = Math.random() * 0.5 + 0.25,
             mat = new THREE.MeshBasicMaterial();
         var cube = new THREE.Mesh( Box_geometry, Box_material );
         var boll = new THREE.Mesh( polyGeo, Boll_material );
+        var boll2 = new THREE.Mesh( polyGeo2, Boll2_material );
 
         cube.castShadow = true;
         boll.castShadow = true;
@@ -131,7 +143,11 @@ function makeDaTrees(data){
             
         }
 
+        //z = 0;
+
         var y = THREEx.Terrain.planeToHeightMapCoords(heightMap, ground, x, z);
+
+       
 
         cube.rotateY(-Math.PI/1.5);
         var treePosAndData = {};
@@ -146,20 +162,30 @@ function makeDaTrees(data){
 
         cube.position.set(x, y, z);
         boll.position.set(x, y + treeStemHeight / 2 + treeCrownSize - 0.1, z);
+
+
+        
         //cube.grayness = grayness; // *** NOTE THIS
 
         // set color underneath tree
-        colorGround(x,z);
+        colorGround(x,z,y);
 
         trees.add( boll );
         trees.add( cube );
 
-        if(i%10==0) {
 
-            var light = new THREE.PointLight( 0xffffff, 1, 10 );
-            light.position.set( x, y, z );
-            //scene.add( light );
+        if(data[i][9]!="") {
+            boll2.position.set(x, (y + treeStemHeight / 2 + treeCrownSize - 0.1)+2, z);
+            trees.add( boll2 );
+            
         }
+
+        // if(i%50==0) {
+
+        //     var light = new THREE.PointLight( 0xffffff, 1, 10 );
+        //     light.position.set( x, y, z );
+        //     scene.add( light );
+        // }
     }
 
     trees.scale.multiplyScalar(1);
@@ -216,18 +242,20 @@ function makeDaTrees(data){
 
 
     scene.add( trees );
+    sceneMiniMap.add( trees.clone() ); 
 
     // now that we changed the color of vertices, add ground
     scene.add( ground );
 
 }
 
-function colorGround(xVar, zVar) {
+function colorGround(xVar, zVar, yVar) {
     //console.log("-");
 
     var vertexRange = 2;
     var mapToCoord = heightMap.length/2-1;
-    var vertexColorOne = new THREE.Color("rgb(255,0,0)");
+    //var vertexColorOne = new THREE.Color("rgb(255,0,0)");
+    var vertexColorOne = new THREE.Color("rgb(151,192,86)");
     var vertexColorTwo = new THREE.Color("rgb(0,255,0)");
     var vertexColorThree = new THREE.Color("rgb(0,0,255)");
     var vertexColorGround = new THREE.Color("rgb(171,212,106)")
@@ -236,9 +264,9 @@ function colorGround(xVar, zVar) {
 
     //console.log(xVar, zVar);
 
-    addX = xVar/(heightMap.length*3);
+    addX = 0;
 
-    addZ = -zVar/(heightMap.length*2);
+    addZ = 0;
 
     xVar +=mapToCoord;
     zVar +=mapToCoord;
@@ -246,69 +274,92 @@ function colorGround(xVar, zVar) {
     zVar = zVar+addZ;
 
     for(var i = 0; i < ground.geometry.faces.length; i++){
+
+        var heightmapWidth = heightMap.length;
         
         var vertexIdxA = ground.geometry.faces[i].a;
         var vertexIdxB = ground.geometry.faces[i].b;
         var vertexIdxC = ground.geometry.faces[i].c;
 
-        var heightmapWidth = heightMap.length;
-
         var xVertexA = Math.floor(vertexIdxA % heightmapWidth);
         var zVertexA = Math.floor(vertexIdxA / heightmapWidth);
-
         var xVertexB = Math.floor(vertexIdxB % heightmapWidth);
         var zVertexB = Math.floor(vertexIdxB / heightmapWidth);
-
         var xVertexC = Math.floor(vertexIdxC % heightmapWidth);
         var zVertexC = Math.floor(vertexIdxC / heightmapWidth);
-
 
         var hypoA = Math.hypot(Math.abs(xVertexA-xVar),Math.abs(zVertexA-zVar));
         var hypoB = Math.hypot(Math.abs(xVertexB-xVar),Math.abs(zVertexB-zVar));
         var hypoC = Math.hypot(Math.abs(xVertexC-xVar),Math.abs(zVertexC-zVar));
+        
+        var hypoArr = [hypoA, hypoB, hypoC];
+        var hypoArrLeft = [hypoA, hypoB, hypoC];
 
         var minHypo = Math.min(hypoA,hypoB,hypoC);
+        var maxHypo = Math.max(hypoA,hypoB,hypoC);
 
-        if(hypoA<vertexRange) {
-            console.log(minHypo);
-            ground.geometry.faces[i].vertexColors = [];
-            ground.geometry.faces[i].vertexColors.push(vertexColorOne);
-            ground.geometry.faces[i].vertexColors.push(vertexColorOne);
-            ground.geometry.faces[i].vertexColors.push(vertexColorOne);
+        var minHypoIndex = hypoArr.indexOf(minHypo);
+        var maxHypoIndex = hypoArr.indexOf(maxHypo);
 
-            if(hypoB>vertexRange) {
-                //console.log("hej B");
-                ground.geometry.faces[i].vertexColors.splice(1, 1, vertexColorGround);
-                //testArray.splice(1, 0);
-            }
+        hypoArr.splice(minHypoIndex, 1)
+        hypoArr.splice(maxHypoIndex, 1)
 
-            if(hypoC>vertexRange) {
-                //console.log("hej C");
-                ground.geometry.faces[i].vertexColors.splice(2, 1, vertexColorGround);
-            }
-            
-            //ground.geometry.faces[i].vertexColors.push(vertexColorOne);
-            
+        var leftHypo = hypoArr[0];
+
+        var leftHypoIndex = hypoArrLeft.indexOf(leftHypo);
+
+        if(minHypo<vertexRange) {
+            ground.geometry.faces[i].vertexColors.splice(minHypoIndex, 1, vertexColorOne);
         }
 
-        // if((xVertexA>xVar-vertexRange) && (xVertexA<xVar+vertexRange) && (zVertexA>zVar-vertexRange) && (zVertexA<zVar+vertexRange)) {
+        if(maxHypo<vertexRange) {
+            ground.geometry.faces[i].vertexColors.splice(maxHypoIndex, 1, vertexColorOne);
+        } 
 
-        //     ground.geometry.faces[i].vertexColors = [];
-        //     ground.geometry.faces[i].vertexColors.push(vertexColorOne);
-        //     ground.geometry.faces[i].vertexColors.push(vertexColorTwo);
-        //     ground.geometry.faces[i].vertexColors.push(vertexColorThree);
-        //     //console.log(ground.geometry.faces[i]);
+        if(leftHypo<vertexRange) {
+            ground.geometry.faces[i].vertexColors.splice(leftHypoIndex, 1, vertexColorOne);
+        } 
 
-        //     //console.log(ground.geometry.faces[i]);
-        //     //console.log(xVertexA,zVertexA,xVertexB,zVertexB,xVertexC,zVertexC);
-        //     //console.log(ground.geometry.faces[i]);
+        //ground.geometry.faces[i].vertexColors.splice(2, 1, vertexColorOne);
+        
 
-        // }
-        //console.log("-");
     }
-    //console.log("-");
-
 }
+
+// function colorGround(xVar, zVar) {
+//     var vertexRange = 2;
+//     var mapToCoord = heightMap.length/2-1;
+//     var vertexColor = new THREE.Color("rgb(255,0,0)")
+
+//     addX = 1;
+//     addZ = -zVar/(heightMap.length*2);
+//     xVar +=mapToCoord;
+//     zVar +=mapToCoord;
+//     xVar = xVar+addX;
+//     zVar = zVar+addZ;
+
+//     for(var i = 0; i < ground.geometry.faces.length; i++){
+
+//         //var vertexIdxA = ground.geometry.faces[i].a;
+//         //var vertexIdxA = ground.geometry.faces[i].b;
+//         var vertexIdxC = ground.geometry.faces[i].c;
+//         var heightmapWidth = heightMap.length;
+
+//         // var xVertexA = Math.floor(vertexIdxA % heightmapWidth);
+//         // var zVertexA = Math.floor(vertexIdxA / heightmapWidth);
+//         // var xVertexB = Math.floor(vertexIdxA % heightmapWidth);
+//         // var zVertexB = Math.floor(vertexIdxA / heightmapWidth);
+//         var xVertexC = Math.floor(vertexIdxC % heightmapWidth);
+//         var zVertexC = Math.floor(vertexIdxC / heightmapWidth);
+
+//         if((xVertexC>xVar-vertexRange) && (xVertexC<xVar+vertexRange) && (zVertexC>zVar-vertexRange) && (zVertexC<zVar+vertexRange)) {
+//             ground.geometry.faces[i].vertexColors = [];
+//             ground.geometry.faces[i].vertexColors.push(vertexColor);
+//             ground.geometry.faces[i].vertexColors.push(vertexColor);
+//             ground.geometry.faces[i].vertexColors.push(vertexColor);
+//         }
+//     }
+// }
 
 
 
