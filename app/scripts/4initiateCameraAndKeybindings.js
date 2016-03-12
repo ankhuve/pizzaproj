@@ -216,8 +216,8 @@ function init() {
 
 	// I put this outside the onKeyDown event to load camera instantly
 	renderer.setSize( window.innerWidth, window.innerHeight );
-		renderer.setClearColor( 0x000000, 1 );
-		renderer.autoClear = false;
+	renderer.setClearColor( 0x000000, 1 );
+	renderer.autoClear = false;
 
 	var onKeyUp = function ( event ) {
 
