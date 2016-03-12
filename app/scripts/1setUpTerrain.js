@@ -38,6 +38,19 @@ renderer.shadowMapSoft = false;
     //scene.add( light )
 })();
 
+// skybox
+var geometry = new THREE.SphereGeometry(9500, 60, 40);  
+
+var material = new THREE.MeshBasicMaterial({
+    color: 0x69d0f9
+});
+
+skyBox = new THREE.Mesh(geometry, material);  
+skyBox.scale.set(-1, 1, 1);  
+skyBox.eulerOrder = 'XZY';  
+skyBox.renderDepth = 1000.0;  
+scene.add(skyBox);  
+
 //////////////////////////////////////////////////////////////////////////////////
 //		add an object and make it move					//
 //////////////////////////////////////////////////////////////////////////////////
@@ -68,4 +81,4 @@ ground.scale.y	= 20;
 ground.scale.z	= 1;
 ground.scale.multiplyScalar(6.45);
 
-scene.fog = new THREE.Fog(0x000000,0,50);
+scene.fog = new THREE.Fog(0x69d0f9,0,80);
