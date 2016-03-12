@@ -60,6 +60,7 @@ function makeDaTrees(data){
     for(var i = 0; i < data.length; i++ ) {
 
 
+
         // set data variables
         var yearOfRelease = parseInt(data[i][1]);
         var imdbRating = parseInt(data[i][3]);
@@ -85,14 +86,25 @@ function makeDaTrees(data){
             displacementMap: ""
         });
 
+        var Boll2_material = new THREE.MeshPhongMaterial( {
+            color: new THREE.Color("rgb(255,0,0)"),
+            shininess: 0,
+            specular: 0x222222,
+            shading: THREE.FlatShading,
+            displacementMap: ""
+        });
+
         var polyGeo = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, treeCrownSize, 1 );
         var Box_geometry = new THREE.BoxGeometry(0.1, treeStemHeight, 0.1); // generate psuedo-random geometry
+
+        var polyGeo2 = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, 0.1, 1 );
         //var BollGeo = new THREE.SphereGeometry( treeCrownSize, 5, 5 );
 
         var grayness = Math.random() * 0.5 + 0.25,
             mat = new THREE.MeshBasicMaterial();
         var cube = new THREE.Mesh( Box_geometry, Box_material );
         var boll = new THREE.Mesh( polyGeo, Boll_material );
+        var boll2 = new THREE.Mesh( polyGeo2, Boll2_material );
 
         cube.castShadow = true;
         boll.castShadow = true;
@@ -131,9 +143,11 @@ function makeDaTrees(data){
             
         }
 
-        z = 0;
+        //z = 0;
 
         var y = THREEx.Terrain.planeToHeightMapCoords(heightMap, ground, x, z);
+
+       
 
         cube.rotateY(-Math.PI/1.5);
         var treePosAndData = {};
@@ -148,20 +162,30 @@ function makeDaTrees(data){
 
         cube.position.set(x, y, z);
         boll.position.set(x, y + treeStemHeight / 2 + treeCrownSize - 0.1, z);
+
+
+        
         //cube.grayness = grayness; // *** NOTE THIS
 
         // set color underneath tree
-        colorGround(x,z);
+        colorGround(x,z,y);
 
         trees.add( boll );
         trees.add( cube );
 
-        if(i%10==0) {
 
-            var light = new THREE.PointLight( 0xffffff, 1, 10 );
-            light.position.set( x, y, z );
-            //scene.add( light );
+        if(data[i][9]!="") {
+            boll2.position.set(x, (y + treeStemHeight / 2 + treeCrownSize - 0.1)+2, z);
+            trees.add( boll2 );
+            
         }
+
+        // if(i%50==0) {
+
+        //     var light = new THREE.PointLight( 0xffffff, 1, 10 );
+        //     light.position.set( x, y, z );
+        //     scene.add( light );
+        // }
     }
 
     trees.scale.multiplyScalar(1);
@@ -224,7 +248,7 @@ function makeDaTrees(data){
 
 }
 
-function colorGround(xVar, zVar) {
+function colorGround(xVar, zVar, yVar) {
     //console.log("-");
 
     var vertexRange = 2;
@@ -239,9 +263,9 @@ function colorGround(xVar, zVar) {
 
     //console.log(xVar, zVar);
 
-    addX = xVar/(heightMap.length*3);
+    addX = 0;
 
-    addZ = -zVar/(heightMap.length*2);
+    addZ = 0;
 
     xVar +=mapToCoord;
     zVar +=mapToCoord;
@@ -284,21 +308,19 @@ function colorGround(xVar, zVar) {
         var leftHypoIndex = hypoArrLeft.indexOf(leftHypo);
 
         if(minHypo<vertexRange) {
-
             ground.geometry.faces[i].vertexColors.splice(minHypoIndex, 1, vertexColorOne);
-
-            if(maxHypo>vertexRange) {
-                ground.geometry.faces[i].vertexColors.splice(maxHypoIndex, 1, vertexColorGround);
-            } else {
-                ground.geometry.faces[i].vertexColors.splice(maxHypoIndex, 1, vertexColorOne);
-            }
-
-            if(leftHypo>vertexRange) {
-                ground.geometry.faces[i].vertexColors.splice(leftHypoIndex, 1, vertexColorGround);
-            } else {
-                ground.geometry.faces[i].vertexColors.splice(leftHypoIndex, 1, vertexColorOne);
-            }
         }
+
+        if(maxHypo<vertexRange) {
+            ground.geometry.faces[i].vertexColors.splice(maxHypoIndex, 1, vertexColorOne);
+        } 
+
+        if(leftHypo<vertexRange) {
+            ground.geometry.faces[i].vertexColors.splice(leftHypoIndex, 1, vertexColorOne);
+        } 
+
+        //ground.geometry.faces[i].vertexColors.splice(2, 1, vertexColorOne);
+        
 
     }
 }
