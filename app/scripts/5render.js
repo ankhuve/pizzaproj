@@ -29,7 +29,7 @@ function animate() {
 	// minimap (overhead orthogonal camera)
 	//  lower_left_x, lower_left_y, viewport_width, viewport_height
 	renderer.setViewport(0, h - mapHeight, mapWidth, mapHeight );
-	renderer.render( scene, mapCamera);
+	renderer.render( sceneMiniMap, mapCamera);
 
 
 }

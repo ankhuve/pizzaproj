@@ -242,6 +242,7 @@ function makeDaTrees(data){
 
 
     scene.add( trees );
+    sceneMiniMap.add( trees.clone() ); 
 
     // now that we changed the color of vertices, add ground
     scene.add( ground );
