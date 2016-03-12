@@ -253,8 +253,8 @@ function colorGround(xVar, zVar, yVar) {
 
     var vertexRange = 2;
     var mapToCoord = heightMap.length/2-1;
-    var vertexColorOne = new THREE.Color("rgb(255,0,0)");
-    //var vertexColorOne = new THREE.Color("rgb(119,150,71)");
+    //var vertexColorOne = new THREE.Color("rgb(255,0,0)");
+    var vertexColorOne = new THREE.Color("rgb(151,192,86)");
     var vertexColorTwo = new THREE.Color("rgb(0,255,0)");
     var vertexColorThree = new THREE.Color("rgb(0,0,255)");
     var vertexColorGround = new THREE.Color("rgb(171,212,106)")
