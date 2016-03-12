@@ -109,9 +109,9 @@ function movieMusicPlayer( obj, distVolume ){
 
     audioPlaying = true;
     audio.volume = distVolume;
-    if(0.05-distVolume>0) {
+    if(0.05-(distVolume/10)>0) {
         backAudio.play();
-        backAudio.volume = 0.05-distVolume/5;
+        backAudio.volume = 0.05-distVolume/10;
     } else {
         backAudio.volume = 0;
         backAudio.pause();

@@ -68,7 +68,7 @@ function makeDaTrees(data){
 
         // decide tree geometry data
         var treeCrownColor = moviePosterColor; // based on average movie poster color
-        var treeCrownSize = imdbRating / 10; // based on movie rating
+        var treeCrownSize = imdbRating/(10-imdbRating) / 5; // based on movie rating
         var treeStemHeight = (2017 - yearOfRelease) / 100 * 13; // based on year of release
 
         var Box_material = new THREE.MeshPhongMaterial( {
@@ -172,6 +172,8 @@ function makeDaTrees(data){
 
         trees.add( boll );
         trees.add( cube );
+
+        //console.log(data[i]);
 
 
         if(data[i][9]!="") {
