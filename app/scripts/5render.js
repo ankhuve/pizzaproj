@@ -10,6 +10,10 @@ function animate() {
 
 	mapCamera.rotation.z = controls.getObject().rotation.y;
 
+	//circle.position.x = controls.getObject().position.x;
+	circle.position.set( controls.getObject().position.x, controls.getObject().position.y+10, controls.getObject().position.z )
+	//console.log(circle.position.x);
+
     requestAnimationFrame( animate );
 
     movementAndDetailsOnDemand();
@@ -24,8 +28,8 @@ function animate() {
 
 	// minimap (overhead orthogonal camera)
 	//  lower_left_x, lower_left_y, viewport_width, viewport_height
-	renderer.setViewport( 1, h - mapHeight - 10, mapWidth, mapHeight );
-	renderer.render( scene, mapCamera );
+	renderer.setViewport( 0, h - mapHeight - 10, mapWidth, mapHeight );
+	renderer.render( scene, mapCamera);
 
 
 }

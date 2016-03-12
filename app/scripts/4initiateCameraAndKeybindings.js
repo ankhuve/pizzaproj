@@ -10,6 +10,19 @@ var raycaster;
 
 var blocker = document.getElementById( 'blocker' );
 var instructions = document.getElementById( 'instructions' );
+
+// blue marker that follows player
+var material = new THREE.MeshBasicMaterial({
+	color: 0x0000ff
+});
+
+var radius = 2;
+var segments = 32;
+
+var circleGeometry = new THREE.CircleGeometry( radius, segments );
+var circle = new THREE.Mesh( circleGeometry, material );
+circle.rotation.x = -Math.PI/2;
+scene.add( circle );
   
 	// orthographic cameras (minimap)
 	mapCamera = new THREE.OrthographicCamera(
