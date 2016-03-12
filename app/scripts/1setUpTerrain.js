@@ -5,6 +5,9 @@ document.body.appendChild( renderer.domElement );
 
 var scene	= new THREE.Scene();
 
+// second scene for minimap, this scene contains everything from scene except the terrain
+var sceneMiniMap   = new THREE.Scene();
+
 renderer.shadowMap.enabled = true;
 renderer.shadowMapSoft = false;
 
@@ -21,6 +24,8 @@ renderer.shadowMapSoft = false;
     // add a ambient light
     var light	= new THREE.AmbientLight( 'white' );
     scene.add( light );
+    sceneMiniMap.add( light.clone() );
+
     // add a light in front
     var light	= new THREE.DirectionalLight('white', 5);
     light.position.set(0.5, 0.0, 2);
@@ -49,7 +54,8 @@ skyBox = new THREE.Mesh(geometry, material);
 skyBox.scale.set(-1, 1, 1);  
 skyBox.eulerOrder = 'XZY';  
 skyBox.renderDepth = 1000.0;  
-scene.add(skyBox);  
+scene.add(skyBox);
+sceneMiniMap.add( skyBox.clone() );  
 
 //////////////////////////////////////////////////////////////////////////////////
 //		add an object and make it move					//

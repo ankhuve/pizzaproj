@@ -20,7 +20,8 @@ var segments = 32;
 var circleGeometry = new THREE.CircleGeometry( radius, segments );
 var circle = new THREE.Mesh( circleGeometry, material );
 circle.rotation.x = -Math.PI/2;
-scene.add( circle );
+//scene.add( circle );
+sceneMiniMap.add( circle ); 
   
 // orthographic cameras (minimap)
 mapCamera = new THREE.OrthographicCamera(
