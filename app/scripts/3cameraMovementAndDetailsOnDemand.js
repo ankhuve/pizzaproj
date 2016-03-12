@@ -76,6 +76,8 @@ function movementAndDetailsOnDemand(){
                 audio.volume = 0;
                 audio.pause();
 
+                //backAudio.play();
+
                 audioPlaying = false;
             }
         }
@@ -95,16 +97,25 @@ function movieMusicPlayer( obj, distVolume ){
         audio.load();
         audio.src = obj.data[9];
         audio.play();
+        //backAudio.volume = 0;
 
     } else{
         // if it's the previous one, just continue playing it
         audio.play();
+        //backAudio.volume = 0;
     }
 
     $("#informationHolder").html(obj.data[0] + " (" + obj.data[1] + ")");
 
     audioPlaying = true;
     audio.volume = distVolume;
+    if(0.05-distVolume>0) {
+        backAudio.play();
+        backAudio.volume = 0.05-distVolume;
+    } else {
+        backAudio.volume = 0;
+        backAudio.pause();
+    }
 
 
 }
