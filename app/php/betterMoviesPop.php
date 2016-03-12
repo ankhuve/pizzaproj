@@ -3,7 +3,7 @@ include_once("config.php");
 include_once("functions.php");
 include_once("imageColor.php");
 
-$query = "SELECT * FROM moviesPop";
+$query = "SELECT * FROM moviesFinal";
 
 $result = queryDb($conn, $query);
 
