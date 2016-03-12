@@ -10,6 +10,19 @@ var raycaster;
 
 var blocker = document.getElementById( 'blocker' );
 var instructions = document.getElementById( 'instructions' );
+
+// blue marker that follows player
+var material = new THREE.MeshBasicMaterial({
+	color: 0x0000ff
+});
+
+var radius = 2;
+var segments = 32;
+
+var circleGeometry = new THREE.CircleGeometry( radius, segments );
+var circle = new THREE.Mesh( circleGeometry, material );
+circle.rotation.x = -Math.PI/2;
+scene.add( circle );
   
 	// orthographic cameras (minimap)
 	mapCamera = new THREE.OrthographicCamera(
@@ -138,8 +151,6 @@ function init() {
 	camera.position.y = 0;
 	camera.position.z = 0;
 
-
-
 	controls = new THREE.PointerLockControls( camera );
 	scene.add( controls.getObject() );
 
@@ -173,12 +184,17 @@ function init() {
 			//	break;
 
 		}
-	
-		renderer.setSize( window.innerWidth, window.innerHeight );
-		renderer.setClearColor( 0x000000, 1 );
-		renderer.autoClear = false;
+		// moved this outside onKeyDown event to load camera instantly
+		// renderer.setSize( window.innerWidth, window.innerHeight );
+		// renderer.setClearColor( 0x000000, 1 );
+		// renderer.autoClear = false;
 
 	};
+
+	// I put this outside the onKeyDown event to load camera instantly
+	renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.setClearColor( 0x000000, 1 );
+		renderer.autoClear = false;
 
 	var onKeyUp = function ( event ) {
 

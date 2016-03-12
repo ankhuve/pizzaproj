@@ -68,7 +68,7 @@ function movementAndDetailsOnDemand(){
                 }
             }
 
-            console.log(closeTrees.length);
+            //console.log(closeTrees.length);
 
             if(closeTrees.length < 1) { // if we're not close to any trees anymore
                 $("#informationHolder").html("");
