@@ -147,6 +147,8 @@ var prevTime = performance.now();
 var velocity = new THREE.Vector3();
 var movementSpeed = 100;
 
+var isMoving = 0;
+
 function init() {
 
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );

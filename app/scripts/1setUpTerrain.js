@@ -11,9 +11,10 @@ var sceneMiniMap   = new THREE.Scene();
 renderer.shadowMap.enabled = true;
 renderer.shadowMapSoft = false;
 
-// var backAudio = new Audio("background.mp3");
-// backAudio.play();
-// backAudio.volume = 0.05;
+var backAudio = new Audio("background.mp3");
+backAudio.loop = true;
+backAudio.play();
+backAudio.volume = 0.05;
 
 
 //////////////////////////////////////////////////////////////////////////////////
