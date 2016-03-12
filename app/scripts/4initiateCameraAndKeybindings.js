@@ -160,7 +160,7 @@ function init() {
 	controls.getObject().rotation.y = -Math.PI/2;
 	scene.add( controls.getObject() );
 
-	footsteps = new Audio('steps.mp3');
+	footsteps = new Audio('sounds/steps.mp3');
 	footsteps.loop = true;
 	footsteps.volume = 0.1;
 	footsteps.playbackRate = 1.5;
@@ -171,26 +171,34 @@ function init() {
 
 			case 38: // up
 			case 87: // w
-				moveForward = true;
-				footsteps.play();
+				if(controls.enabled){
+					moveForward = true;
+					footsteps.play();
+				}
 				break;
 
 			case 37: // left
 			case 65: // a
-				moveLeft = true;
-				footsteps.play();
+				if(controls.enabled){
+					moveLeft = true;
+					footsteps.play();
+				}
 				break;
 
 			case 40: // down
 			case 83: // s
-				moveBackward = true;
-				footsteps.play();
+				if(controls.enabled){
+					moveBackward = true;
+					footsteps.play();
+				}
 				break;
 
 			case 39: // right
 			case 68: // d
-				moveRight = true;
-				footsteps.play();
+				if(controls.enabled){
+					moveRight = true;
+					footsteps.play();
+				}
 				break;
 
 			//case 32: // kanske lägga till flygfunktion?! trycker man space så börjar man flyga eller nåt
