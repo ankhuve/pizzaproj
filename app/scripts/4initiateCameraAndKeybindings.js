@@ -56,7 +56,7 @@ if ( havePointerLock ) {
 			$("#centerSign").css("display", "block");
 
 		} else {
-
+			controlsEnabled = false;
 			controls.enabled = false;
 
 			blocker.style.display = '-webkit-box';
