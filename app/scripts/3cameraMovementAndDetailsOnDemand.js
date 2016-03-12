@@ -76,7 +76,7 @@ function movementAndDetailsOnDemand(){
                 audio.volume = 0;
                 audio.pause();
 
-                backAudio.play();
+                //backAudio.play();
 
                 audioPlaying = false;
             }
@@ -110,6 +110,7 @@ function movieMusicPlayer( obj, distVolume ){
     audioPlaying = true;
     audio.volume = distVolume;
     if(0.05-distVolume>0) {
+        backAudio.play();
         backAudio.volume = 0.05-distVolume;
     } else {
         backAudio.volume = 0;
