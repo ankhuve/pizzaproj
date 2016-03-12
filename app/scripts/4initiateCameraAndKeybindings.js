@@ -162,6 +162,7 @@ function init() {
 
 	footsteps = new Audio('steps.mp3');
 	footsteps.loop = true;
+	footsteps.volume = 0.1;
 	footsteps.playbackRate = 1.5;
 
 	var onKeyDown = function ( event ) {

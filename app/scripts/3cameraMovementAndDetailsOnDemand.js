@@ -51,7 +51,7 @@ function movementAndDetailsOnDemand(){
                 var distanceX = Math.abs(currObj.x-position.x);
                 var distanceY = Math.abs(currObj.z-position.z);
                 var distanceMax = Math.max(distanceX, distanceY);
-                var distVolume = (howFarAway-distanceMax)/(howFarAway*8);
+                var distVolume = (howFarAway-distanceMax)/(howFarAway);
 
                 var isCurrentlyCloseToTree = currObj.x>position.x-howFarAway && currObj.x<position.x+howFarAway && currObj.z>position.z-howFarAway && currObj.z<position.z+howFarAway;
 
