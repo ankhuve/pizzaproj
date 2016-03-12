@@ -8,6 +8,8 @@ function animate() {
 		controls.getObject().rotation.y -= Math.PI/5000;
 	}
 
+	mapCamera.rotation.z = controls.getObject().rotation.y;
+
     requestAnimationFrame( animate );
 
     movementAndDetailsOnDemand();
