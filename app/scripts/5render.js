@@ -1,6 +1,7 @@
 var prevPos = {"x":0, "y":0, "z":0};
 var moviePrev = "";
 
+
 function animate() {
 	var w = window.innerWidth, h = window.innerHeight;
 
@@ -22,8 +23,13 @@ function animate() {
 	// setViewport parameters:
 	renderer.setViewport( 0, 0, w, h );
 	renderer.clear();
+
+	// Depth of Field
+	//depthOfField= new THREEx.DepthOfField(renderer)
+	//depthOfField.render(scene, camera)
 	
 	// full display
+	
 	renderer.render( scene, camera );
 
 	// minimap (overhead orthogonal camera)
