@@ -11,7 +11,7 @@ function animate() {
 
 	//mapCamera.rotation.z = controls.getObject().rotation.y;
 
-
+	//cloudObj.position.x +=Math.PI/50;
 	//circle.position.x = controls.getObject().position.x;
 	triangle.position.set( controls.getObject().position.x, controls.getObject().position.y+10, controls.getObject().position.z )
 	//triangle.rotation.x = -Math.PI/2;
@@ -39,7 +39,7 @@ function animate() {
 
 	// minimap (overhead orthogonal camera)
 	//  lower_left_x, lower_left_y, viewport_width, viewport_height
-	renderer.setViewport(0, h - mapHeight, mapWidth, mapHeight );
+	renderer.setViewport(0, 200, mapWidth, mapHeight );
 	renderer.render( sceneMiniMap, mapCamera);
 
 

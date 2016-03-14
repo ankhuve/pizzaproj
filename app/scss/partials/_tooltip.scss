@@ -1,11 +1,13 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+
 #toolTipHolder {
     width: 100%;
-    height: 200px;
+    height: auto;
     background-color: transparent;
     position: absolute;
-    left: 20px;
-    bottom: 100px;
+    left: 0px;
+    bottom: 0px;
 }
 
 .icons {
@@ -13,56 +15,60 @@
 }
 
 #informationHolder {
-    width: calc(100% - 220px);
-    height: 200px;
+    width: 100%;
+    height: auto;
     background-color: transparent;
-    float: left;
-    margin: 0 0 100px 20px;
+    padding:0 0 50px 50px;
+    box-sizing:border-box;
+}
+
+#titleText {
+    width:auto;
+    height:auto;
+    background-color:transparent;
     color: #fff;
     font-family: Lato;
     font-weight: 700;
     font-size: 40px;
-    padding-top: 20px;
-    box-sizing: border-box;
+    text-transform: uppercase;
+    line-height: 35px;
 }
 
-#titleText {
-    position: absolute;
-}
-
-#infoInfo {
-    font-weight: 300;
+#titleYear {
+    width:auto;
+    height:auto;
+    background-color:transparent;
+    color: #fff;
+    font-family: Lato;
+    font-weight: 700;
     font-size: 24px;
-    width: 35%;
-    float: left;
-    display: block;
-}
-
-#smallerInformation {
-    font-weight: 300;
-    font-size: 24px;
-    width: 35%;
-    float: left;
-    display: none;
+    padding-bottom:5px;
 }
 
 #plotInfo {
+    width:100%;
+    max-width:700px;
+    height:auto;
+    background-color:transparent;
+    color:#fff;
+    font-family: Lato;
     font-weight: 300;
-    font-size: 24px;
-    width: 35%;
-    float: left;
-    margin-left: 10px;
-    display: none;
+    font-size: 20px;
+    margin-top:10px;
+    padding-top:10px;
+    border-top:0px solid #fff;
 }
 
-#overviewTemp {
-    width: 180px;
-    height: 180px;
-    float: left;
-    background-color: rgba(255, 255, 255, 0);
-    border-radius: 50%;
-    margin-left: 20px;
-    pointer-events: none;
+#restInfo {
+    width:100%;
+    height:auto;
+    background-color:transparent;
+    color:#fff;
+    font-family: Lato;
+    font-weight: 300;
+    font-size: 14px;
+    text-transform: capitalize;
+    margin-top:2px;
 }
 
 #centerSign {
