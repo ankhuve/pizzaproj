@@ -15,13 +15,25 @@ var instructions = document.getElementById('instructions');
 var material = new THREE.MeshBasicMaterial({
     color: 0xffffff
 });
-var radius = 2;
-var segments = 32;
-var circleGeometry = new THREE.CircleGeometry(radius, segments);
-var circle = new THREE.Mesh(circleGeometry, material);
-circle.rotation.x = -Math.PI / 2;
-//scene.add( circle );
-sceneMiniMap.add(circle);
+
+var geom = new THREE.Geometry();
+var v1 = new THREE.Vector3(-1, -1, 0);
+var v2 = new THREE.Vector3(-5, 0, 0);
+var v3 = new THREE.Vector3(-4, -4, 0);
+
+
+geom.vertices.push(v1);
+geom.vertices.push(v2);
+geom.vertices.push(v3);
+
+geom.faces.push(new THREE.Face3(0, 1, 2));
+geom.computeFaceNormals();
+
+var triangle = new THREE.Mesh(geom, material);
+
+geom.center();
+
+sceneMiniMap.add(triangle);
 
 // orthographic cameras (minimap)
 mapCamera = new THREE.OrthographicCamera(-62, // Left  // 
@@ -54,6 +66,9 @@ if (havePointerLock) {
 
             blocker.style.display = 'none';
             $("#centerSign").css("display", "block");
+
+            $("#searchBar").css("display", "none");
+
             audio.play();
 
         } else {
@@ -64,10 +79,13 @@ if (havePointerLock) {
             blocker.style.display = '-moz-box';
             blocker.style.display = 'box';
 
+
             instructions.style.display = '';
             $("#centerSign").css("display", "none");
+            $("#searchBar").css("display", "block");
             audio.play();
             audio.pause();
+
 
 
         }
@@ -168,6 +186,8 @@ function init() {
 
         switch (event.keyCode) {
 
+
+
         case 38: // up
         case 87: // w
             if (controls.enabled) {
@@ -205,6 +225,9 @@ function init() {
                 togglePlot();
             }
             break;
+
+
+
 
             //case 32: // kanske lägga till flygfunktion?! trycker man space så börjar man flyga eller nåt
             //	if ( canJump === true ) velocity.y += 350;
@@ -251,6 +274,7 @@ function init() {
             moveRight = false;
             footsteps.pause();
             break;
+
 
         }
 

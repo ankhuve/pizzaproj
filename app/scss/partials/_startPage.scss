@@ -19,6 +19,24 @@ body{
 		}
 	}
 
+	::-webkit-input-placeholder {
+	   color: $white;
+	}
+
+	:-moz-placeholder { /* Firefox 18- */
+	   color: $white;  
+	}
+
+	::-moz-placeholder {  /* Firefox 19+ */
+	   color: $white;  
+	}
+
+	:-ms-input-placeholder {  
+	   color: $white;  
+	}
+
+	textarea, input { outline: none; }
+
 	#blocker {
 		position: absolute;
 
@@ -97,6 +115,33 @@ body{
 		background-size:contain;
 		flex:1;
 		background-position: center; 
+	}
+
+	#searchBar {
+		width:100%;
+		height:auto;
+		background-color:transparent;
+		position:absolute;
+		left:0px;
+		top:65%;
+		cursor:pointer;
+		z-index:99999999;
+	}
+
+	#search {
+		width:40%;
+		height:60px;
+		margin:0 auto 0 30%;
+		padding:0 5% 0 5%;
+		box-sizing:border-box;
+		border:0px;
+		border-bottom:1px solid #fff;
+		font-size: 28px;
+		font-family: Lato;
+		font-weight: 300;
+		background-color:rgba(0,0,0,0);
+		border-radius:2px;
+		color:#fff;
 	}
 }
 
