@@ -9,10 +9,16 @@ function animate() {
 		controls.getObject().rotation.y -= Math.PI/5000;
 	}
 
-	mapCamera.rotation.z = controls.getObject().rotation.y;
+	//mapCamera.rotation.z = controls.getObject().rotation.y;
+
 
 	//circle.position.x = controls.getObject().position.x;
-	circle.position.set( controls.getObject().position.x, controls.getObject().position.y+10, controls.getObject().position.z )
+	triangle.position.set( controls.getObject().position.x, controls.getObject().position.y+10, controls.getObject().position.z )
+	//triangle.rotation.x = -Math.PI/2;
+	triangle.rotation.x = -Math.PI/2;
+	triangle.rotation.z = (controls.getObject().rotation.y)-44.91;
+
+
 	//console.log(circle.position.x);
 
     requestAnimationFrame( animate );
