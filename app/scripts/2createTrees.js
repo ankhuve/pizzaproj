@@ -165,7 +165,7 @@ function makeDaTrees(data){
 
             var singleTreeCrownMesh = new THREE.Mesh( singleTreeCrownGeometry, treeCrownMaterial );
             singleTreeCrownMesh.castShadow = true;
-            singleTreeCrownMesh.position.set(x, y + treeStemHeight / 2 + treeCrownSize - 0.1, z + Math.random()*treeCrownSize*10);
+            singleTreeCrownMesh.position.set(x, y + (treeStemHeight / 2 + treeCrownSize - 0.1) + k * treeCrownSize, z);
             tree.add( singleTreeCrownMesh );
         }
 
