@@ -18,9 +18,9 @@ var material = new THREE.MeshBasicMaterial({
 
   
 var geom = new THREE.Geometry();
-var v1 = new THREE.Vector3(0,0,0);
+var v1 = new THREE.Vector3(-1,-1,0);
 var v2 = new THREE.Vector3(-5,0,0);
-var v3 = new THREE.Vector3(-5,-5,0);
+var v3 = new THREE.Vector3(-4,-4,0);
 
 
 geom.vertices.push( v1 );
