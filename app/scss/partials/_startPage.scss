@@ -19,6 +19,22 @@ body{
 		}
 	}
 
+	::-webkit-input-placeholder {
+	   color: $white;
+	}
+
+	:-moz-placeholder { /* Firefox 18- */
+	   color: $white;  
+	}
+
+	::-moz-placeholder {  /* Firefox 19+ */
+	   color: $white;  
+	}
+
+	:-ms-input-placeholder {  
+	   color: $white;  
+	}
+
 	textarea, input { outline: none; }
 
 	#blocker {
@@ -122,7 +138,9 @@ body{
 		font-size: 38px;
 		font-family: Lato;
 		font-weight: 300;
-		background-color:rgba(255,255,255,.5);
+		background-color:rgba(0,0,0,.1);
+		border-radius:2px;
+		color:#fff;
 	}
 }
 
