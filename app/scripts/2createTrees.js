@@ -71,14 +71,14 @@ function makeDaTrees(data){
         var treeCrownSize = imdbRating/(10-imdbRating) / 5; // based on movie rating
         var treeStemHeight = (2017 - yearOfRelease) / 100 * 13; // based on year of release
 
-        var Box_material = new THREE.MeshPhongMaterial( {
+        var stemMaterial = new THREE.MeshPhongMaterial( {
             color: 0x66493b,
             shininess: 0,
             specular: 0x222222,
             shading: THREE.FlatShading
         });
 
-        var Boll_material = new THREE.MeshPhongMaterial( {
+        var treeCrownMaterial = new THREE.MeshPhongMaterial( {
             color: new THREE.Color(treeCrownColor),
             shininess: 0,
             specular: 0x222222,
@@ -86,7 +86,7 @@ function makeDaTrees(data){
             displacementMap: ""
         });
 
-        var Boll2_material = new THREE.MeshPhongMaterial( {
+        var musicIndicatorMaterial = new THREE.MeshPhongMaterial( {
             color: new THREE.Color("rgb(255,0,0)"),
             shininess: 0,
             specular: 0x222222,
@@ -94,21 +94,21 @@ function makeDaTrees(data){
             displacementMap: ""
         });
 
-        var polyGeo = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, treeCrownSize, 1 );
-        var Box_geometry = new THREE.BoxGeometry(0.1, treeStemHeight, 0.1); // generate psuedo-random geometry
+        var singleTreeCrownGeometry = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, treeCrownSize, 1 );
+        var stemGeometry = new THREE.BoxGeometry(0.1, treeStemHeight, 0.1); // generate psuedo-random geometry
 
-        var polyGeo2 = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, 0.1, 1 );
+        var musicIndicatorGeometry = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, 0.1, 1 );
         //var BollGeo = new THREE.SphereGeometry( treeCrownSize, 5, 5 );
 
         var grayness = Math.random() * 0.5 + 0.25,
             mat = new THREE.MeshBasicMaterial();
-        var cube = new THREE.Mesh( Box_geometry, Box_material );
-        var boll = new THREE.Mesh( polyGeo, Boll_material );
-        var boll2 = new THREE.Mesh( polyGeo2, Boll2_material );
+        var treeStemMesh = new THREE.Mesh( stemGeometry, stemMaterial );
+        var singleTreeCrownMesh = new THREE.Mesh( singleTreeCrownGeometry, treeCrownMaterial );
+        var musicIndicatorMesh = new THREE.Mesh( musicIndicatorGeometry, musicIndicatorMaterial );
 
-        cube.castShadow = true;
-        boll.castShadow = true;
-        //cube.receiveShadow = true;
+        treeStemMesh.castShadow = true;
+        singleTreeCrownMesh.castShadow = true;
+        //treeStemMesh.receiveShadow = true;
         mat.color.setRGB( grayness, grayness, grayness );
         var x =  releaseYearScale(yearOfRelease);
         var z = range * (0.5 - Math.random());
@@ -149,7 +149,7 @@ function makeDaTrees(data){
 
        
 
-        cube.rotateY(-Math.PI/1.5);
+        treeStemMesh.rotateY(-Math.PI/1.5);
         var treePosAndData = {};
         treePosAndData["data"] = data[i];
         treePosAndData["x"] = x;
@@ -160,25 +160,25 @@ function makeDaTrees(data){
 
         //console.log(arrayOfTreePos[i].x, arrayOfTreePos[i].z);
 
-        cube.position.set(x, y, z);
-        boll.position.set(x, y + treeStemHeight / 2 + treeCrownSize - 0.1, z);
+        treeStemMesh.position.set(x, y, z);
+        singleTreeCrownMesh.position.set(x, y + treeStemHeight / 2 + treeCrownSize - 0.1, z);
 
 
         
-        //cube.grayness = grayness; // *** NOTE THIS
+        //treeStemMesh.grayness = grayness; // *** NOTE THIS
 
         // set color underneath tree
         colorGround(x,z,y);
 
-        trees.add( boll );
-        trees.add( cube );
+        trees.add( singleTreeCrownMesh );
+        trees.add( treeStemMesh );
 
         //console.log(data[i]);
 
 
         if(data[i][9]!="") {
-            boll2.position.set(x, (y + treeStemHeight / 2 + treeCrownSize - 0.1)+2, z);
-            trees.add( boll2 );
+            musicIndicatorMesh.position.set(x, (y + treeStemHeight / 2 + treeCrownSize - 0.1)+2, z);
+            trees.add( musicIndicatorMesh );
             
         }
 
