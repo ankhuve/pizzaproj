@@ -159,13 +159,18 @@ function makeDaTrees(data){
         arrayOfTreePos.push(treePosAndData);
 
         //console.log(arrayOfTreePos[i].x, arrayOfTreePos[i].z);
+        console.log(treeCrownSize);
 
-        //for (var k; k < imdbRating; k++){
+        for (var k = 0; k < imdbRating; k++){
+
             var singleTreeCrownMesh = new THREE.Mesh( singleTreeCrownGeometry, treeCrownMaterial );
             singleTreeCrownMesh.castShadow = true;
-        //}
+            singleTreeCrownMesh.position.set(x, y + treeStemHeight / 2 + treeCrownSize - 0.1, z + Math.random()*treeCrownSize*10);
+            tree.add( singleTreeCrownMesh );
+        }
+
         treeStemMesh.position.set(x, y, z);
-        singleTreeCrownMesh.position.set(x, y + treeStemHeight / 2 + treeCrownSize - 0.1, z);
+        //singleTreeCrownMesh.position.set(x, y + treeStemHeight / 2 + treeCrownSize - 0.1, z);
 
 
         
@@ -174,7 +179,7 @@ function makeDaTrees(data){
         // set color underneath tree
         colorGround(x,z,y);
 
-        tree.add( singleTreeCrownMesh );
+
         tree.add( treeStemMesh );
         tree.name = data[i][0];
 
