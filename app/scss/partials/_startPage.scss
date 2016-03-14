@@ -19,6 +19,8 @@ body{
 		}
 	}
 
+	textarea, input { outline: none; }
+
 	#blocker {
 		position: absolute;
 
@@ -97,6 +99,30 @@ body{
 		background-size:contain;
 		flex:1;
 		background-position: center; 
+	}
+
+	#searchBar {
+		width:100%;
+		height:auto;
+		background-color:transparent;
+		position:absolute;
+		left:0px;
+		top:70%;
+		cursor:pointer;
+		z-index:99999999;
+	}
+
+	#search {
+		width:80%;
+		height:80px;
+		margin:0 auto 0 10%;
+		padding:0 50px 0 50px;
+		box-sizing:border-box;
+		border:0px;
+		font-size: 38px;
+		font-family: Lato;
+		font-weight: 300;
+		background-color:rgba(255,255,255,.5);
 	}
 }
 

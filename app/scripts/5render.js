@@ -25,7 +25,6 @@ function animate() {
 
     movementAndDetailsOnDemand();
 
-
 	// setViewport parameters:
 	renderer.setViewport( 0, 0, w, h );
 	renderer.clear();
