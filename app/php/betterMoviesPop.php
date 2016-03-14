@@ -11,7 +11,7 @@ $moviesArray = [];
 
 if($result){
     while($row = mysqli_fetch_assoc($result)) {
-          $movieObject = [$row["name"],$row["year"],$row["color"],$row["rating"],$row["imdbID"],$row["themeSong"],$row["poster"],$row["genre"],$row["plot"], $row["preview"]];
+          $movieObject = [$row["name"],$row["year"],$row["color"],$row["rating"],$row["imdbID"],$row["themeSong"],$row["poster"],$row["genre"],$row["plot"], $row["preview"], $row["actors"], $row["directedBy"]];
           $moviesArray[] = $movieObject;
     }
 }

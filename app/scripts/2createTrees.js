@@ -1,4 +1,3 @@
-
 var trees = new THREE.Object3D();
 
 //var cubes = new THREE.Object3D();
@@ -98,12 +97,14 @@ function makeDaTrees(data){
         var Box_geometry = new THREE.BoxGeometry(0.1, treeStemHeight, 0.1); // generate psuedo-random geometry
 
         var polyGeo2 = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, 0.1, 1 );
-        //var BollGeo = new THREE.SphereGeometry( treeCrownSize, 5, 5 );
+
+        //var BollGeo = new THREE.SphereGeometry( treeCrownSize, 10, 10 );
 
         var grayness = Math.random() * 0.5 + 0.25,
             mat = new THREE.MeshBasicMaterial();
         var cube = new THREE.Mesh( Box_geometry, Box_material );
-        var boll = new THREE.Mesh( polyGeo, Boll_material );
+        //var boll = new THREE.Mesh( polyGeo, Boll_material );
+        var boll = new THREE.Mesh(polyGeo, Boll_material);
         var boll2 = new THREE.Mesh( polyGeo2, Boll2_material );
 
         cube.castShadow = true;
@@ -116,7 +117,7 @@ function makeDaTrees(data){
         // check if trees are nearby, inrease z until no collision detected
 
         var constCheck = true;
-        var treeRange = 5;
+        var treeRange = 4;
 
         while(constCheck) {
             var collisionNumb = 0;
@@ -173,6 +174,7 @@ function makeDaTrees(data){
         trees.add( boll );
         trees.add( cube );
 
+
         //console.log(data[i]);
 
 
@@ -192,6 +194,8 @@ function makeDaTrees(data){
 
     trees.scale.multiplyScalar(1);
     trees.castShadow = true;
+
+    console.log(trees);
 
 
     // for(var i = 0 ; i <arrayOfTreePos.length; i++) {

@@ -5,6 +5,8 @@ document.body.appendChild( renderer.domElement );
 
 var scene	= new THREE.Scene();
 
+
+
 // second scene for minimap, this scene contains everything from scene except the terrain
 var sceneMiniMap   = new THREE.Scene();
 
