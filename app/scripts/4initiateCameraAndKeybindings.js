@@ -30,11 +30,60 @@ geom.vertices.push( v3 );
 geom.faces.push( new THREE.Face3( 0, 1, 2 ) );
 geom.computeFaceNormals();
 
+//triangle marker created
 var triangle = new THREE.Mesh( geom, material );
 
+//center the rotation
 geom.center();
 
-sceneMiniMap.add( triangle ); 
+sceneMiniMap.add( triangle );
+
+// x axis (time-axis)
+
+var material = new THREE.LineBasicMaterial({
+	color: 0xffffff
+});
+
+var geometry = new THREE.Geometry();
+geometry.vertices.push(
+	new THREE.Vector3( -50, 0, 0 ),
+	new THREE.Vector3( 0, 100,  0),
+	new THREE.Vector3( 70, 0, 0 )
+);
+
+var line = new THREE.Line( geometry, material );
+line.position.z = 50;
+sceneMiniMap.add( line );
+
+// y axis (oter axis)
+
+var material = new THREE.LineBasicMaterial({
+	color: 0xffffff
+});
+
+var geometry = new THREE.Geometry();
+geometry.vertices.push(
+	new THREE.Vector3( 0, 0, -50 ),
+	new THREE.Vector3( 0, 100,  0),
+	new THREE.Vector3( 0, 0, 50 )
+);
+
+var otherLine = new THREE.Line( geometry, material );
+otherLine.position.x = -50;
+sceneMiniMap.add( otherLine );
+
+//x-axis (year)
+	var xaxis = makeTextSprite( "YEAR ", 
+		{ fontsize: 24, fontface: "Arial" } );
+	xaxis.position.set(95,105,62);
+	sceneMiniMap.add( xaxis );
+
+//y-axis (current:random)
+	var xaxis = makeTextSprite( "RANDOM ", 
+		{ fontsize: 24, fontface: "Arial" } );
+	xaxis.position.set(5,105,-25);
+	sceneMiniMap.add( xaxis );
+
 
 // orthographic cameras (minimap)
 mapCamera = new THREE.OrthographicCamera(
