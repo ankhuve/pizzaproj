@@ -176,9 +176,9 @@ function makeDaTrees(data){
 
         tree.add( singleTreeCrownMesh );
         tree.add( treeStemMesh );
+        tree.name = data[i][0];
 
         trees.add( tree );
-
 
         //console.log(data[i]);
 
