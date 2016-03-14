@@ -19,11 +19,6 @@ function searchMovies(term) {
 
 			if((thisMovieTitle.indexOf(term.toLowerCase())!=-1) || (thisMovieActors.indexOf(term.toLowerCase())!=-1) || (thisMovieGenre.indexOf(term.toLowerCase())!=-1) || (thisMovieYear.indexOf(term.toLowerCase())!=-1)) {
 				for(var k=0; k<scene.children[3].children.length;k++) {
-					// if(scene.children[3].children[k].position.x == thisMovie.x && scene.children[3].children[k].position.z == thisMovie.z){
-					// 	scene.children[3].children[k].visible = true;
-					// 	sceneMiniMap.children[3].children[k].visible = true;
-					// }
-
 					if(scene.children[3].children[k].name.toLowerCase() == thisMovieTitle) {
 						scene.children[3].children[k].visible = true;
 						sceneMiniMap.children[3].children[k].visible = true;
