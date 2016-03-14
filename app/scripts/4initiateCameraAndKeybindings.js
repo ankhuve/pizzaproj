@@ -72,17 +72,6 @@ var otherLine = new THREE.Line( geometry, material );
 otherLine.position.x = -50;
 sceneMiniMap.add( otherLine );
 
-//x-axis (year)
-	var xaxis = makeTextSprite( "YEAR ", 
-		{ fontsize: 24, fontface: "Arial" } );
-	xaxis.position.set(95,105,62);
-	sceneMiniMap.add( xaxis );
-
-//y-axis (current:random)
-	var xaxis = makeTextSprite( "RANDOM ", 
-		{ fontsize: 24, fontface: "Arial" } );
-	xaxis.position.set(5,105,-25);
-	sceneMiniMap.add( xaxis );
 
 
 // orthographic cameras (minimap)
