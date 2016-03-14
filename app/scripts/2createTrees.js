@@ -77,12 +77,13 @@ function makeDaTrees(data){
             shading: THREE.FlatShading
         });
 
-        var Boll_material = new THREE.MeshPhongMaterial( {
+        Boll_material = new THREE.MeshPhongMaterial( {
             color: new THREE.Color(treeCrownColor),
             shininess: 0,
             specular: 0x222222,
             shading: THREE.FlatShading,
-            displacementMap: ""
+            displacementMap: "",
+            transparent: true
         });
 
         var Boll2_material = new THREE.MeshPhongMaterial( {
@@ -90,7 +91,7 @@ function makeDaTrees(data){
             shininess: 0,
             specular: 0x222222,
             shading: THREE.FlatShading,
-            displacementMap: ""
+            displacementMap: "",
         });
 
         var polyGeo = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, treeCrownSize, 1 );
@@ -195,7 +196,7 @@ function makeDaTrees(data){
     trees.scale.multiplyScalar(1);
     trees.castShadow = true;
 
-    console.log(trees);
+    //console.log(trees);
 
 
     // for(var i = 0 ; i <arrayOfTreePos.length; i++) {
