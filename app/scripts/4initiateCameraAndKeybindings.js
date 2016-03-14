@@ -15,14 +15,27 @@ var instructions = document.getElementById( 'instructions' );
 var material = new THREE.MeshBasicMaterial({
 	color: 0xffffff
 });
-var radius = 2;
-var segments = 32;
-var circleGeometry = new THREE.CircleGeometry( radius, segments );
-var circle = new THREE.Mesh( circleGeometry, material );
-circle.rotation.x = -Math.PI/2;
-//scene.add( circle );
-sceneMiniMap.add( circle ); 
+
   
+var geom = new THREE.Geometry();
+var v1 = new THREE.Vector3(0,0,0);
+var v2 = new THREE.Vector3(-5,0,0);
+var v3 = new THREE.Vector3(-5,-5,0);
+
+
+geom.vertices.push( v1 );
+geom.vertices.push( v2 );
+geom.vertices.push( v3 );
+
+geom.faces.push( new THREE.Face3( 0, 1, 2 ) );
+geom.computeFaceNormals();
+
+var triangle = new THREE.Mesh( geom, material );
+
+geom.center();
+
+sceneMiniMap.add( triangle ); 
+
 // orthographic cameras (minimap)
 mapCamera = new THREE.OrthographicCamera(
  -62,		// Left  // 
