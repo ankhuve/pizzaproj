@@ -1,9 +1,11 @@
 var audio = new Audio();
 var howFarAway = 3;
 var audioPlaying = false;
+var tooltip = document.getElementById('toolTipHolder');
 
 function movementAndDetailsOnDemand(){
-    if ( controlsEnabled ) {
+    if ( controls.enabled ) {
+        tooltip.style = "display:block;";
         var time = performance.now();
         var delta = ( time - prevTime ) / 1000;
 
@@ -84,6 +86,15 @@ function movementAndDetailsOnDemand(){
 
         prevTime = time;
 
+
+    }
+
+    else {
+        audio.volume = 0;
+        audio.pause();
+        audioPlaying = false;
+
+        tooltip.style = "display:none;";
     }
 }
 
