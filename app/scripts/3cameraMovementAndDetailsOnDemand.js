@@ -1,31 +1,33 @@
 var audio = new Audio();
 var howFarAway = 3;
 var audioPlaying = false;
+
+var closeTrees;
 var tooltip = document.getElementById('toolTipHolder');
 
-function movementAndDetailsOnDemand(){
-    if ( controls.enabled ) {
+function movementAndDetailsOnDemand() {
+    if (controls.enabled) {
         tooltip.style = "display:block;";
         var time = performance.now();
-        var delta = ( time - prevTime ) / 1000;
+        var delta = (time - prevTime) / 1000;
 
         velocity.x -= velocity.x * 10.0 * delta;
         velocity.z -= velocity.z * 10.0 * delta;
 
         velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass, for jumping purposes
 
-        if ( moveForward ) velocity.z -= movementSpeed * delta;
-        if ( moveBackward ) velocity.z += movementSpeed * delta;
+        if (moveForward) velocity.z -= movementSpeed * delta;
+        if (moveBackward) velocity.z += movementSpeed * delta;
 
-        if ( moveLeft ) velocity.x -= movementSpeed * delta;
-        if ( moveRight ) velocity.x += movementSpeed * delta;
+        if (moveLeft) velocity.x -= movementSpeed * delta;
+        if (moveRight) velocity.x += movementSpeed * delta;
 
 
-        controls.getObject().translateX( velocity.x * delta );
-        controls.getObject().translateY( velocity.y * delta );
-        controls.getObject().translateZ( velocity.z * delta );
+        controls.getObject().translateX(velocity.x * delta);
+        controls.getObject().translateY(velocity.y * delta);
+        controls.getObject().translateZ(velocity.z * delta);
 
-        if ( controls.getObject().position.y < 10 ) {
+        if (controls.getObject().position.y < 10) {
 
             velocity.y = 0;
             controls.getObject().position.y = 10;
@@ -36,8 +38,8 @@ function movementAndDetailsOnDemand(){
 
         var position = controls.getObject().position;
 
-        position.y	= THREEx.Terrain.planeToHeightMapCoords(heightMap, ground, position.x, position.z) + 2;
-        if(prevPos.x==position.x && prevPos.z == position.z) {
+        position.y = THREEx.Terrain.planeToHeightMapCoords(heightMap, ground, position.x, position.z) + 2;
+        if (prevPos.x == position.x && prevPos.z == position.z) {
 
         } else {
 
@@ -45,34 +47,44 @@ function movementAndDetailsOnDemand(){
             prevPos.z = position.z;
             prevPos.y = position.y;
 
-            var closeTrees = []; // array with all the trees we are close to
+            closeTrees = []; // array with all the trees we are close to
 
-            for(var i in arrayOfTreePos) {
+            for (var i in arrayOfTreePos) {
                 var currObj = arrayOfTreePos[i];
 
-                var distanceX = Math.abs(currObj.x-position.x);
-                var distanceY = Math.abs(currObj.z-position.z);
+                var distanceX = Math.abs(currObj.x - position.x);
+                var distanceY = Math.abs(currObj.z - position.z);
                 var distanceMax = Math.max(distanceX, distanceY);
-                var distVolume = (howFarAway-distanceMax)/(howFarAway);
+                var distVolume = (howFarAway - distanceMax) / (howFarAway);
 
-                var isCurrentlyCloseToTree = currObj.x>position.x-howFarAway && currObj.x<position.x+howFarAway && currObj.z>position.z-howFarAway && currObj.z<position.z+howFarAway;
+                var isCurrentlyCloseToTree = currObj.x > position.x - howFarAway && currObj.x < position.x + howFarAway && currObj.z > position.z - howFarAway && currObj.z < position.z + howFarAway;
 
-                if(isCurrentlyCloseToTree) {
-                    var closeTree = { movie : [
-                        {name : currObj.data[0]},
-                        {data : currObj.data},
-                        {distanceFromSelf : distanceMax}
-                    ]};
+                if (isCurrentlyCloseToTree) {
+                    var closeTree = {
+                        movie: [
+                            {
+                                name: currObj.data[0]
+                            },
+                            {
+                                data: currObj.data
+                            },
+                            {
+                                distanceFromSelf: distanceMax
+                            }
+                    ]
+                    };
 
-                    closeTrees.push( closeTree ); // push all trees we are close to
+                    closeTrees.push(closeTree); // push all trees we are close to
 
                     movieMusicPlayer(currObj, distVolume);
+
+                    $("#informationHolder").html("<div id='titleText'>" + currObj.data[0] + " (" + currObj.data[1] + ")</div></br><div id='infoInfo'>Press 'i' for more information.</div><div id='smallerInformation'><img class='icons' src='images/clapboard.png'> " + currObj.data[11] + "</br><img class='icons' src='images/actor.png'> " + currObj.data[10] + "</br><img class='icons' src='images/genre.png'> " + currObj.data[7] + "</br><img class='icons' src='images/rating.png'> " + currObj.data[3] + "</div><div id='plotInfo'>" + currObj.data[8] + "</div>");
                 }
             }
 
             //console.log(closeTrees.length);
 
-            if(closeTrees.length < 1) { // if we're not close to any trees anymore
+            if (closeTrees.length < 1) { // if we're not close to any trees anymore
                 $("#informationHolder").html("");
 
                 audio.volume = 0;
@@ -87,9 +99,7 @@ function movementAndDetailsOnDemand(){
         prevTime = time;
 
 
-    }
-
-    else {
+    } else {
         audio.volume = 0;
         audio.pause();
         audioPlaying = false;
@@ -98,8 +108,8 @@ function movementAndDetailsOnDemand(){
     }
 }
 
-function movieMusicPlayer( obj, distVolume ){
-    if(moviePrev != obj.data[0]) {
+function movieMusicPlayer(obj, distVolume) {
+    if (moviePrev != obj.data[0]) {
         // if the nearby tree is a new one
 
         moviePrev = obj.data[0];
@@ -110,23 +120,27 @@ function movieMusicPlayer( obj, distVolume ){
         audio.play();
         //backAudio.volume = 0;
 
-    } else{
+    } else {
         // if it's the previous one, just continue playing it
         audio.play();
         //backAudio.volume = 0;
     }
 
-    $("#informationHolder").html(obj.data[0] + " (" + obj.data[1] + ")");
-
     audioPlaying = true;
     audio.volume = distVolume;
-    if(0.05-(distVolume/10)>0) {
+    if (0.05 - (distVolume / 10) > 0) {
         backAudio.play();
-        backAudio.volume = 0.05-distVolume/10;
+        backAudio.volume = 0.05 - distVolume / 10;
     } else {
         backAudio.volume = 0;
         backAudio.pause();
     }
 
 
+}
+
+function togglePlot() {
+    $("#plotInfo").toggle();
+    $("#infoInfo").toggle();
+    $("#smallerInformation").toggle();
 }
