@@ -93,7 +93,6 @@ function makeDaTrees(data){
             displacementMap: ""
         });
 
-        var singleTreeCrownGeometry = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, treeCrownSize, 1 );
         var stemGeometry = new THREE.BoxGeometry(0.1, treeStemHeight, 0.1); // generate psuedo-random geometry
 
         var musicIndicatorGeometry = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, 0.1, 1 );
@@ -156,13 +155,12 @@ function makeDaTrees(data){
         arrayOfTreePos.push(treePosAndData);
 
         //console.log(arrayOfTreePos[i].x, arrayOfTreePos[i].z);
-        console.log(treeCrownSize);
 
-        for (var k = 0; k < imdbRating; k++){
-
+        for (var k = 1; k <= imdbRating; k++){
+            var singleTreeCrownGeometry = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, treeCrownSize / k, 1 );
             var singleTreeCrownMesh = new THREE.Mesh( singleTreeCrownGeometry, treeCrownMaterial );
             singleTreeCrownMesh.castShadow = true;
-            singleTreeCrownMesh.position.set(x, y + (treeStemHeight / 2 + treeCrownSize - 0.1) + k * treeCrownSize, z);
+            singleTreeCrownMesh.position.set(x, y + (treeStemHeight / 2 + (treeCrownSize) - 0.1) + (k - 1) * treeCrownSize, z);
             tree.add( singleTreeCrownMesh );
         }
 
