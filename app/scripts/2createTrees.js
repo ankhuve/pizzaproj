@@ -172,6 +172,10 @@ function makeDaTrees(data){
         // set color underneath tree
         colorGround(x,z,y);
 
+        boll.name = data[i][0];
+        cube.name = data[i][0];
+        boll2.name = data[i][0];
+
         trees.add( boll );
         trees.add( cube );
 
