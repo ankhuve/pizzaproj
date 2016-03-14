@@ -205,16 +205,17 @@ function makeDaTrees(data){
 
 function colorGround(xVar, zVar, yVar, moviePosterColor) {
 
-    var vertexRange = 2;
+    var vertexRange = 3;
     // convert vertex coordinates to world coordinates
     var mapToCoord = heightMap.length/2-1;
 
-    //var vertexColorOne = new THREE.Color("rgb(151,192,86)");
+    //var groundColorDarker = new THREE.Color("rgb(151,192,86)");
+    //var groundColor = new THREE.Color("rgb(171,212,106)")
     color = moviePosterColor.slice(4).substring(0, moviePosterColor.slice(4).length - 1).split(",");
-    greenWeight = 3;
-    newRed = Math.ceil((151*greenWeight+parseInt(color[0]))/(greenWeight+1));
-    newGreen = Math.ceil((192*greenWeight+parseInt(color[1]))/(greenWeight+1));
-    newBlue = Math.ceil((86*greenWeight+parseInt(color[2]))/(greenWeight+1));
+    greenWeight = 4;
+    newRed = Math.ceil((171*greenWeight+parseInt(color[0]))/(greenWeight+1));
+    newGreen = Math.ceil((212*greenWeight+parseInt(color[1]))/(greenWeight+1));
+    newBlue = Math.ceil((106*greenWeight+parseInt(color[2]))/(greenWeight+1));
     var combinedColor = new THREE.Color("rgb("+newRed+","+newGreen+","+newBlue+")");
 
     xVar +=mapToCoord;
