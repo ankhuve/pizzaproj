@@ -285,10 +285,12 @@ function colorGround(xVar, zVar, yVar) {
 
         var heightmapWidth = heightMap.length;
         
+        // the vertix ID for the three points in the terrain triangles
         var vertexIdxA = ground.geometry.faces[i].a;
         var vertexIdxB = ground.geometry.faces[i].b;
         var vertexIdxC = ground.geometry.faces[i].c;
 
+        // converting the IDs to x, y coordinates
         var xVertexA = Math.floor(vertexIdxA % heightmapWidth);
         var zVertexA = Math.floor(vertexIdxA / heightmapWidth);
         var xVertexB = Math.floor(vertexIdxB % heightmapWidth);
@@ -296,36 +298,22 @@ function colorGround(xVar, zVar, yVar) {
         var xVertexC = Math.floor(vertexIdxC % heightmapWidth);
         var zVertexC = Math.floor(vertexIdxC / heightmapWidth);
 
+        // calculating the vectors between the points of the triangle to the center of the tree
         var hypoA = Math.hypot(Math.abs(xVertexA-xVar),Math.abs(zVertexA-zVar));
         var hypoB = Math.hypot(Math.abs(xVertexB-xVar),Math.abs(zVertexB-zVar));
         var hypoC = Math.hypot(Math.abs(xVertexC-xVar),Math.abs(zVertexC-zVar));
-        
-        var hypoArr = [hypoA, hypoB, hypoC];
-        var hypoArrLeft = [hypoA, hypoB, hypoC];
 
-        var minHypo = Math.min(hypoA,hypoB,hypoC);
-        var maxHypo = Math.max(hypoA,hypoB,hypoC);
-
-        var minHypoIndex = hypoArr.indexOf(minHypo);
-        var maxHypoIndex = hypoArr.indexOf(maxHypo);
-
-        hypoArr.splice(minHypoIndex, 1)
-        hypoArr.splice(maxHypoIndex, 1)
-
-        var leftHypo = hypoArr[0];
-
-        var leftHypoIndex = hypoArrLeft.indexOf(leftHypo);
-
-        if(minHypo<vertexRange) {
-            ground.geometry.faces[i].vertexColors.splice(minHypoIndex, 1, vertexColorOne);
+        // if the vectors are in reach of the tree, color the ground
+        if(hypoA<vertexRange) {
+            ground.geometry.faces[i].vertexColors.splice(0, 1, vertexColorOne);
         }
 
-        if(maxHypo<vertexRange) {
-            ground.geometry.faces[i].vertexColors.splice(maxHypoIndex, 1, vertexColorOne);
+        if(hypoB<vertexRange) {
+            ground.geometry.faces[i].vertexColors.splice(1, 1, vertexColorOne);
         } 
 
-        if(leftHypo<vertexRange) {
-            ground.geometry.faces[i].vertexColors.splice(leftHypoIndex, 1, vertexColorOne);
+        if(hypoC<vertexRange) {
+            ground.geometry.faces[i].vertexColors.splice(2, 1, vertexColorOne);
         } 
 
         //ground.geometry.faces[i].vertexColors.splice(2, 1, vertexColorOne);
