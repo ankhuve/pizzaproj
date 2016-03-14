@@ -1,4 +1,3 @@
-
 var trees = new THREE.Object3D();
 
 //var cubes = new THREE.Object3D();
@@ -83,7 +82,8 @@ function makeDaTrees(data){
             shininess: 0,
             specular: 0x222222,
             shading: THREE.FlatShading,
-            displacementMap: ""
+            displacementMap: "",
+            transparent: true
         });
 
         var musicIndicatorMaterial = new THREE.MeshPhongMaterial( {
@@ -106,6 +106,7 @@ function makeDaTrees(data){
         var singleTreeCrownMesh = new THREE.Mesh( singleTreeCrownGeometry, treeCrownMaterial );
         var musicIndicatorMesh = new THREE.Mesh( musicIndicatorGeometry, musicIndicatorMaterial );
 
+
         treeStemMesh.castShadow = true;
         singleTreeCrownMesh.castShadow = true;
         //treeStemMesh.receiveShadow = true;
@@ -116,7 +117,7 @@ function makeDaTrees(data){
         // check if trees are nearby, inrease z until no collision detected
 
         var constCheck = true;
-        var treeRange = 5;
+        var treeRange = 4;
 
         while(constCheck) {
             var collisionNumb = 0;
@@ -173,6 +174,7 @@ function makeDaTrees(data){
         trees.add( singleTreeCrownMesh );
         trees.add( treeStemMesh );
 
+
         //console.log(data[i]);
 
 
@@ -192,6 +194,8 @@ function makeDaTrees(data){
 
     trees.scale.multiplyScalar(1);
     trees.castShadow = true;
+
+    //console.log(trees);
 
 
     // for(var i = 0 ; i <arrayOfTreePos.length; i++) {
@@ -260,7 +264,7 @@ function colorGround(xVar, zVar, yVar) {
     var vertexColorOne = new THREE.Color("rgb(151,192,86)");
     var vertexColorTwo = new THREE.Color("rgb(0,255,0)");
     var vertexColorThree = new THREE.Color("rgb(0,0,255)");
-    var vertexColorGround = new THREE.Color("rgb(171,212,106)")
+    var vertexColorGround = new THREE.Color("rgb(171,212,106)");
     //var xVar = 0;
     //var zVar = 0;
 
@@ -303,8 +307,8 @@ function colorGround(xVar, zVar, yVar) {
         var minHypoIndex = hypoArr.indexOf(minHypo);
         var maxHypoIndex = hypoArr.indexOf(maxHypo);
 
-        hypoArr.splice(minHypoIndex, 1)
-        hypoArr.splice(maxHypoIndex, 1)
+        hypoArr.splice(minHypoIndex, 1);
+        hypoArr.splice(maxHypoIndex, 1);
 
         var leftHypo = hypoArr[0];
 

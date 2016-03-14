@@ -15,7 +15,6 @@
 
 <body>
 <div id="blocker">
-
     <div id="instructions">
         <div id="logo">moviz</div>
         <div id="controls">
@@ -23,20 +22,21 @@
             <div id="mouseIcon"></div>
         </div>
     </div>
-
 </div>
-<div id="holder"></div>
+
+<div id="searchBar">
+    <input type="text" id="search" onkeyup="searchMovies(this.value);"/>
+</div>
+
 <div id="centerSign">
     <div id="centerPlusVertical"></div>
     <div id="centerPlusHorizontal"></div>
-
 </div>
 
 <div id="toolTipHolder">
 	<div id="overviewTemp"></div>
 	<div id="informationHolder"></div>
 </div>
-
 
 </body>
 

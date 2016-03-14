@@ -5,6 +5,8 @@ document.body.appendChild( renderer.domElement );
 
 var scene	= new THREE.Scene();
 
+
+
 // second scene for minimap, this scene contains everything from scene except the terrain
 var sceneMiniMap   = new THREE.Scene();
 
@@ -47,16 +49,17 @@ backAudio.volume = 0.05;
 // skybox
 var geometry = new THREE.SphereGeometry(9500, 60, 40);  
 
-var material = new THREE.MeshBasicMaterial({
+var material = new THREE.MeshPhongMaterial({
     color: 0x69d0f9
 });
 
 skyBox = new THREE.Mesh(geometry, material);  
 skyBox.scale.set(-1, 1, 1);  
 skyBox.eulerOrder = 'XZY';  
-skyBox.renderDepth = 1000.0;  
+skyBox.renderDepth = 1000.0;
+
 scene.add(skyBox);
-sceneMiniMap.add( skyBox.clone() );  
+sceneMiniMap.add( skyBox );  
 
 //////////////////////////////////////////////////////////////////////////////////
 //		add an object and make it move					//
