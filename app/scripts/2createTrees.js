@@ -52,6 +52,7 @@ function createYearScale( data ) {
 
 function makeDaTrees(data){
 
+    var tree = new THREE.Object3D();
     var releaseYearScale = createYearScale(data);
 
     //console.log(data);
@@ -103,12 +104,10 @@ function makeDaTrees(data){
         var grayness = Math.random() * 0.5 + 0.25,
             mat = new THREE.MeshBasicMaterial();
         var treeStemMesh = new THREE.Mesh( stemGeometry, stemMaterial );
-        var singleTreeCrownMesh = new THREE.Mesh( singleTreeCrownGeometry, treeCrownMaterial );
         var musicIndicatorMesh = new THREE.Mesh( musicIndicatorGeometry, musicIndicatorMaterial );
 
 
         treeStemMesh.castShadow = true;
-        singleTreeCrownMesh.castShadow = true;
         //treeStemMesh.receiveShadow = true;
         mat.color.setRGB( grayness, grayness, grayness );
         var x =  releaseYearScale(yearOfRelease);
@@ -161,6 +160,10 @@ function makeDaTrees(data){
 
         //console.log(arrayOfTreePos[i].x, arrayOfTreePos[i].z);
 
+        //for (var k; k < imdbRating; k++){
+            var singleTreeCrownMesh = new THREE.Mesh( singleTreeCrownGeometry, treeCrownMaterial );
+            singleTreeCrownMesh.castShadow = true;
+        //}
         treeStemMesh.position.set(x, y, z);
         singleTreeCrownMesh.position.set(x, y + treeStemHeight / 2 + treeCrownSize - 0.1, z);
 
@@ -171,8 +174,10 @@ function makeDaTrees(data){
         // set color underneath tree
         colorGround(x,z,y);
 
-        trees.add( singleTreeCrownMesh );
-        trees.add( treeStemMesh );
+        tree.add( singleTreeCrownMesh );
+        tree.add( treeStemMesh );
+
+        trees.add( tree );
 
 
         //console.log(data[i]);
