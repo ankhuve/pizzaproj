@@ -205,7 +205,7 @@ function makeDaTrees(data){
 
 function colorGround(xVar, zVar, yVar, moviePosterColor) {
 
-    var vertexRange = 3;
+    var vertexRange = 2;
     // convert vertex coordinates to world coordinates
     var mapToCoord = heightMap.length/2-1;
 
