@@ -60,7 +60,10 @@ foreach ($popMovies as $item) {
     $actors = str_replace("'", "", $actorz);
     
     $directedByz = $allMovies->Director;
-    $directedBy = str_replace("'", "", $directedByz);
+    $directedBy = str_replace("'", "", $directedByz); 
+    
+    $votez = str_replace(",", "", $allMovies->imdbVotes);
+    $votes = (int) $votez;
     
         //checks if there is a poster, if there is it returns a rgb mean
         if(strpos($poster, 'http') !== false) {
@@ -131,7 +134,7 @@ foreach ($popMovies as $item) {
 
     } 
     
-     $parts[] = "('" . $movies . "','" . $imdbID . "'," . $year . ",'" . $rgb . "'," . $rating . ",'" . $themeSong .  "','" . $poster .  "','" . $genre .  "','" . $plot .  "','" . $previewURL .  "','" . $actors .  "','" . $directedBy . "')";
+     $parts[] = "('" . $movies . "','" . $imdbID . "'," . $year . ",'" . $rgb . "'," . $rating . ",'" . $themeSong .  "','" . $poster .  "','" . $genre .  "','" . $plot .  "','" . $previewURL .  "','" . $actors .  "','" . $directedBy ."','".$votes. "')";
     
     
 }
@@ -141,7 +144,7 @@ foreach ($popMovies as $item) {
 
 
 // create the sql query
-$sql = "INSERT IGNORE INTO moviesFinal (name, imdbID, year, color, rating, themeSong, poster, genre, plot, preview, actors, directedBy) ";
+$sql = "INSERT IGNORE INTO moviesFinal (name, imdbID, year, color, rating, themeSong, poster, genre, plot, preview, actors, directedBy, votes) ";
 $sql .= "VALUES " . implode(", ", $parts);
 
 //var_dump($sql);

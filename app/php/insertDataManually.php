@@ -63,7 +63,7 @@ foreach ($popMovies->Search as $item) {
     
     //Creates variables from the attributes and stip them from ' and "
     $rating = ( float ) $allMovies->imdbRating;
-        $votez = str_replace(",", "", $allMovies->imdbVotes);
+    $votez = str_replace(",", "", $allMovies->imdbVotes);
     $votes = (int) $votez;
         
     //Make sure we don not get any unwanted movies
@@ -168,7 +168,7 @@ foreach ($popMovies->Search as $item) {
     
     //adds all attribute variables to an array for future use in SQL query
     
-     $parts[] = "('" . $movies . "','" . $imdbID . "'," . $year . ",'" . $rgb . "'," . $rating . ",'" . $themeSong .  "','" . $poster .  "','" . $genre .  "','" . $plot .  "','" . $previewURL .  "','" . $actors .  "','" . $directedBy . "')";
+     $parts[] = "('" . $movies . "','" . $imdbID . "'," . $year . ",'" . $rgb . "'," . $rating . ",'" . $themeSong .  "','" . $poster .  "','" . $genre .  "','" . $plot .  "','" . $previewURL .  "','" . $actors .  "','" . $directedBy ."','". $votes . "')";
     
     
           
@@ -180,7 +180,7 @@ foreach ($popMovies->Search as $item) {
 
 
 // create the sql query
-$sql = "INSERT IGNORE INTO moviesFinal (name, imdbID, year, color, rating, themeSong, poster, genre, plot, preview, actors, directedBy) ";
+$sql = "INSERT IGNORE INTO moviesFinal (name, imdbID, year, color, rating, themeSong, poster, genre, plot, preview, actors, directedBy, votes) ";
 $sql .= "VALUES " . implode(", ", $parts);
 
 
