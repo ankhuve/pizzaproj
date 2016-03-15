@@ -4,13 +4,32 @@ var minRatingVal = 0;
 var maxRatingVal = 0;
 var minYearVal = 0;
 var maxYearVal = 0;
-var scenePlace = 3;
-var sceneMiniMapPlace = 5;
+
+// without hemilight
+var scenePlace = 3; // gets updated in searchMovies
+
+// with hemilight
+//var scenePlace = 4;
+var sceneMiniMapPlace = 5; // gets updated in searchMovies
 
 function searchMovies(updateSearchTerm, searchTerm) {
 
+	for(var k=0; k<scene.children.length;k++) {
+		if(scene.children[k].name == "allTrees") {
+			scenePlace = k;
+		}
+	}
+
+	for(var k=0; k<sceneMiniMap.children.length;k++) {
+		if(sceneMiniMap.children[k].name == "allTrees") {
+			sceneMiniMapPlace = k;
+		}
+	}
+
 	treeArray = scene.children[scenePlace].children[0].children;
 	treeArrayMini = sceneMiniMap.children[sceneMiniMapPlace].children[0].children;
+
+	console.log(scene);
 	
 	if(updateSearchTerm) {
 		term = searchTerm
