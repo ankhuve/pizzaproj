@@ -93,7 +93,7 @@ function makeDaTrees(data){
             displacementMap: ""
         });
 
-        var stemGeometry = new THREE.BoxGeometry(0.1, treeStemHeight, 0.1); // generate psuedo-random geometry
+        var stemGeometry = new THREE.BoxGeometry(0.3, treeStemHeight, 0.3); // generate psuedo-random geometry
 
         var musicIndicatorGeometry = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, 0.1, 1 );
         //var BollGeo = new THREE.SphereGeometry( treeCrownSize, 5, 5 );
@@ -104,7 +104,7 @@ function makeDaTrees(data){
         var musicIndicatorMesh = new THREE.Mesh( musicIndicatorGeometry, musicIndicatorMaterial );
 
 
-        treeStemMesh.castShadow = true;
+        //treeStemMesh.castShadow = true;
         //treeStemMesh.receiveShadow = true;
         mat.color.setRGB( grayness, grayness, grayness );
         var x =  releaseYearScale(yearOfRelease);
@@ -126,9 +126,9 @@ function makeDaTrees(data){
                         if(z<0) {
                             z-=1;
                         } else {
-                           z += 1; 
+                           z += 1;
                         }
-                        
+
                         collisionNumb++;
                     }
                 }
@@ -137,13 +137,13 @@ function makeDaTrees(data){
             if(collisionNumb==0) {
                 constCheck = false;
             }
-            
+
         }
 
         //z = 0;
 
         var y = THREEx.Terrain.planeToHeightMapCoords(heightMap, ground, x, z);
-       
+
 
         treeStemMesh.rotateY(-Math.PI/1.5);
         var treePosAndData = {};
@@ -157,32 +157,81 @@ function makeDaTrees(data){
         //console.log(arrayOfTreePos[i].x, arrayOfTreePos[i].z);
 
         var singleTreeCrownGeometry = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, treeCrownSize, 1 );
+        var bigTreeCrown = new THREE.Geometry();
+        var bigTreeCrownMesh;
 
         for (var k = 1; k <= imdbRating; k++){
-            var singleTreeCrownMesh = new THREE.Mesh( singleTreeCrownGeometry, treeCrownMaterial );
-            var x = x + ( k % 2 == 1 ? + treeCrownSize : -treeCrownSize );
-            var y = y + (treeStemHeight / 2) + treeCrownSize - 0.1 + ( k % 2 == 1 ? + treeCrownSize : -treeCrownSize );
-            var z = y + ( k % 2 == 1 ? + treeCrownSize : -treeCrownSize );
-            singleTreeCrownMesh.castShadow = true;
-            //console.log(y + (treeStemHeight / 2) + treeCrownSize - 0.1);
-            singleTreeCrownMesh.position.set(x, y, z);
-            tree.add( singleTreeCrownMesh );
+            var quarterCrownRandom = Math.random() * treeCrownSize * 0.25;
+
+            var singleTreeCrownMesh = new THREE.Mesh( singleTreeCrownGeometry );
+            var offsetX = 0;
+            var offsetY = 0;
+            var offsetZ = 0;
+
+
+            if(k > 1 && k < 6){
+                offsetY = (treeCrownSize) + quarterCrownRandom;
+            } else if(k >= 6){
+                offsetY = (treeCrownSize * 2) + quarterCrownRandom;
+            }
+
+            if (imdbRating < 7){
+                if(k == 2){
+                    offsetX = treeCrownSize + quarterCrownRandom;
+                } else if(k == 3 || k == 7){
+                    offsetX = -(treeCrownSize + quarterCrownRandom);
+                } else if(k == 4 || k == 9){
+                    offsetZ = treeCrownSize + quarterCrownRandom;
+                } else if(k == 5 || k == 8){
+                    offsetZ = -(treeCrownSize + quarterCrownRandom);
+                }
+            } else{
+                if(k == 2){
+                    offsetX = treeCrownSize + quarterCrownRandom;
+                } else if(k == 3){
+                    offsetX = -(treeCrownSize + quarterCrownRandom);
+                } else if(k == 4){
+                    offsetZ = treeCrownSize + quarterCrownRandom;
+                } else if(k == 5){
+                    offsetZ = -(treeCrownSize + quarterCrownRandom);
+                } else if(k == 6){
+                    offsetX = (treeCrownSize / 3) + quarterCrownRandom;
+                    offsetZ = (treeCrownSize / 3) + quarterCrownRandom;
+                } else if(k == 7){
+                    offsetX = -((treeCrownSize / 3) + quarterCrownRandom);
+                    offsetZ = -((treeCrownSize / 3) + quarterCrownRandom);
+                } else if(k == 8){
+                    offsetY = 3 * treeCrownSize + quarterCrownRandom;
+                } else if(k == 9){
+                    offsetY = 4 * treeCrownSize + quarterCrownRandom;
+                }
+
+
+            }
+
+
+            var crownX = x;
+            var crownY = y + (treeStemHeight / 2) + treeCrownSize - 0.3; // height
+            var crownZ = z;
+            singleTreeCrownMesh.position.set(crownX + offsetX, crownY + offsetY, crownZ + offsetZ);
+            singleTreeCrownMesh.updateMatrix();
+            bigTreeCrown.merge(singleTreeCrownMesh.geometry, singleTreeCrownMesh.matrix);
+
         }
 
+        bigTreeCrownMesh = new THREE.Mesh( bigTreeCrown, treeCrownMaterial );
         treeStemMesh.position.set(x, y, z);
-        //singleTreeCrownMesh.position.set(x, y + treeStemHeight / 2 + treeCrownSize - 0.1, z);
 
-
-        
         //treeStemMesh.grayness = grayness; // *** NOTE THIS
 
         // set color underneath tree
         colorGround(x,z,y,moviePosterColor);
 
-
+        tree.add( bigTreeCrownMesh );
         tree.add( treeStemMesh );
+        tree.castShadow = true;
+        tree.receiveShadow = true;
         tree.name = data[i][0];
-
         trees.add( tree );
 
         //console.log(data[i]);
@@ -191,7 +240,7 @@ function makeDaTrees(data){
         if(data[i][9]!="") {
             musicIndicatorMesh.position.set(x, (y + treeStemHeight / 2 + treeCrownSize - 0.1)+2, z);
             trees.add( musicIndicatorMesh );
-            
+
         }
 
         // if(i%50==0) {
@@ -205,7 +254,7 @@ function makeDaTrees(data){
     trees.scale.multiplyScalar(1);
     trees.castShadow = true;
     scene.add( trees );
-    sceneMiniMap.add( trees.clone() ); 
+    sceneMiniMap.add( trees.clone() );
 
     // now that we changed the color of vertices, add ground
     scene.add( ground );
@@ -232,7 +281,7 @@ function colorGround(xVar, zVar, yVar, moviePosterColor) {
     for(var i = 0; i < ground.geometry.faces.length; i++){
 
         var heightmapWidth = heightMap.length;
-        
+
         // the vertix ID for the three points in the terrain triangles
         var vertexIdxA = ground.geometry.faces[i].a;
         var vertexIdxB = ground.geometry.faces[i].b;
@@ -259,11 +308,11 @@ function colorGround(xVar, zVar, yVar, moviePosterColor) {
 
         if(hypoB<vertexRange) {
             ground.geometry.faces[i].vertexColors.splice(1, 1, combinedColor);
-        } 
+        }
 
         if(hypoC<vertexRange) {
             ground.geometry.faces[i].vertexColors.splice(2, 1, combinedColor);
-        } 
+        }
     }
 }
 
