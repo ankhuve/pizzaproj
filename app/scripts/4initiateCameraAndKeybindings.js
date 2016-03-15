@@ -75,10 +75,10 @@ otherLine.position.x = -50;
 
 
 // orthographic cameras (minimap)
-mapCamera = new THREE.OrthographicCamera(-62, // Left  // 
-    window.innerWidth / 2, // Right 
-    window.innerHeight / 2, // Top 
-    -200, // Bottom 
+mapCamera = new THREE.OrthographicCamera(-window.innerWidth / 2, // Left  // 
+    80, // Right 
+    80, // Top 
+    -window.innerHeight / 2, // Bottom 
     -5000, // Near 
     10000); // Far 
 mapCamera.up = new THREE.Vector3(0, 0, -1); //rotation i x,y,z på mappen
