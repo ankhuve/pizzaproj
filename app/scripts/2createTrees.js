@@ -156,11 +156,12 @@ function makeDaTrees(data){
 
         //console.log(arrayOfTreePos[i].x, arrayOfTreePos[i].z);
 
+        var singleTreeCrownGeometry = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, treeCrownSize, 1 );
+
         for (var k = 1; k <= imdbRating; k++){
-            var singleTreeCrownGeometry = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, treeCrownSize / k, 1 );
             var singleTreeCrownMesh = new THREE.Mesh( singleTreeCrownGeometry, treeCrownMaterial );
             singleTreeCrownMesh.castShadow = true;
-            singleTreeCrownMesh.position.set(x, y + (treeStemHeight / 2 + (treeCrownSize) - 0.1) + (k - 1) * treeCrownSize, z);
+            singleTreeCrownMesh.position.set(x, y + treeStemHeight / 2 + treeCrownSize - 0.1, z);
             tree.add( singleTreeCrownMesh );
         }
 
