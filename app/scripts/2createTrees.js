@@ -160,8 +160,12 @@ function makeDaTrees(data){
 
         for (var k = 1; k <= imdbRating; k++){
             var singleTreeCrownMesh = new THREE.Mesh( singleTreeCrownGeometry, treeCrownMaterial );
+            var x = x + ( k % 2 == 1 ? + treeCrownSize : -treeCrownSize );
+            var y = y + (treeStemHeight / 2) + treeCrownSize - 0.1 + ( k % 2 == 1 ? + treeCrownSize : -treeCrownSize );
+            var z = y + ( k % 2 == 1 ? + treeCrownSize : -treeCrownSize );
             singleTreeCrownMesh.castShadow = true;
-            singleTreeCrownMesh.position.set(x, y + treeStemHeight / 2 + treeCrownSize - 0.1, z);
+            //console.log(y + (treeStemHeight / 2) + treeCrownSize - 0.1);
+            singleTreeCrownMesh.position.set(x, y, z);
             tree.add( singleTreeCrownMesh );
         }
 
