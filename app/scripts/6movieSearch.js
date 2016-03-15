@@ -5,7 +5,7 @@ function searchMovies(term) {
 
 	for(var k=0; k<scene.children[3].children.length;k++) {		
 		scene.children[3].children[k].visible = false;
-		sceneMiniMap.children[5].children[k].visible = false;
+		sceneMiniMap.children[4].children[k].visible = false;
 	}
 
 	if(term!="") {
@@ -21,7 +21,7 @@ function searchMovies(term) {
 				for(var k=0; k<scene.children[3].children.length;k++) {
 					if(scene.children[3].children[k].name.toLowerCase() == thisMovieTitle) {
 						scene.children[3].children[k].visible = true;
-						sceneMiniMap.children[5].children[k].visible = true;
+						sceneMiniMap.children[4].children[k].visible = true;
 					}
 				}
 			}
@@ -29,7 +29,7 @@ function searchMovies(term) {
 	} else {
 		for(var k=0; k<scene.children[3].children.length;k++) {
 			scene.children[3].children[k].visible = true;
-			sceneMiniMap.children[5].children[k].visible = true;
+			sceneMiniMap.children[4].children[k].visible = true;
 		}
 	}
 }

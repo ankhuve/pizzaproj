@@ -70,7 +70,7 @@ geometry.vertices.push(
 
 var otherLine = new THREE.Line(geometry, material);
 otherLine.position.x = -50;
-sceneMiniMap.add(otherLine);
+//sceneMiniMap.add(otherLine);
 
 
 
@@ -256,12 +256,6 @@ function init() {
             if (controls.enabled) {
                 moveRight = true;
                 footsteps.play();
-            }
-            break;
-
-        case 73:
-            if (controls.enabled && closeTrees.length > 0) {
-                togglePlot();
             }
             break;
 

@@ -173,7 +173,7 @@ function makeDaTrees(data){
         //treeStemMesh.grayness = grayness; // *** NOTE THIS
 
         // set color underneath tree
-        colorGround(x,z,y);
+        colorGround(x,z,y,moviePosterColor);
 
 
         tree.add( treeStemMesh );
@@ -207,12 +207,20 @@ function makeDaTrees(data){
     scene.add( ground );
 }
 
-function colorGround(xVar, zVar, yVar) {
+function colorGround(xVar, zVar, yVar, moviePosterColor) {
 
     var vertexRange = 2;
     // convert vertex coordinates to world coordinates
     var mapToCoord = heightMap.length/2-1;
-    var vertexColorOne = new THREE.Color("rgb(151,192,86)");
+
+    //var groundColorDarker = new THREE.Color("rgb(151,192,86)");
+    //var groundColor = new THREE.Color("rgb(171,212,106)")
+    color = moviePosterColor.slice(4).substring(0, moviePosterColor.slice(4).length - 1).split(",");
+    greenWeight = 4;
+    newRed = Math.ceil((171*greenWeight+parseInt(color[0]))/(greenWeight+1));
+    newGreen = Math.ceil((212*greenWeight+parseInt(color[1]))/(greenWeight+1));
+    newBlue = Math.ceil((106*greenWeight+parseInt(color[2]))/(greenWeight+1));
+    var combinedColor = new THREE.Color("rgb("+newRed+","+newGreen+","+newBlue+")");
 
     xVar +=mapToCoord;
     zVar +=mapToCoord;
@@ -242,15 +250,15 @@ function colorGround(xVar, zVar, yVar) {
 
         // if the vectors are in reach of the tree, color the ground
         if(hypoA<vertexRange) {
-            ground.geometry.faces[i].vertexColors.splice(0, 1, vertexColorOne);
+            ground.geometry.faces[i].vertexColors.splice(0, 1, combinedColor);
         }
 
         if(hypoB<vertexRange) {
-            ground.geometry.faces[i].vertexColors.splice(1, 1, vertexColorOne);
+            ground.geometry.faces[i].vertexColors.splice(1, 1, combinedColor);
         } 
 
         if(hypoC<vertexRange) {
-            ground.geometry.faces[i].vertexColors.splice(2, 1, vertexColorOne);
+            ground.geometry.faces[i].vertexColors.splice(2, 1, combinedColor);
         } 
     }
 }

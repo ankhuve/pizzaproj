@@ -78,14 +78,23 @@ function movementAndDetailsOnDemand() {
 
                     movieMusicPlayer(currObj, distVolume);
 
-                    $("#informationHolder").html("<div id='titleText'>" + currObj.data[0] + " (" + currObj.data[1] + ")</div></br><div id='infoInfo'>Press 'i' for more information.</div><div id='smallerInformation'><img class='icons' src='images/clapboard.png'> " + currObj.data[11] + "</br><img class='icons' src='images/actor.png'> " + currObj.data[10] + "</br><img class='icons' src='images/genre.png'> " + currObj.data[7] + "</br><img class='icons' src='images/rating.png'> " + currObj.data[3] + "</div><div id='plotInfo'>" + currObj.data[8] + "</div>");
+                    tooltip.style = "display:block;";
+                    $("#plotInfo").css("border-top", "1px solid #fff");
+
+                    //$("#informationHolder").html("<div id='titleText'>" + currObj.data[0] + " (" + currObj.data[1] + ")</div></br><div id='infoInfo'>Press 'i' for more information.</div><div id='smallerInformation'><img class='icons' src='images/clapboard.png'> " + currObj.data[11] + "</br><img class='icons' src='images/actor.png'> " + currObj.data[10] + "</br><img class='icons' src='images/genre.png'> " + currObj.data[7] + "</br><img class='icons' src='images/rating.png'> " + currObj.data[3] + "</div><div id='plotInfo'>" + currObj.data[8] + "</div>");
+                    $("#titleText").html(currObj.data[0]);
+                    $("#titleYear").html(currObj.data[1]);
+                    $("#plotInfo").html(currObj.data[8]);
+                    $("#restInfo").html(currObj.data[7] + " | " + currObj.data[11] + " | " + currObj.data[10]);
                 }
             }
 
             //console.log(closeTrees.length);
 
             if (closeTrees.length < 1) { // if we're not close to any trees anymore
-                $("#informationHolder").html("");
+                //$("#informationHolder").html("");
+
+                tooltip.style = "display:none;";
 
                 audio.volume = 0;
                 audio.pause();
@@ -137,10 +146,4 @@ function movieMusicPlayer(obj, distVolume) {
     }
 
 
-}
-
-function togglePlot() {
-    $("#plotInfo").toggle();
-    $("#infoInfo").toggle();
-    $("#smallerInformation").toggle();
 }
