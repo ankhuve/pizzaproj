@@ -42,7 +42,7 @@ backAudio.volume = 0.05;
     //hemiLight.color.setHSL( 0.6, 1, 0.6 );
     //hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
     hemiLight.position.set( 500, -500, 0 );
-    scene.add( hemiLight );
+    //scene.add( hemiLight );
     //scene.add( light )
 })();
 

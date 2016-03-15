@@ -4,19 +4,21 @@ var minRatingVal = 0;
 var maxRatingVal = 0;
 var minYearVal = 0;
 var maxYearVal = 0;
+var scenePlace = 3;
+var sceneMiniMapPlace = 5;
 
 function searchMovies(updateSearchTerm, searchTerm) {
 
+	treeArray = scene.children[scenePlace].children[0].children;
+	treeArrayMini = sceneMiniMap.children[sceneMiniMapPlace].children[0].children;
+	
 	if(updateSearchTerm) {
 		term = searchTerm
 	}
 
-	var scenePlace = 3;
-	var sceneMiniMapPlace = 5;
-
-	for(var k=0; k<scene.children[scenePlace].children.length;k++) {		
-		scene.children[scenePlace].children[k].visible = false;
-		sceneMiniMap.children[sceneMiniMapPlace].children[k].visible = false;
+	for(var k=0; k<treeArray.length;k++) {		
+		treeArray[k].visible = false;
+		treeArrayMini[k].visible = false;
 	}
 
 	if(term!="") {
@@ -33,16 +35,15 @@ function searchMovies(updateSearchTerm, searchTerm) {
 				
 				if(parseInt(thisMovieYear)>=minYearVal && parseInt(thisMovieYear)<=maxYearVal && thisMovieRating>=minRatingVal && thisMovieRating<=maxRatingVal )
 
-					for(var k=0; k<scene.children[scenePlace].children.length;k++) {
-						if(scene.children[scenePlace].children[k].name.toLowerCase() == thisMovieTitle) {
-							scene.children[scenePlace].children[k].visible = true;
-							sceneMiniMap.children[sceneMiniMapPlace].children[k].visible = true;
+					for(var k=0; k<treeArray.length;k++) {
+						if(treeArray[k].name.toLowerCase() == thisMovieTitle) {
+							treeArray[k].visible = true;
+							treeArrayMini[k].visible = true;
 						}
 					}
 				}
 			}
 	} else {
-		console.log("penis");
 
 		for(var i=0; i<arrayOfTreePos.length;i++) {
 			thisMovie = arrayOfTreePos[i];
@@ -51,10 +52,10 @@ function searchMovies(updateSearchTerm, searchTerm) {
 			thisMovieRating = parseFloat(thisMovie.data[3].toLowerCase());
 				
 			if(parseInt(thisMovieYear)>=minYearVal && parseInt(thisMovieYear)<=maxYearVal && thisMovieRating>=minRatingVal && thisMovieRating<=maxRatingVal ) {
-				for(var k=0; k<scene.children[scenePlace].children.length;k++) {
-					if(scene.children[scenePlace].children[k].name.toLowerCase() == thisMovieTitle) {
-						scene.children[scenePlace].children[k].visible = true;
-						sceneMiniMap.children[sceneMiniMapPlace].children[k].visible = true;
+				for(var k=0; k<treeArray.length;k++) {
+					if(treeArray[k].name.toLowerCase() == thisMovieTitle) {
+						treeArray[k].visible = true;
+						treeArrayMini[k].visible = true;
 					}
 				}
 			}

@@ -227,6 +227,16 @@ function makeDaTrees(data){
         // set color underneath tree
         colorGround(x,z,y,moviePosterColor);
 
+        bigTreeCrownMesh.name = data[i][0];
+        treeStemMesh.name = data[i][0];
+
+        if(data[i][9]!="") {
+            musicIndicatorMesh.position.set(x, (y + treeStemHeight / 2 + treeCrownSize - 0.1)+2, z);
+            tree.add( musicIndicatorMesh );
+
+        }
+
+
         tree.add( bigTreeCrownMesh );
         tree.add( treeStemMesh );
         tree.castShadow = true;
@@ -237,11 +247,7 @@ function makeDaTrees(data){
         //console.log(data[i]);
 
 
-        if(data[i][9]!="") {
-            musicIndicatorMesh.position.set(x, (y + treeStemHeight / 2 + treeCrownSize - 0.1)+2, z);
-            trees.add( musicIndicatorMesh );
-
-        }
+        
 
         // if(i%50==0) {
 
