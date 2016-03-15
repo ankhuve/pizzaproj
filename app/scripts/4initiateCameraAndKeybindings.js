@@ -46,13 +46,13 @@ var material = new THREE.LineBasicMaterial({
 
 var geometry = new THREE.Geometry();
 geometry.vertices.push(
-    new THREE.Vector3(-50, 0, 0),
+    new THREE.Vector3(-60, 0, 0),
     new THREE.Vector3(0, 100, 0),
     new THREE.Vector3(70, 0, 0)
 );
 
 var line = new THREE.Line(geometry, material);
-line.position.z = 50;
+line.position.z = -70;
 sceneMiniMap.add(line);
 
 // y axis (oter axis)
@@ -69,7 +69,10 @@ geometry.vertices.push(
 );
 
 var otherLine = new THREE.Line(geometry, material);
-otherLine.position.x = -50;
+otherLine.position.x = -60;
+otherLine.position.y = -50;
+otherLine.position.z = -20;
+
 //sceneMiniMap.add(otherLine);
 
 
