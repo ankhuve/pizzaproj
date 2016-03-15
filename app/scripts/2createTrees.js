@@ -260,6 +260,7 @@ function makeDaTrees(data){
 
     trees.scale.multiplyScalar(1);
     trees.castShadow = true;
+    trees.name="allTrees";
     scene.add( trees );
     sceneMiniMap.add( trees.clone() );
 
