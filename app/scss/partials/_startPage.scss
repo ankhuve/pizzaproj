@@ -1,3 +1,8 @@
+@font-face {
+    font-family: missionScript;
+    src: url(../../Mission-Script.otf);
+}
+
 body{
 	width: 100%;
 	height: 100%;
@@ -63,9 +68,9 @@ body{
 		text-align: center;
 		height:50px;
 		background-color:transparent;
-		font-family:Lato;
-		font-weight:700;
-		font-size:48px;
+		font-family:missionScript;
+		//font-weight:700;
+		font-size:56px;
 		position:absolute;
 		top:50%;
 		margin-top:-25px;
@@ -84,7 +89,7 @@ body{
 	}
 
 	#controls {
-		width:100px;
+		width:150px;
 		height:auto;
 		background-color:transparent;
 		font-family:Lato;
@@ -93,7 +98,7 @@ body{
 		position:absolute;
 		top:50%;
 		left:50%;
-		margin:65px 0 0 -50px;
+		margin:80px 0 0 -75px;
 		display:flex;
 	}
 
@@ -105,6 +110,7 @@ body{
 		background-size:contain;
 		flex:1;
 		background-position: center; 
+		background-color:transparent;
 	}
 
 	#mouseIcon {
@@ -115,6 +121,18 @@ body{
 		background-size:contain;
 		flex:1;
 		background-position: center; 
+		background-color:transparent;
+	}
+
+	#settingsIcon {
+		width:20px;
+		height:20px;
+		background-image:url('../../images/settings.png');
+		background-repeat: no-repeat;
+		background-size:contain;
+		flex:1;
+		background-position: center; 
+		background-color:transparent;
 	}
 
 	#searchBar {
