@@ -13,30 +13,46 @@ var instructions = document.getElementById('instructions');
 
 //  marker that follows player
 var material = new THREE.MeshBasicMaterial({
+    color: 0xc43039
+});
+
+var material2 = new THREE.MeshBasicMaterial({
     color: 0xffffff
 });
 
 var geom = new THREE.Geometry();
-var v1 = new THREE.Vector3(-1, -1, 0);
-var v2 = new THREE.Vector3(-5, 0, 0);
-var v3 = new THREE.Vector3(-4, -4, 0);
+var v1 = new THREE.Vector3(0, 0, 0);
+var v2 = new THREE.Vector3(-3, 0, 0);
+var v3 = new THREE.Vector3(-3, -3, 0);
 
+var geom2 = new THREE.Geometry();
+var v4 = new THREE.Vector3(0, 0, 0);
+var v5 = new THREE.Vector3(3, 0, 0);
+var v6 = new THREE.Vector3(3, 3, 0);
 
 geom.vertices.push(v1);
 geom.vertices.push(v2);
 geom.vertices.push(v3);
 
+geom2.vertices.push(v4);
+geom2.vertices.push(v5);
+geom2.vertices.push(v6);
+
 geom.faces.push(new THREE.Face3(0, 1, 2));
 geom.computeFaceNormals();
 
+geom2.faces.push(new THREE.Face3(0, 1, 2));
+geom2.computeFaceNormals();
 
 //triangle marker created
 var triangle = new THREE.Mesh(geom, material);
-
+var triangle2 = new THREE.Mesh(geom2, material2);
 //center the rotation
 geom.center();
+geom2.center();
 
 sceneMiniMap.add(triangle);
+sceneMiniMap.add(triangle2);
 
 // x axis (time-axis)
 

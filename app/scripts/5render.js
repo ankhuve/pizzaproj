@@ -19,10 +19,12 @@ function animate() {
     //cloudObj.position.x +=Math.PI/50;
     //circle.position.x = controls.getObject().position.x;
     triangle.position.set(controls.getObject().position.x, controls.getObject().position.y + 10, controls.getObject().position.z)
-        //triangle.rotation.x = -Math.PI/2;
     triangle.rotation.x = -Math.PI / 2;
     triangle.rotation.z = (controls.getObject().rotation.y) - 44.91;
 
+    triangle2.position.set(controls.getObject().position.x, controls.getObject().position.y + 10, controls.getObject().position.z)
+    triangle2.rotation.x = -Math.PI / 2;
+    triangle2.rotation.z = (controls.getObject().rotation.y) - 44.91;
 
     //console.log(circle.position.x);
 
