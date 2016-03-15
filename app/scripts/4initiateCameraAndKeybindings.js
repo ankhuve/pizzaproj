@@ -77,7 +77,7 @@ otherLine.position.x = -50;
 // orthographic cameras (minimap)
 mapCamera = new THREE.OrthographicCamera(-window.innerWidth / 2, // Left  // 
     80, // Right 
-    65, // Top 
+    80, // Top 
     -window.innerHeight / 2, // Bottom 
     -5000, // Near 
     10000); // Far 
