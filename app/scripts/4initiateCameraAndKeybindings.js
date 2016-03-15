@@ -46,13 +46,14 @@ var material = new THREE.LineBasicMaterial({
 
 var geometry = new THREE.Geometry();
 geometry.vertices.push(
-    new THREE.Vector3(-50, 0, 0),
+    new THREE.Vector3(-60, 0, 0),
     new THREE.Vector3(0, 100, 0),
     new THREE.Vector3(70, 0, 0)
 );
 
 var line = new THREE.Line(geometry, material);
-line.position.z = 50;
+line.position.z = 72;
+line.position.x = -10;
 sceneMiniMap.add(line);
 
 // y axis (oter axis)
@@ -69,7 +70,10 @@ geometry.vertices.push(
 );
 
 var otherLine = new THREE.Line(geometry, material);
-otherLine.position.x = -50;
+otherLine.position.x = -60;
+otherLine.position.y = -50;
+otherLine.position.z = -20;
+
 //sceneMiniMap.add(otherLine);
 
 
@@ -81,7 +85,7 @@ mapCamera = new THREE.OrthographicCamera(-window.innerWidth / 2, // Left  //
     -window.innerHeight / 2, // Bottom 
     -5000, // Near 
     10000); // Far 
-mapCamera.up = new THREE.Vector3(0, 0, -1); //rotation i x,y,z på mappen
+mapCamera.up = new THREE.Vector3(0, 0, 1); //rotation i x,y,z på mappen (-1, 1 beroende på hur vi vill flippa year axeln)
 mapCamera.lookAt(new THREE.Vector3(0, -1, 0));
 mapCamera.position.y = 500;
 
