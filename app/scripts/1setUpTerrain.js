@@ -38,11 +38,11 @@ backAudio.volume = 0.05;
     light.position.set(-0.5, -0.5, -2);
 
 
-    hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
-    hemiLight.color.setHSL( 0.6, 1, 0.6 );
-    hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
-    hemiLight.position.set( 0, 500, 0 );
-    //scene.add( hemiLight );
+    var hemiLight = new THREE.HemisphereLight( 0xffffff, 0x000000, 0.6 );
+    //hemiLight.color.setHSL( 0.6, 1, 0.6 );
+    //hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
+    hemiLight.position.set( 500, -500, 0 );
+    scene.add( hemiLight );
     //scene.add( light )
 })();
 
