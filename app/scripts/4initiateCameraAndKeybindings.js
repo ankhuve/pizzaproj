@@ -13,30 +13,46 @@ var instructions = document.getElementById('instructions');
 
 //  marker that follows player
 var material = new THREE.MeshBasicMaterial({
+    color: 0xc43039
+});
+
+var material2 = new THREE.MeshBasicMaterial({
     color: 0xffffff
 });
 
 var geom = new THREE.Geometry();
-var v1 = new THREE.Vector3(-1, -1, 0);
-var v2 = new THREE.Vector3(-5, 0, 0);
-var v3 = new THREE.Vector3(-4, -4, 0);
+var v1 = new THREE.Vector3(0, 0, 0);
+var v2 = new THREE.Vector3(-3, 0, 0);
+var v3 = new THREE.Vector3(-3, -3, 0);
 
+var geom2 = new THREE.Geometry();
+var v4 = new THREE.Vector3(0, 0, 0);
+var v5 = new THREE.Vector3(3, 0, 0);
+var v6 = new THREE.Vector3(3, 3, 0);
 
 geom.vertices.push(v1);
 geom.vertices.push(v2);
 geom.vertices.push(v3);
 
+geom2.vertices.push(v4);
+geom2.vertices.push(v5);
+geom2.vertices.push(v6);
+
 geom.faces.push(new THREE.Face3(0, 1, 2));
 geom.computeFaceNormals();
 
+geom2.faces.push(new THREE.Face3(0, 1, 2));
+geom2.computeFaceNormals();
 
 //triangle marker created
 var triangle = new THREE.Mesh(geom, material);
-
+var triangle2 = new THREE.Mesh(geom2, material2);
 //center the rotation
 geom.center();
+geom2.center();
 
 sceneMiniMap.add(triangle);
+sceneMiniMap.add(triangle2);
 
 // x axis (time-axis)
 
@@ -46,13 +62,14 @@ var material = new THREE.LineBasicMaterial({
 
 var geometry = new THREE.Geometry();
 geometry.vertices.push(
-    new THREE.Vector3(-50, 0, 0),
+    new THREE.Vector3(-60, 0, 0),
     new THREE.Vector3(0, 100, 0),
     new THREE.Vector3(70, 0, 0)
 );
 
 var line = new THREE.Line(geometry, material);
-line.position.z = 50;
+line.position.z = 72;
+line.position.x = -10;
 sceneMiniMap.add(line);
 
 // y axis (oter axis)
@@ -69,19 +86,22 @@ geometry.vertices.push(
 );
 
 var otherLine = new THREE.Line(geometry, material);
-otherLine.position.x = -50;
+otherLine.position.x = -60;
+otherLine.position.y = -50;
+otherLine.position.z = -20;
+
 //sceneMiniMap.add(otherLine);
 
 
 
 // orthographic cameras (minimap)
-mapCamera = new THREE.OrthographicCamera(-62, // Left  // 
-    window.innerWidth / 2, // Right 
-    window.innerHeight / 2, // Top 
-    -200, // Bottom 
+mapCamera = new THREE.OrthographicCamera(-window.innerWidth / 2, // Left  // 
+    80, // Right 
+    80, // Top 
+    -window.innerHeight / 2, // Bottom 
     -5000, // Near 
     10000); // Far 
-mapCamera.up = new THREE.Vector3(0, 0, -1); //rotation i x,y,z på mappen
+mapCamera.up = new THREE.Vector3(0, 0, 1); //rotation i x,y,z på mappen (-1, 1 beroende på hur vi vill flippa year axeln)
 mapCamera.lookAt(new THREE.Vector3(0, -1, 0));
 mapCamera.position.y = 500;
 

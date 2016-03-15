@@ -14,15 +14,18 @@
 </head>
 
 <body>
+
 <div id="blocker">
     <div id="instructions">
         <div id="logo">moviz</div>
         <div id="controls">
             <div id="wasdIcon"></div>
             <div id="mouseIcon"></div>
+            <div id="settingsIcon" onclick="alert('hej'); return false;"></div>
         </div>
     </div>
 </div>
+
 
 <div id="searchBar">
     <input type="text" id="search" onclick="this.select();" onkeyup="searchMovies(this.value);" placeholder="search..."/>
@@ -40,6 +43,10 @@
         <div id="restInfo"></div>
         <div id="plotInfo"></div>
     </div>
+</div>
+
+<div id="minimapAxis">
+    <div id="yearAxis">Year<div>
 </div>
 
 </body>
