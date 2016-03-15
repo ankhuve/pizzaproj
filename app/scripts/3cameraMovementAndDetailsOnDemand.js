@@ -86,8 +86,6 @@ function movementAndDetailsOnDemand() {
                     $("#titleYear").html(currObj.data[1]);
                     $("#plotInfo").html(currObj.data[8]);
                     $("#restInfo").html(currObj.data[7] + " | " + currObj.data[11] + " | " + currObj.data[10]);
-
-                    
                 }
             }
 
