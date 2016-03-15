@@ -52,7 +52,8 @@ geometry.vertices.push(
 );
 
 var line = new THREE.Line(geometry, material);
-line.position.z = -70;
+line.position.z = 72;
+line.position.x = -10;
 sceneMiniMap.add(line);
 
 // y axis (oter axis)
@@ -84,7 +85,7 @@ mapCamera = new THREE.OrthographicCamera(-window.innerWidth / 2, // Left  //
     -window.innerHeight / 2, // Bottom 
     -5000, // Near 
     10000); // Far 
-mapCamera.up = new THREE.Vector3(0, 0, -1); //rotation i x,y,z på mappen
+mapCamera.up = new THREE.Vector3(0, 0, 1); //rotation i x,y,z på mappen (-1, 1 beroende på hur vi vill flippa year axeln)
 mapCamera.lookAt(new THREE.Vector3(0, -1, 0));
 mapCamera.position.y = 500;
 
