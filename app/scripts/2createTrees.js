@@ -231,7 +231,7 @@ function makeDaTrees(data){
         treeStemMesh.name = data[i][0];
 
         if(data[i][9]!="") {
-            musicIndicatorMesh.position.set(x, (y + treeStemHeight / 2 + treeCrownSize - 0.1)+2, z);
+            musicIndicatorMesh.position.set(x, (y + treeStemHeight / 2 + treeCrownSize - 0.1)+10, z);
             tree.add( musicIndicatorMesh );
 
         }
