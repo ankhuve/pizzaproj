@@ -21,14 +21,17 @@
         <div id="controls">
             <div id="wasdIcon"></div>
             <div id="mouseIcon"></div>
-            <div id="settingsIcon" onclick="alert('hej'); return false;"></div>
+            <div id="settingsIcon"></div>
         </div>
     </div>
 </div>
 
-
-<div id="searchBar">
-    <input type="text" id="search" onclick="this.select();" onkeyup="searchMovies(this.value);" placeholder="search..."/>
+<div class="searchBar">
+    <input type="text" id="search" onclick="this.select();" onkeyup="searchMovies(true,this.value);" placeholder="search..."/>
+    <div id="barHolder">
+        <div id="ratingBar" class="slider"></div>
+        <div id="yearBar" class="slider"></div>
+    </div>
 </div>
 
 <div id="centerSign">

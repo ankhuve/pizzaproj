@@ -25,19 +25,19 @@ body{
 	}
 
 	::-webkit-input-placeholder {
-	   color: $white;
+	   color: rgba(0,0,0,.2);
 	}
 
 	:-moz-placeholder { /* Firefox 18- */
-	   color: $white;  
+	   color: rgba(0,0,0,.2);
 	}
 
 	::-moz-placeholder {  /* Firefox 19+ */
-	   color: $white;  
+	   color: rgba(0,0,0,.2);  
 	}
 
 	:-ms-input-placeholder {  
-	   color: $white;  
+	   color: rgba(0,0,0,.2);
 	}
 
 	textarea, input { outline: none; }
@@ -73,7 +73,7 @@ body{
 		font-size:56px;
 		position:absolute;
 		top:50%;
-		margin-top:-25px;
+		margin-top:-125px;
 		text-shadow: 0 1px 0 #ccc,
                0 2px 0 #c9c9c9,
                0 3px 0 #bbb,
@@ -98,7 +98,7 @@ body{
 		position:absolute;
 		top:50%;
 		left:50%;
-		margin:80px 0 0 -75px;
+		margin:-20px 0 0 -75px;
 		display:flex;
 	}
 
@@ -133,33 +133,69 @@ body{
 		flex:1;
 		background-position: center; 
 		background-color:transparent;
+		transition: all 0.6s cubic-bezier(0.87,-0.41,0.19,1.44)
 	}
 
-	#searchBar {
+	#settingsIcon:hover {
+		transform: rotate(180deg);
+	}
+
+	.searchBar {
 		width:100%;
-		height:auto;
-		background-color:transparent;
+		height:0px;
+		background-color:rgba(255,255,255,.1);
+		cursor:pointer;
 		position:absolute;
 		left:0px;
-		top:65%;
-		cursor:pointer;
+		bottom:0px;
 		z-index:99999999;
+		overflow: hidden;
+		transition: all 0.6s cubic-bezier(0.87,-0.41,0.19,1.44)
+	}
+
+	.searchBarShow {
+		height:250px;
 	}
 
 	#search {
-		width:40%;
-		height:60px;
-		margin:0 auto 0 30%;
-		padding:0 5% 0 5%;
+		width:80%;
+		max-width:700px;
+		height:50px;
+		margin:50px auto 0 auto;
+		padding:0 20px 0 20px;
 		box-sizing:border-box;
 		border:0px;
-		border-bottom:1px solid #fff;
-		font-size: 28px;
+		font-size: 20px;
 		font-family: Lato;
 		font-weight: 300;
-		background-color:rgba(0,0,0,0);
+		background-color:rgba(255,255,255,1);
 		border-radius:2px;
-		color:#fff;
+		color:rgba(0,0,0,1);
+		display: block;
+	}
+
+	#barHolder {
+		width:80%;
+		max-width:700px;
+		height:50px;
+		background-color:transparent;
+		margin:20px auto 0 auto;
+		overflow: hidden;
+		padding:0 30px 0 30px;
+	}
+
+	#ratingBar {
+		width:45%;
+		height:10px;
+		float:left;
+		margin-top:10px;
+	}
+
+	#yearBar {
+		width:45%;
+		height:10px;
+		float:right;
+		margin-top:10px;
 	}
 }
 

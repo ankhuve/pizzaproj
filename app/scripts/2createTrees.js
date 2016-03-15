@@ -201,6 +201,7 @@ function makeDaTrees(data){
 
     // now that we changed the color of vertices, add ground
     scene.add( ground );
+    initiateSearchAndBars()
 }
 
 function colorGround(xVar, zVar, yVar, moviePosterColor) {

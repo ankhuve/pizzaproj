@@ -126,7 +126,7 @@ if (havePointerLock) {
             blocker.style.display = 'none';
             $("#centerSign").css("display", "block");
 
-            $("#searchBar").css("display", "none");
+            $(".searchBar").css("display", "none");
 
             audio.play();
 
@@ -141,7 +141,7 @@ if (havePointerLock) {
 
             instructions.style.display = '';
             $("#centerSign").css("display", "none");
-            $("#searchBar").css("display", "block");
+            $(".searchBar").css("display", "block");
             audio.play();
             audio.pause();
 
