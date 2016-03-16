@@ -158,6 +158,32 @@ body {
         left: 10px;
         z-index: 100;
     }
+    #music:hover {
+        transform: rotateZ(80deg);
+        animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+        @keyframes shake {
+            10%,
+            90% {
+                transform: rotateZ(3deg);
+            }
+            20%,
+            80% {
+                transform: rotateZ(-6deg);
+            }
+            30%,
+            50%,
+            70% {
+                transform: rotateZ(6deg);
+            }
+            40%,
+            60% {
+                transform: rotateZ(-3deg);
+            }
+        }
+    }
     #barHolder {
         width: 80%;
         max-width: 700px;
