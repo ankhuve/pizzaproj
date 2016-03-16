@@ -26,7 +26,6 @@ function movementAndDetailsOnDemand() {
             velocity.z = 0;
         }
 
-        console.log(velocity.x, velocity.z);
 
         velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass, for jumping purposes
 

@@ -3,9 +3,10 @@ var renderer = new THREE.WebGLRenderer({ antialias : true });
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
+var ground, heightMap;
+
+// main scene
 var scene	= new THREE.Scene();
-
-
 
 // second scene for minimap, this scene contains everything from scene except the terrain
 var sceneMiniMap   = new THREE.Scene();
@@ -18,79 +19,83 @@ backAudio.loop = true;
 backAudio.play();
 backAudio.volume = 0.05;
 
+createSkyAndTerrainAndAddToScene();
+createAndAddLightsToScene();
 
-//////////////////////////////////////////////////////////////////////////////////
-//		set 3 point lighting						//
-//////////////////////////////////////////////////////////////////////////////////
 
-(function(){
+function createAndAddLightsToScene(){
+    //////////////////////////////////////////////////////////////////////////////////
+    //		                        set 3 point lighting					    	//
+    //////////////////////////////////////////////////////////////////////////////////
+
     // add a ambient light
     var light	= new THREE.AmbientLight( 'white' );
     scene.add( light );
     sceneMiniMap.add( light.clone() );
 
     // add a light in front
-    var light	= new THREE.DirectionalLight('white', 5);
-    light.position.set(0.5, 0.0, 2);
+    //var light	= new THREE.DirectionalLight('white', 5);
+    //light.position.set(0.5, 0.0, 2);
     //scene.add( light );
+
     // add a light behind
-    var light	= new THREE.DirectionalLight('white', 0.75*2);
-    light.position.set(-0.5, -0.5, -2);
+    //var light	= new THREE.DirectionalLight('white', 0.75*2);
+    //light.position.set(-0.5, -0.5, -2);
+    //scene.add( light )
 
 
-    var hemiLight = new THREE.HemisphereLight( 0xffffff, 0x000000, 0.1 );
+
+    var hemiLight = new THREE.HemisphereLight( 0xffffff, 0x000000, 0.2 );
     //hemiLight.color.setHSL( 0.6, 1, 0.6 );
     //hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
-    hemiLight.position.set( 500, -500, 0 );
+    hemiLight.position.set( 64, 64, 0 );
+    hemiLight.instanceSkin = true;
     //scene.add( hemiLight );
-    //scene.add( light )
-})();
+    //var hemiLightHelper = new THREE.HemisphereLightHelper(hemiLight, 5);
+    //scene.add( hemiLightHelper );
+}
 
-// skybox
-var geometry = new THREE.SphereGeometry(9500, 60, 40);  
+function createSkyAndTerrainAndAddToScene(){
+    // skybox
+    var skyBoxGeometry = new THREE.SphereGeometry(9500, 60, 40);
 
-var material = new THREE.MeshPhongMaterial({
-    color: 0x69d0f9
-});
+    var skyBoxMaterial = new THREE.MeshPhongMaterial({
+        color: 0x69d0f9
+    });
 
-skyBox = new THREE.Mesh(geometry, material);  
-skyBox.scale.set(-1, 1, 1);  
+    var skyBox = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial);
+    skyBox.scale.set(-1, 1, 1);
 
+    scene.add(skyBox);
+    sceneMiniMap.add( skyBox );
 
-scene.add(skyBox);
-sceneMiniMap.add( skyBox );  
+    // creating ground
+    heightMap	= THREEx.Terrain.allocateHeightMap(64, 64);
+    THREEx.Terrain.simplexHeightMap(heightMap);
 
-//////////////////////////////////////////////////////////////////////////////////
-//		add an object and make it move					//
-//////////////////////////////////////////////////////////////////////////////////
+    var geometry	= THREEx.Terrain.heightMapToPlaneGeometry(heightMap);
+    THREEx.Terrain.heightMapToVertexColor(heightMap, geometry);
 
-//var heightMap	= THREEx.Terrain.allocateHeightMap(4, 4)
-//var heightMap	= THREEx.Terrain.allocateHeightMap(16, 16)
-//var heightMap	= THREEx.Terrain.allocateHeightMap(256,256)
-var heightMap	= THREEx.Terrain.allocateHeightMap(128,128);
-THREEx.Terrain.simplexHeightMap(heightMap);
+    var material	= new THREE.MeshPhongMaterial({
+        shading		: THREE.FlatShading,
+        shininess: 0,
+        vertexColors 	: THREE.VertexColors
+    });
 
-var geometry	= THREEx.Terrain.heightMapToPlaneGeometry(heightMap);
-THREEx.Terrain.heightMapToVertexColor(heightMap, geometry);
+    ground	= new THREE.Mesh( geometry, material );
 
+    ground.rotateX(-Math.PI/2);
+    ground.scale.x	= 10;
+    ground.scale.y	= 10;
+    ground.scale.z	= 1;
+    ground.scale.multiplyScalar(20);
+    ground.name = "ground";
 
-var material	= new THREE.MeshPhongMaterial({
-    shading		: THREE.FlatShading,
-    shininess: 0,
-    // shading		: THREE.SmoothShading,
-    //color: 0x176fd4,
-    vertexColors 	: THREE.VertexColors
-});
+    scene.fog = new THREE.Fog(0x69d0f9, 0, 100);
 
-var ground	= new THREE.Mesh( geometry, material );
+    scene.add( ground );
+}
 
-ground.rotateX(-Math.PI/2);
-ground.scale.x	= 20;
-ground.scale.y	= 20;
-ground.scale.z	= 1;
-ground.scale.multiplyScalar(6.45);
-
-scene.fog = new THREE.Fog(0x69d0f9,0,80);
 
 // create clouds
 

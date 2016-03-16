@@ -1,7 +1,7 @@
 var trees = new THREE.Object3D();
 
 //var cubes = new THREE.Object3D();
-var range = 50;
+var range;
 
 
 var verticesOfCube = [
@@ -20,14 +20,14 @@ var indicesOfFaces = [
 
 var arrayOfTreePos = [];
 
-$.get("php/betterMoviesPop.php",function(data){
+$.get("php/betterMoviesPop.php", function(data){
 
     //console.log(JSON.parse(data));
 
     var array = JSON.parse(data);
+
     makeDaTrees(array);
 });
-
 
 function createLinearScale(data, dataAttr ) {
     var n;
@@ -35,8 +35,8 @@ function createLinearScale(data, dataAttr ) {
     var topRange;
     if( dataAttr == "year" ){
         n = 1;
-        botRange = -range;
-        topRange = range;
+        botRange = -(range / 2);
+        topRange = (range / 2);
     } else if ( dataAttr == "votes" ){
         n = 12;
         botRange = 0.1;
@@ -89,13 +89,14 @@ function createTreeHeightScale( data ){
 
 
 function makeDaTrees(data){
+    range = data.length;
+    ground.scale.x = range;
+    ground.scale.y = range;
 
     var tree = new THREE.Object3D();
     var releaseYearScale = createLinearScale(data, "year");
     var stemWidthScale = createLinearScale( data, "votes" );
     var stemHeightScale = createTreeHeightScale( data );
-
-    //console.log(data);
 
     for(var i = 0; i < data.length; i++ ) {
 
@@ -195,8 +196,6 @@ function makeDaTrees(data){
 
         arrayOfTreePos.push(treePosAndData);
 
-        //console.log(arrayOfTreePos[i].x, arrayOfTreePos[i].z);
-
         var singleTreeCrownGeometry = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, treeCrownSize, 1 );
         var bigTreeCrown = new THREE.Geometry();
         var bigTreeCrownMesh;
@@ -266,7 +265,7 @@ function makeDaTrees(data){
         //treeStemMesh.grayness = grayness; // *** NOTE THIS
 
         // set color underneath tree
-        colorGround(x,z,y,moviePosterColor);
+        colorGround(x, z, y, moviePosterColor);
 
         bigTreeCrownMesh.name = data[i][0];
         treeStemMesh.name = data[i][0];
@@ -306,7 +305,6 @@ function makeDaTrees(data){
     sceneMiniMap.add( trees.clone() );
 
     // now that we changed the color of vertices, add ground
-    scene.add( ground );
     initiateSearchAndBars()
 }
 
@@ -315,6 +313,8 @@ function colorGround(xVar, zVar, yVar, moviePosterColor) {
     var vertexRange = 2;
     // convert vertex coordinates to world coordinates
     var mapToCoord = heightMap.length/2-1;
+    console.log(xVar, zVar);
+    console.log(mapToCoord);
 
     //var groundColorDarker = new THREE.Color("rgb(151,192,86)");
     //var groundColor = new THREE.Color("rgb(171,212,106)")
@@ -325,8 +325,8 @@ function colorGround(xVar, zVar, yVar, moviePosterColor) {
     newBlue = Math.ceil((106*greenWeight+parseInt(color[2]))/(greenWeight+1));
     var combinedColor = new THREE.Color("rgb("+newRed+","+newGreen+","+newBlue+")");
 
-    xVar +=mapToCoord;
-    zVar +=mapToCoord;
+    //xVar +=mapToCoord;
+    //zVar +=mapToCoord;
 
     for(var i = 0; i < ground.geometry.faces.length; i++){
 
