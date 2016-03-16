@@ -1,5 +1,7 @@
 var renderer = new THREE.WebGLRenderer({ antialias : true });
 
+
+
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
@@ -11,8 +13,7 @@ var scene	= new THREE.Scene();
 // second scene for minimap, this scene contains everything from scene except the terrain
 var sceneMiniMap   = new THREE.Scene();
 
-renderer.shadowMap.enabled = true;
-renderer.shadowMapSoft = false;
+
 
 var backAudio = new Audio("sounds/background.mp3");
 backAudio.loop = true;
@@ -43,8 +44,9 @@ function createAndAddLightsToScene(){
     dirLight.position.set(30, 30, 0);
     dirLight.angle = Math.PI / 5;
     dirLight.penumbra = 0.3;
+    dirLight.shadow.camera.visible = true;
     dirLight.shadow.camera.near = 1;
-    dirLight.shadow.camera.far = 10;
+    dirLight.shadow.camera.far = 100;
     dirLight.shadow.camera.right = 15;
     dirLight.shadow.camera.left = - 15;
     dirLight.shadow.camera.top	= 15;
@@ -88,7 +90,7 @@ function createSkyAndTerrainAndAddToScene(){
 
     // creating ground
     heightMap	= THREEx.Terrain.allocateHeightMap(64, 64);
-    //THREEx.Terrain.simplexHeightMap(heightMap);
+    THREEx.Terrain.simplexHeightMap(heightMap);
 
     var geometry	= THREEx.Terrain.heightMapToPlaneGeometry(heightMap);
     THREEx.Terrain.heightMapToVertexColor(heightMap, geometry);

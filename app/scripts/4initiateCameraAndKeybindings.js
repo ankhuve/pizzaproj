@@ -236,6 +236,17 @@ function init() {
     controls.getObject().rotation.y = -Math.PI / 2;
     scene.add(controls.getObject());
 
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMapSoft = false;
+    renderer.shadowCameraNear = 3;
+    renderer.shadowCameraFar = camera.far;
+    renderer.shadowCameraFov = 50;
+
+    renderer.shadowMapBias = 0.0039;
+    renderer.shadowMapDarkness = 0.5;
+    renderer.shadowMapWidth = 1024;
+    renderer.shadowMapHeight = 1024;
+
     footsteps = new Audio('sounds/steps.mp3');
     footsteps.loop = true;
     footsteps.volume = 0.1;
