@@ -16,6 +16,20 @@ function movementAndDetailsOnDemand() {
         velocity.x -= velocity.x * 10.0 * delta;
         velocity.z -= velocity.z * 10.0 * delta;
 
+        // fixing velocity bug (crashing from menu when pausing during movement)
+        if(velocity.x > -0.15 && velocity.x < 0.15){
+            velocity.x = 0;
+        } else if(velocity.x > 15 || velocity.x < -15){
+            velocity.x = 0;
+        }
+        if(velocity.z > -0.15 && velocity.z < 0.15){
+            velocity.z = 0;
+        } else if(velocity.z > 15 || velocity.z < -15){
+            velocity.z = 0;
+        }
+
+        console.log(velocity.x, velocity.z);
+
         velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass, for jumping purposes
 
         if (moveForward) velocity.z -= movementSpeed * delta;
