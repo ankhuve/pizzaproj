@@ -10,6 +10,8 @@ var raycaster;
 
 var blocker = document.getElementById('blocker');
 var instructions = document.getElementById('instructions');
+var soundSwitch = document.getElementById('soundSwitch');
+var musicIcon = document.getElementById('music');
 
 //  marker that follows player
 var material = new THREE.MeshBasicMaterial({
@@ -20,6 +22,23 @@ var material2 = new THREE.MeshBasicMaterial({
     color: 0xffffff
 });
 
+clicked = 0;
+
+$('#music').click(function (event) {
+    muted = false;
+    event.stopPropagation();
+    if (clicked % 2 == 0) {
+        musicIcon.style.backgroundImage = "url('../../images/mute.png')";
+        muted = true;
+        footsteps.pause();
+        backAudio.pause();
+    } else {
+        musicIcon.style.backgroundImage = "url('../../images/music.png')";
+
+    }
+    clicked++;
+
+});
 var geom = new THREE.Geometry();
 var v1 = new THREE.Vector3(0, 0, 0);
 var v2 = new THREE.Vector3(-3, 0, 0);
@@ -128,7 +147,10 @@ if (havePointerLock) {
 
             $(".searchBar").css("display", "none");
 
-            audio.play();
+            if (muted == false) {
+                audio.play();
+            };
+
 
         } else {
             //controlsEnabled = false;
@@ -142,9 +164,9 @@ if (havePointerLock) {
             instructions.style.display = '';
             $("#centerSign").css("display", "none");
             $(".searchBar").css("display", "block");
+
             audio.play();
             audio.pause();
-
 
 
         }
@@ -208,6 +230,7 @@ if (havePointerLock) {
 
 }
 
+
 init();
 animate();
 
@@ -251,7 +274,9 @@ function init() {
         case 87: // w
             if (controls.enabled) {
                 moveForward = true;
-                footsteps.play();
+                if (muted == false) {
+                    footsteps.play();
+                };
             }
             break;
 
@@ -259,7 +284,9 @@ function init() {
         case 65: // a
             if (controls.enabled) {
                 moveLeft = true;
-                footsteps.play();
+                if (muted == false) {
+                    footsteps.play();
+                };
             }
             break;
 
@@ -267,7 +294,9 @@ function init() {
         case 83: // s
             if (controls.enabled) {
                 moveBackward = true;
-                footsteps.play();
+                if (muted == false) {
+                    footsteps.play();
+                };
             }
             break;
 
@@ -275,7 +304,9 @@ function init() {
         case 68: // d
             if (controls.enabled) {
                 moveRight = true;
-                footsteps.play();
+                if (muted == false) {
+                    footsteps.play();
+                };
             }
             break;
 
