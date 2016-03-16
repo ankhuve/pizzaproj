@@ -2,7 +2,7 @@ var camera, scene;
 var geometry, material, mesh;
 var controls;
 var mapCamera, mapWidth = window.innerWidth,
-    mapHeight = window.innerHeight + 220;
+    mapHeight = window.innerHeight;
 
 var objects = [];
 
@@ -91,7 +91,7 @@ line.position.z = 72;
 line.position.x = -10;
 sceneMiniMap.add(line);
 
-// y axis (oter axis)
+// y axis (other axis)
 
 var material = new THREE.LineBasicMaterial({
     color: 0xffffff
@@ -111,13 +111,27 @@ otherLine.position.z = -20;
 
 //sceneMiniMap.add(otherLine);
 
-
+//New minimap
+var miniView = [
+    {
+        right: 0,
+        top: 0,
+        width: 0.1,
+        height: 0.1,
+        background: new THREE.Color().setRGB(0.5, 0.5, 0.7),
+        eye: [0, 0, 1800],
+        up: [0, 1, 0],
+        fov: 30,
+        updateCamera: function (camera, scene, mouseX, mouseY) {
+            camera.lookAt(scene.position);
+        }
+				}];
 
 // orthographic cameras (minimap)
-mapCamera = new THREE.OrthographicCamera(-window.innerWidth / 2, // Left  // 
+mapCamera = new THREE.OrthographicCamera(-1 * window.innerWidth / window.innerHeight / 0.002, // Left  // 
     80, // Right 
     80, // Top 
-    -window.innerHeight / 2, // Bottom 
+    -1.8 * window.innerHeight / window.innerWidth / 0.002, // Bottom 
     -5000, // Near 
     10000); // Far 
 mapCamera.up = new THREE.Vector3(0, 0, 1); //rotation i x,y,z på mappen (-1, 1 beroende på hur vi vill flippa year axeln)
