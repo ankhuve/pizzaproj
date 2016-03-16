@@ -41,13 +41,13 @@ $('#music').click(function (event) {
 });
 var geom = new THREE.Geometry();
 var v1 = new THREE.Vector3(0, 0, 0);
-var v2 = new THREE.Vector3(-3, 0, 0);
-var v3 = new THREE.Vector3(-3, -3, 0);
+var v2 = new THREE.Vector3(-4, 0, 0);
+var v3 = new THREE.Vector3(-4, -4, 0);
 
 var geom2 = new THREE.Geometry();
 var v4 = new THREE.Vector3(0, 0, 0);
-var v5 = new THREE.Vector3(3, 0, 0);
-var v6 = new THREE.Vector3(3, 3, 0);
+var v5 = new THREE.Vector3(4, 0, 0);
+var v6 = new THREE.Vector3(4, 4, 0);
 
 geom.vertices.push(v1);
 geom.vertices.push(v2);
