@@ -12,6 +12,7 @@ var blocker = document.getElementById('blocker');
 var instructions = document.getElementById('instructions');
 var soundSwitch = document.getElementById('soundSwitch');
 var musicIcon = document.getElementById('music');
+var infoIcon = document.getElementById('infoIcon');
 
 //  marker that follows player
 var material = new THREE.MeshBasicMaterial({
@@ -21,6 +22,24 @@ var material = new THREE.MeshBasicMaterial({
 var material2 = new THREE.MeshBasicMaterial({
     color: 0xffffff
 });
+clickedTimes = 0;
+$('#infoIcon').click(function (event) {
+    event.stopPropagation();
+    if (clickedTimes % 2 == 0) {
+        $(".searchBar").removeClass("searchBarShow");
+        $(".infoBar").addClass("infoBarShow");
+        $(".logo").addClass("logoMove");
+        $(".controls").addClass("controlsMove");
+    } else {
+        $(".searchBar").removeClass("searchBarShow");
+        $(".infoBar").removeClass("infoBarShow");
+        $(".logo").removeClass("logoMove");
+        $(".controls").removeClass("controlsMove");
+    }
+    clickedTimes++;
+});
+
+
 
 clicked = 0;
 
@@ -160,6 +179,7 @@ if (havePointerLock) {
             $("#centerSign").css("display", "block");
 
             $(".searchBar").css("display", "none");
+            $(".infoBar").css("display", "none");
 
             if (muted == false) {
                 audio.play();
@@ -178,6 +198,7 @@ if (havePointerLock) {
             instructions.style.display = '';
             $("#centerSign").css("display", "none");
             $(".searchBar").css("display", "block");
+            $(".infoBar").css("display", "block");
 
             audio.play();
             audio.pause();

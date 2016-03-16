@@ -128,6 +128,46 @@ body {
     .searchBarShow {
         height: 250px;
     }
+    .infoBar {
+        width: 100%;
+        height: 0px;
+        background-color: rgba(255, 255, 255, .1);
+        cursor: pointer;
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        z-index: 99999999;
+        overflow: hidden;
+        transition: all 0.6s cubic-bezier(0.87, -0.41, 0.19, 1.44)
+    }
+    .infoBarShow {
+        height: 250px;
+    }
+    #startInfoTitle {
+        width: 100%;
+        height: auto;
+        background-color: transparent;
+        color: #fff;
+        font-family: Lato;
+        font-weight: 700;
+        font-size: 24px;
+        position: absolute;
+        left: 40%;
+        top: 3%;
+    }
+    #startInfo {
+        width: 80%;
+        max-width: 640px;
+        height: auto;
+        background-color: transparent;
+        color: #fff;
+        font-family: Lato;
+        font-weight: 300;
+        font-size: 20px;
+        padding-top: 4px;
+        margin-top: 5px;
+        border-top: 1px solid #fff;
+    }
     #search {
         width: 80%;
         max-width: 700px;
@@ -144,6 +184,20 @@ body {
         color: rgba(0, 0, 0, 1);
         display: block;
     }
+    #infoIcon {
+        width: 20px;
+        height: 20px;
+        background-image: url('../../images/info.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        flex: 1;
+        position: absolute;
+        background-position: left;
+        background-color: transparent;
+        top: 10px;
+        left: 10px;
+        z-index: 100;
+    }
     #music {
         width: 20px;
         height: 20px;
@@ -155,7 +209,7 @@ body {
         background-position: left;
         background-color: transparent;
         top: 10px;
-        left: 10px;
+        left: 40px;
         z-index: 100;
     }
     #music:hover {
