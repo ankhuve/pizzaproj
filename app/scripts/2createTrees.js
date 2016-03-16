@@ -29,31 +29,71 @@ $.get("php/betterMoviesPop.php",function(data){
 });
 
 
-function createYearScale( data ) {
-    var botValue = 2050;
-    var topValue = 1;
-    data.forEach(function( movie ){
-        var releaseYear = movie[1];
+function createLinearScale(data, dataAttr ) {
+    var n;
+    var botRange;
+    var topRange;
+    if( dataAttr == "year" ){
+        n = 1;
+        botRange = -range;
+        topRange = range;
+    } else if ( dataAttr == "votes" ){
+        n = 12;
+        botRange = 0.1;
+        topRange = 0.7;
+    }
 
-        if (releaseYear > topValue) {
-            topValue = releaseYear;
+    var botValue = false;
+    var topValue = false;
+
+    data.forEach(function( movie ){
+        var attr = parseInt(movie[n]);
+        //console.log(attr);
+
+        if (attr > topValue || !topValue) {
+            topValue = attr;
         } else {
-            if (releaseYear < botValue) {
-                botValue = releaseYear;
+            if (attr < botValue || !botValue) {
+                botValue = attr;
             }
         }
     });
 
     return d3.scale.linear()
         .domain([botValue, topValue])
-        .range([-range, range]);
+        .range([botRange, topRange]);
+}
+
+function createTreeHeightScale( data ){
+    var botValue = false;
+    var topValue = false;
+    var botRange = 1;
+    var topRange = 20;
+
+    data.forEach(function( movie ){
+        var attr = parseInt(movie[12]);
+
+        if (attr > topValue || !topValue) {
+            topValue = attr;
+        } else {
+            if (attr < botValue || !botValue) {
+                botValue = attr;
+            }
+        }
+    });
+
+    return d3.scale.linear()
+        .domain([botValue, topValue])
+        .range([botRange, topRange]);
 }
 
 
 function makeDaTrees(data){
 
     var tree = new THREE.Object3D();
-    var releaseYearScale = createYearScale(data);
+    var releaseYearScale = createLinearScale(data, "year");
+    var stemWidthScale = createLinearScale( data, "votes" );
+    var stemHeightScale = createTreeHeightScale( data );
 
     //console.log(data);
 
@@ -63,11 +103,12 @@ function makeDaTrees(data){
         var yearOfRelease = parseInt(data[i][1]);
         var imdbRating = parseInt(data[i][3]);
         var moviePosterColor = data[i][2];
+        var numberOfVotes = parseInt(data[i][12]);
 
         // decide tree geometry data
         var treeCrownColor = moviePosterColor; // based on average movie poster color
         var treeCrownSize = imdbRating/(10-imdbRating) / 5; // based on movie rating
-        var treeStemHeight = (2017 - yearOfRelease) / 100 * 13; // based on year of release
+        var treeStemHeight = stemHeightScale(numberOfVotes); // based on year of release
 
         var stemMaterial = new THREE.MeshPhongMaterial( {
             color: 0x66493b,
@@ -93,7 +134,7 @@ function makeDaTrees(data){
             displacementMap: ""
         });
 
-        var stemGeometry = new THREE.BoxGeometry(0.3, treeStemHeight, 0.3); // generate psuedo-random geometry
+        var stemGeometry = new THREE.BoxGeometry(stemWidthScale(numberOfVotes), stemHeightScale(numberOfVotes), stemWidthScale(numberOfVotes)); // generate psuedo-random geometry
 
         var musicIndicatorGeometry = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, 0.1, 1 );
         //var BollGeo = new THREE.SphereGeometry( treeCrownSize, 5, 5 );
@@ -126,7 +167,7 @@ function makeDaTrees(data){
                         if(z<0) {
                             z-=1;
                         } else {
-                           z += 1;
+                            z += 1;
                         }
 
                         collisionNumb++;
@@ -248,7 +289,7 @@ function makeDaTrees(data){
         //console.log(data[i]);
 
 
-        
+
 
         // if(i%50==0) {
 
