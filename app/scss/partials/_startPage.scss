@@ -111,7 +111,7 @@ body {
         transition: all 1s cubic-bezier(0.87, -0.41, 0.19, 1.44)
     }
     #settingsIcon:hover {
-        transform: rotate(360deg);
+        transform: rotateY(180deg);
     }
     .searchBar {
         width: 100%;
