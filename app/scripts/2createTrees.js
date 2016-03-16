@@ -265,10 +265,13 @@ function makeDaTrees(data){
         //treeStemMesh.grayness = grayness; // *** NOTE THIS
 
         // set color underneath tree
-        colorGround(x, z, y, moviePosterColor);
+        //colorGround(x, z, y, moviePosterColor);
 
         bigTreeCrownMesh.name = data[i][0];
         treeStemMesh.name = data[i][0];
+
+        treeStemMesh.castShadow = true;
+        bigTreeCrownMesh.castShadow = true;
 
         if(data[i][9]!="") {
             musicIndicatorMesh.position.set(x, (y + treeStemHeight / 2 + treeCrownSize - 0.1)+10, z);
@@ -281,7 +284,7 @@ function makeDaTrees(data){
         tree.add( bigTreeCrownMesh );
         tree.add( treeStemMesh );
         tree.castShadow = true;
-        tree.receiveShadow = true;
+        //tree.receiveShadow = true;
         tree.name = data[i][0];
         trees.add( tree );
 
@@ -300,6 +303,7 @@ function makeDaTrees(data){
 
     trees.scale.multiplyScalar(1);
     trees.castShadow = true;
+    trees.receiveShadow = true;
     trees.name="allTrees";
     scene.add( trees );
     sceneMiniMap.add( trees.clone() );
@@ -318,11 +322,11 @@ function colorGround(xVar, zVar, yVar, moviePosterColor) {
 
     //var groundColorDarker = new THREE.Color("rgb(151,192,86)");
     //var groundColor = new THREE.Color("rgb(171,212,106)")
-    color = moviePosterColor.slice(4).substring(0, moviePosterColor.slice(4).length - 1).split(",");
-    greenWeight = 4;
-    newRed = Math.ceil((171*greenWeight+parseInt(color[0]))/(greenWeight+1));
-    newGreen = Math.ceil((212*greenWeight+parseInt(color[1]))/(greenWeight+1));
-    newBlue = Math.ceil((106*greenWeight+parseInt(color[2]))/(greenWeight+1));
+    var color = moviePosterColor.slice(4).substring(0, moviePosterColor.slice(4).length - 1).split(",");
+    var greenWeight = 4;
+    var newRed = Math.ceil((171*greenWeight+parseInt(color[0]))/(greenWeight+1));
+    var newGreen = Math.ceil((212*greenWeight+parseInt(color[1]))/(greenWeight+1));
+    var newBlue = Math.ceil((106*greenWeight+parseInt(color[2]))/(greenWeight+1));
     var combinedColor = new THREE.Color("rgb("+newRed+","+newGreen+","+newBlue+")");
 
     //xVar +=mapToCoord;
@@ -330,7 +334,7 @@ function colorGround(xVar, zVar, yVar, moviePosterColor) {
 
     for(var i = 0; i < ground.geometry.faces.length; i++){
 
-        var heightmapWidth = heightMap.length;
+        var heightMapWidth = heightMap.length;
 
         // the vertix ID for the three points in the terrain triangles
         var vertexIdxA = ground.geometry.faces[i].a;
@@ -338,12 +342,12 @@ function colorGround(xVar, zVar, yVar, moviePosterColor) {
         var vertexIdxC = ground.geometry.faces[i].c;
 
         // converting the IDs to x, y coordinates
-        var xVertexA = Math.floor(vertexIdxA % heightmapWidth);
-        var zVertexA = Math.floor(vertexIdxA / heightmapWidth);
-        var xVertexB = Math.floor(vertexIdxB % heightmapWidth);
-        var zVertexB = Math.floor(vertexIdxB / heightmapWidth);
-        var xVertexC = Math.floor(vertexIdxC % heightmapWidth);
-        var zVertexC = Math.floor(vertexIdxC / heightmapWidth);
+        var xVertexA = Math.floor(vertexIdxA % heightMapWidth);
+        var zVertexA = Math.floor(vertexIdxA / heightMapWidth);
+        var xVertexB = Math.floor(vertexIdxB % heightMapWidth);
+        var zVertexB = Math.floor(vertexIdxB / heightMapWidth);
+        var xVertexC = Math.floor(vertexIdxC % heightMapWidth);
+        var zVertexC = Math.floor(vertexIdxC / heightMapWidth);
 
         // calculating the vectors between the points of the triangle to the center of the tree
         var hypoA = Math.hypot(Math.abs(xVertexA-xVar),Math.abs(zVertexA-zVar));

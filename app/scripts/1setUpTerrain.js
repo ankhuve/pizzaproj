@@ -29,7 +29,7 @@ function createAndAddLightsToScene(){
     //////////////////////////////////////////////////////////////////////////////////
 
     // add a ambient light
-    var light	= new THREE.AmbientLight( 'white' );
+    var light	= new THREE.AmbientLight( 'white', 0.2 );
     scene.add( light );
     sceneMiniMap.add( light.clone() );
 
@@ -39,17 +39,34 @@ function createAndAddLightsToScene(){
     //scene.add( light );
 
     // add a light behind
-    //var light	= new THREE.DirectionalLight('white', 0.75*2);
-    //light.position.set(-0.5, -0.5, -2);
-    //scene.add( light )
+    var dirLight	= new THREE.SpotLight( 0xffffff );
+    dirLight.position.set(30, 30, 0);
+    dirLight.angle = Math.PI / 5;
+    dirLight.penumbra = 0.3;
+    dirLight.shadow.camera.near = 1;
+    dirLight.shadow.camera.far = 10;
+    dirLight.shadow.camera.right = 15;
+    dirLight.shadow.camera.left = - 15;
+    dirLight.shadow.camera.top	= 15;
+    dirLight.shadow.camera.bottom = - 15;
+    dirLight.shadow.mapSize.width = 1024;
+    dirLight.shadow.mapSize.height = 1024;
+    scene.add( dirLight );
+
+    var dirLightHelper = new THREE.SpotLightHelper(dirLight, 5);
+    scene.add( dirLightHelper );
 
 
 
     var hemiLight = new THREE.HemisphereLight( 0xffffff, 0x000000, 0.2 );
-    //hemiLight.color.setHSL( 0.6, 1, 0.6 );
+    //hemiLight.color.
+    // setHSL( 0.6, 1, 0.6 );
     //hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
     hemiLight.position.set( 64, 64, 0 );
-    hemiLight.instanceSkin = true;
+    //hemiLight.instanceSkin = true;
+    //hemiLight.castShadow = true;
+
+
     //scene.add( hemiLight );
     //var hemiLightHelper = new THREE.HemisphereLightHelper(hemiLight, 5);
     //scene.add( hemiLightHelper );
@@ -71,7 +88,7 @@ function createSkyAndTerrainAndAddToScene(){
 
     // creating ground
     heightMap	= THREEx.Terrain.allocateHeightMap(64, 64);
-    THREEx.Terrain.simplexHeightMap(heightMap);
+    //THREEx.Terrain.simplexHeightMap(heightMap);
 
     var geometry	= THREEx.Terrain.heightMapToPlaneGeometry(heightMap);
     THREEx.Terrain.heightMapToVertexColor(heightMap, geometry);
@@ -90,8 +107,11 @@ function createSkyAndTerrainAndAddToScene(){
     ground.scale.z	= 1;
     ground.scale.multiplyScalar(20);
     ground.name = "ground";
+    ground.castShadow = true;
+    ground.receiveShadow = true;
+    //ground.updateMatrix();
 
-    scene.fog = new THREE.Fog(0x69d0f9, 0, 100);
+    //scene.fog = new THREE.Fog(0x69d0f9, 0, 100);
 
     scene.add( ground );
 }
