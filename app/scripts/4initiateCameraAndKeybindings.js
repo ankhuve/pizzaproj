@@ -246,12 +246,12 @@ function init() {
     birds = [];
     boids = [];
 
-    for ( var i = 0; i < 10; i ++ ) {
+    for ( var i = 0; i < 50; i ++ ) {
 
         boid = boids[ i ] = new Boid();
-        boid.position.x = Math.random() * 400 - 200;
-        boid.position.y = Math.random() * 400 - 200;
-        boid.position.z = Math.random() * 400 - 200;
+        boid.position.x = 0
+        boid.position.y = 0;
+        boid.position.z = 10;
         boid.velocity.x = Math.random() * 2 - 1;
         boid.velocity.y = Math.random() * 2 - 1;
         boid.velocity.z = Math.random() * 2 - 1;
@@ -260,7 +260,7 @@ function init() {
 
         bird = birds[ i ] = new THREE.Mesh( new Bird(), new THREE.MeshBasicMaterial( { color:Math.random() * 0xffffff, side: THREE.DoubleSide } ) );
         bird.phase = Math.floor( Math.random() * 62.83 );
-        sceneMiniMap.add( bird );
+        trees.add( bird );
     }
 
     var onKeyDown = function (event) {
