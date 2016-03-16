@@ -97,8 +97,12 @@ function initiateSearchAndBars() {
 	    event.stopPropagation();
 	    if(clickTimes%2==0) {
 	    	$(".searchBar").addClass("searchBarShow");
+	    	$(".logo").addClass("logoMove");
+	    	$(".controls").addClass("controlsMove");
 		} else {
 			$(".searchBar").removeClass("searchBarShow");
+			$(".logo").removeClass("logoMove");
+	    	$(".controls").removeClass("controlsMove");
 		}
 		clickTimes++;
 	})
