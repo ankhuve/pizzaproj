@@ -63,7 +63,7 @@ body{
 		position:relative;
 	}
 
-	#logo {
+	.logo {
 		width:100%;
 		text-align: center;
 		height:50px;
@@ -73,7 +73,7 @@ body{
 		font-size:56px;
 		position:absolute;
 		top:50%;
-		margin-top:-125px;
+		margin-top:-25px;
 		text-shadow: 0 1px 0 #ccc,
                0 2px 0 #c9c9c9,
                0 3px 0 #bbb,
@@ -86,9 +86,14 @@ body{
                0 5px 10px rgba(0,0,0,.25),
                0 10px 10px rgba(0,0,0,.2),
                0 20px 20px rgba(0,0,0,.15);
+        transition: all 0.6s cubic-bezier(0.87,-0.41,0.19,1.44);
 	}
 
-	#controls {
+	.logoMove {
+		margin-top:-125px;
+	}
+
+	.controls {
 		width:150px;
 		height:auto;
 		background-color:transparent;
@@ -98,8 +103,14 @@ body{
 		position:absolute;
 		top:50%;
 		left:50%;
-		margin:-20px 0 0 -75px;
+		margin:80px 0 0 -75px;
 		display:flex;
+		transition: all 0.6s cubic-bezier(0.87,-0.41,0.19,1.44);
+		transition-delay: .03s;
+	}
+
+	.controlsMove {
+		margin:-20px 0 0 -75px;
 	}
 
 	#wasdIcon {
@@ -133,7 +144,7 @@ body{
 		flex:1;
 		background-position: center; 
 		background-color:transparent;
-		transition: all 0.6s cubic-bezier(0.87,-0.41,0.19,1.44)
+		transition: all 0.6s cubic-bezier(0.87,-0.41,0.19,1.44);
 	}
 
 	#settingsIcon:hover {
@@ -150,7 +161,7 @@ body{
 		bottom:0px;
 		z-index:99999999;
 		overflow: hidden;
-		transition: all 0.6s cubic-bezier(0.87,-0.41,0.19,1.44)
+		transition: all 0.6s cubic-bezier(0.87,-0.41,0.19,1.44);
 	}
 
 	.searchBarShow {

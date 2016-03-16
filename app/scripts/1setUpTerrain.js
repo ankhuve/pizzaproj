@@ -38,7 +38,7 @@ backAudio.volume = 0.05;
     light.position.set(-0.5, -0.5, -2);
 
 
-    var hemiLight = new THREE.HemisphereLight( 0xffffff, 0x000000, 0.6 );
+    var hemiLight = new THREE.HemisphereLight( 0xffffff, 0x000000, 0.1 );
     //hemiLight.color.setHSL( 0.6, 1, 0.6 );
     //hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
     hemiLight.position.set( 500, -500, 0 );

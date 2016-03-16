@@ -8,8 +8,9 @@ $parts = [];
 
 
 
-$search = $_GET["search"];
+$search = urlencode($_GET["search"]);
 //$search = "batman";
+echo($search);
 
 // get first page with results so we can see how many results we got
 $json_data = file_get_contents('http://www.omdbapi.com/?s=' . $search . '&type=movie&page=1');
@@ -168,7 +169,7 @@ foreach ($popMovies->Search as $item) {
     
     //adds all attribute variables to an array for future use in SQL query
     
-     $parts[] = "('" . $movies . "','" . $imdbID . "'," . $year . ",'" . $rgb . "'," . $rating . ",'" . $themeSong .  "','" . $poster .  "','" . $genre .  "','" . $plot .  "','" . $previewURL .  "','" . $actors .  "','" . $directedBy ."','". $votes . "')";
+     $parts[] = "('" . $movies . "','" . $imdbID . "'," . $year . ",'" . $rgb . "'," . $rating . ",'" . $themeSong .  "','" . $poster .  "','" . $genre .  "','" . $plot .  "','" . $previewURL .  "','" . $actors .  "','" . $directedBy . "',". $votes . ")";
     
     
           
@@ -180,7 +181,7 @@ foreach ($popMovies->Search as $item) {
 
 
 // create the sql query
-$sql = "INSERT IGNORE INTO moviesFinal (name, imdbID, year, color, rating, themeSong, poster, genre, plot, preview, actors, directedBy, votes) ";
+$sql = "INSERT IGNORE INTO moviesFinal (name, imdbID, year, color, rating, themeSong, poster, genre, plot, preview, actors, directedBy, votes)";
 $sql .= "VALUES " . implode(", ", $parts);
 
 
