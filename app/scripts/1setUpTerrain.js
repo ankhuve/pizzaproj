@@ -7,7 +7,7 @@ document.body.appendChild(renderer.domElement);
 
 var scene = new THREE.Scene();
 
-muted = false;
+var muted = false;
 // second scene for minimap, this scene contains everything from scene except the terrain
 var sceneMiniMap = new THREE.Scene();
 
@@ -49,8 +49,8 @@ if (muted == false) {
     //hemiLight.color.setHSL( 0.6, 1, 0.6 );
     //hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
     hemiLight.position.set(500, -500, 0);
-    //scene.add( hemiLight );
-    //scene.add( light )
+    //scene.add(hemiLight);
+    //scene.add(light)
 })();
 
 // skybox
