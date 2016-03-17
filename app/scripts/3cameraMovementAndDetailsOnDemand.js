@@ -8,7 +8,7 @@ var tooltip = document.getElementById('toolTipHolder');
 
 function movementAndDetailsOnDemand() {
     if (controls.enabled) {
-        tooltip.style = "display:block;";
+        //tooltip.style = "display:block;";
 
         var time = performance.now();
         var delta = (time - prevTime) / 1000;
