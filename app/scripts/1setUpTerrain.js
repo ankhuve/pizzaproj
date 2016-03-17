@@ -58,7 +58,7 @@ function createAndAddLightsToScene(){
     //hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
     hemiLight.position.set( 64, 64, 0 );
     hemiLight.instanceSkin = true;
-    //scene.add( hemiLight );
+    scene.add( hemiLight );
     //var hemiLightHelper = new THREE.HemisphereLightHelper(hemiLight, 5);
     //scene.add( hemiLightHelper );
 }
