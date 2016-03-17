@@ -127,3 +127,30 @@
 [disabled] .noUi-handle {
 	cursor: not-allowed;
 }
+
+.noUi-tooltip {
+	display: block;
+	position: absolute;
+	border-radius: 2px;
+	background: transparent;
+	/*color:#7f9d4e;*/
+	color:#fff;
+	/*padding: 0 4px 0 4px;*/
+	line-height: 20px;
+	height:19px;
+	width:40px;
+	text-align: center;
+	font-family: Lato;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+.noUi-horizontal .noUi-handle-lower .noUi-tooltip {
+	bottom: -30px;
+	left:-12px;
+}
+.noUi-horizontal .noUi-handle-upper .noUi-tooltip {
+	bottom: -30px;
+	left:-12px;
+}
+
