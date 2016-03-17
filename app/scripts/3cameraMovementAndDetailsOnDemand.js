@@ -91,11 +91,7 @@ function movementAndDetailsOnDemand() {
 
                     if(currObj.visible) {
                         closeTrees.push(closeTree); // push all trees we are close to
-                    }
-
-                    movieMusicPlayer(currObj, distVolume);
-
-                    if(currObj.visible) {
+                        movieMusicPlayer(currObj, distVolume);
 
                         tooltip.style = "display:block;";
                         $("#plotInfo").css("border-top", "1px solid #fff");
