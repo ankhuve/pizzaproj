@@ -283,8 +283,6 @@ var movementSpeed = 100;
 
 var isMoving = 0;
 
-var bird, birds, boid, boids;
-
 function init() {
 
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
@@ -300,26 +298,7 @@ function init() {
     footsteps.loop = true;
     footsteps.volume = 0.1;
     footsteps.playbackRate = 1.5;
-    
-    birds = [];
-    boids = [];
 
-    for ( var i = 0; i < 50; i ++ ) {
-
-        boid = boids[ i ] = new Boid();
-        boid.position.x = 0
-        boid.position.y = 0;
-        boid.position.z = 10;
-        boid.velocity.x = Math.random() * 2 - 1;
-        boid.velocity.y = Math.random() * 2 - 1;
-        boid.velocity.z = Math.random() * 2 - 1;
-        boid.setAvoidWalls( true );
-        boid.setWorldSize( 500, 500, 400 );
-
-        bird = birds[ i ] = new THREE.Mesh( new Bird(), new THREE.MeshBasicMaterial( { color:Math.random() * 0xffffff, side: THREE.DoubleSide } ) );
-        bird.phase = Math.floor( Math.random() * 62.83 );
-        trees.add( bird );
-    }
 
     var onKeyDown = function (event) {
 
