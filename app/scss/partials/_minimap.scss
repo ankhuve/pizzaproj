@@ -1,21 +1,25 @@
 	#minimapAxis {
-		width:100%;
-		height:auto;
-		background-color:transparent;
-		position:absolute;
-		right:0px;
-		top: 25px;
-		z-index:99999999;
+	    width: 100%;
+	    height: auto;
+	    background-color: transparent;
+	    position: absolute;
+	    right: 0px;
+	    top: 0px;
+	    z-index: 99999999;
 	}
-
+	
 	#yearAxis {
-		font-size: 14px !important;
-		font-family: Lato;
-		font-weight: 300;
-		background-color:rgba(0,0,0,0);
-		border-radius:2px;
-		color:#fff;
-		overflow: hidden;
-		float: right;
-		margin-right: 25px;
+	    width: 5%;
+	    height: 5%;
+	    font-size: 1vw;
+	    font-family: Lato;
+	    font-weight: 300;
+	    background-color: rgba(0, 0, 0, 0);
+	    border-radius: 2px;
+	    color: #fff;
+	    overflow: hidden;
+	    margin-right: 25px;
+	    position: absolute;
+	    right: 7.5%;
+	    top: 0.1%;
 	}
