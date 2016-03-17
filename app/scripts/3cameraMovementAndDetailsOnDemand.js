@@ -133,39 +133,43 @@ function movementAndDetailsOnDemand() {
 }
 
 function movieMusicPlayer(obj, distVolume) {
-    if (moviePrev != obj.data[0]) {
-        // if the nearby tree is a new one
 
-        moviePrev = obj.data[0];
+    if(obj.data[5]){ // if the closest tree has a music track
+        if (moviePrev != obj.data[0]) {
+            // if the nearby tree is a new one
 
-        audio.src = ""; // reset the previous song src
-        audio.load();
-        audio.src = obj.data[9];
-        if (muted == false) {
-            audio.play();
-        };
-        //backAudio.volume = 0;
+            moviePrev = obj.data[0];
 
-    } else {
-        // if it's the previous one, just continue playing it
-        if (muted == false) {
-            audio.play();
-        };
-        //backAudio.volume = 0;
+            audio.src = ""; // reset the previous song src
+            audio.load();
+            audio.src = obj.data[9];
+            if (muted == false) {
+                audio.play();
+            };
+            //backAudio.volume = 0;
+
+        } else {
+            // if it's the previous one, just continue playing it
+            if (muted == false) {
+                audio.play();
+            };
+            //backAudio.volume = 0;
+        }
+
+        audioPlaying = true;
+        audio.volume = distVolume;
+        if (0.05 - (distVolume / 10) > 0) {
+            if (muted == false) {
+                backAudio.play();
+                backAudio.volume = 0.05 - distVolume / 10;
+            };
+
+        } else {
+            backAudio.volume = 0;
+            backAudio.pause();
+        }
     }
 
-    audioPlaying = true;
-    audio.volume = distVolume;
-    if (0.05 - (distVolume / 10) > 0) {
-        if (muted == false) {
-            backAudio.play();
-            backAudio.volume = 0.05 - distVolume / 10;
-        };
-
-    } else {
-        backAudio.volume = 0;
-        backAudio.pause();
-    }
 
 
 }
