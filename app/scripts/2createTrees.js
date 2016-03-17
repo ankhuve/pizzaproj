@@ -174,11 +174,11 @@ function makeDaTrees(data) {
                 gspot = 13;
             } else if (allGenres[j] == "Drama" && gspot > 14) {
                 gspot = 14;
-            } else {
-                gspot = 15;
             }
 
         }
+
+        console.log(data[i][0] + gspot);
         tree.mainGenre = gspot;
 
 
