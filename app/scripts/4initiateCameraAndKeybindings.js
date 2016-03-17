@@ -2,7 +2,7 @@ var camera, scene;
 var geometry, material, mesh;
 var controls;
 var mapCamera, mapWidth = window.innerWidth,
-    mapHeight = window.innerHeight + 220;
+    mapHeight = window.innerHeight;
 
 var objects = [];
 
@@ -10,6 +10,9 @@ var raycaster;
 
 var blocker = document.getElementById('blocker');
 var instructions = document.getElementById('instructions');
+var soundSwitch = document.getElementById('soundSwitch');
+var musicIcon = document.getElementById('music');
+var infoIcon = document.getElementById('infoIcon');
 
 //  marker that follows player
 var material = new THREE.MeshBasicMaterial({
@@ -19,16 +22,51 @@ var material = new THREE.MeshBasicMaterial({
 var material2 = new THREE.MeshBasicMaterial({
     color: 0xffffff
 });
+clickedTimes = 0;
+$('#infoIcon').click(function (event) {
+    event.stopPropagation();
+    if (clickedTimes % 2 == 0) {
+        $(".searchBar").removeClass("searchBarShow");
+        $(".infoBar").addClass("infoBarShow");
+        $(".logo").addClass("logoMove");
+        $(".controls").addClass("controlsMove");
+    } else {
+        $(".searchBar").removeClass("searchBarShow");
+        $(".infoBar").removeClass("infoBarShow");
+        $(".logo").removeClass("logoMove");
+        $(".controls").removeClass("controlsMove");
+    }
+    clickedTimes++;
+});
 
+
+
+clicked = 0;
+
+$('#music').click(function (event) {
+    muted = false;
+    event.stopPropagation();
+    if (clicked % 2 == 0) {
+        musicIcon.style.backgroundImage = "url('../../images/mute.png')";
+        muted = true;
+        footsteps.pause();
+        backAudio.pause();
+    } else {
+        musicIcon.style.backgroundImage = "url('../../images/music.png')";
+
+    }
+    clicked++;
+
+});
 var geom = new THREE.Geometry();
 var v1 = new THREE.Vector3(0, 0, 0);
-var v2 = new THREE.Vector3(-3, 0, 0);
-var v3 = new THREE.Vector3(-3, -3, 0);
+var v2 = new THREE.Vector3(-4, 0, 0);
+var v3 = new THREE.Vector3(-4, -4, 0);
 
 var geom2 = new THREE.Geometry();
 var v4 = new THREE.Vector3(0, 0, 0);
-var v5 = new THREE.Vector3(3, 0, 0);
-var v6 = new THREE.Vector3(3, 3, 0);
+var v5 = new THREE.Vector3(4, 0, 0);
+var v6 = new THREE.Vector3(4, 4, 0);
 
 geom.vertices.push(v1);
 geom.vertices.push(v2);
@@ -72,7 +110,7 @@ line.position.z = 72;
 line.position.x = -10;
 sceneMiniMap.add(line);
 
-// y axis (oter axis)
+// y axis (other axis)
 
 var material = new THREE.LineBasicMaterial({
     color: 0xffffff
@@ -92,13 +130,27 @@ otherLine.position.z = -20;
 
 //sceneMiniMap.add(otherLine);
 
-
+//New minimap
+var miniView = [
+    {
+        right: 0,
+        top: 0,
+        width: 0.1,
+        height: 0.1,
+        background: new THREE.Color().setRGB(0.5, 0.5, 0.7),
+        eye: [0, 0, 1800],
+        up: [0, 1, 0],
+        fov: 30,
+        updateCamera: function (camera, scene, mouseX, mouseY) {
+            camera.lookAt(scene.position);
+        }
+				}];
 
 // orthographic cameras (minimap)
-mapCamera = new THREE.OrthographicCamera(-window.innerWidth / 2, // Left  // 
+mapCamera = new THREE.OrthographicCamera(-1 * window.innerWidth / window.innerHeight / 0.002, // Left  // 
     80, // Right 
     80, // Top 
-    -window.innerHeight / 2, // Bottom 
+    -1.8 * window.innerHeight / window.innerWidth / 0.002, // Bottom 
     -5000, // Near 
     10000); // Far 
 mapCamera.up = new THREE.Vector3(0, 0, 1); //rotation i x,y,z på mappen (-1, 1 beroende på hur vi vill flippa year axeln)
@@ -127,8 +179,12 @@ if (havePointerLock) {
             $("#centerSign").css("display", "block");
 
             $(".searchBar").css("display", "none");
+            $(".infoBar").css("display", "none");
 
-            audio.play();
+            if (muted == false) {
+                audio.play();
+            };
+
 
         } else {
             //controlsEnabled = false;
@@ -142,9 +198,10 @@ if (havePointerLock) {
             instructions.style.display = '';
             $("#centerSign").css("display", "none");
             $(".searchBar").css("display", "block");
+            $(".infoBar").css("display", "block");
+
             audio.play();
             audio.pause();
-
 
 
         }
@@ -208,6 +265,7 @@ if (havePointerLock) {
 
 }
 
+
 init();
 animate();
 
@@ -251,7 +309,9 @@ function init() {
         case 87: // w
             if (controls.enabled) {
                 moveForward = true;
-                footsteps.play();
+                if (muted == false) {
+                    footsteps.play();
+                };
             }
             break;
 
@@ -259,7 +319,9 @@ function init() {
         case 65: // a
             if (controls.enabled) {
                 moveLeft = true;
-                footsteps.play();
+                if (muted == false) {
+                    footsteps.play();
+                };
             }
             break;
 
@@ -267,7 +329,9 @@ function init() {
         case 83: // s
             if (controls.enabled) {
                 moveBackward = true;
-                footsteps.play();
+                if (muted == false) {
+                    footsteps.play();
+                };
             }
             break;
 
@@ -275,7 +339,9 @@ function init() {
         case 68: // d
             if (controls.enabled) {
                 moveRight = true;
-                footsteps.play();
+                if (muted == false) {
+                    footsteps.play();
+                };
             }
             break;
 

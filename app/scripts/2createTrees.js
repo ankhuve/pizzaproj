@@ -277,7 +277,6 @@ function makeDaTrees(data){
 
         }
 
-
         tree.add( bigTreeCrownMesh );
         tree.add( treeStemMesh );
         tree.castShadow = true;

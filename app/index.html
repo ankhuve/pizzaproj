@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>IVIS Project 4</title>
@@ -15,47 +16,66 @@
 
 <body>
 
-<div id="blocker">
-    <div id="instructions">
-        <div id="logo">moviz</div>
-        <div id="controls">
-            <div id="wasdIcon"></div>
-            <div id="mouseIcon"></div>
-            <div id="settingsIcon"></div>
+
+    <div id="blocker">
+        <div id="instructions">
+            <div id="logo">moviz</div>
+            <div id="controls">
+                <div id="wasdIcon"></div>
+                <div id="mouseIcon"></div>
+                <div id="settingsIcon"></div>
+            </div>
+            <div id="music"></div>
+            <div id="infoIcon"></div>
+
+
         </div>
     </div>
-</div>
 
-<div class="searchBar">
-    <input type="text" id="search" onclick="this.select();" onkeyup="searchMovies(true,this.value);" placeholder="search..."/>
-    <div id="barHolder">
-        <div id="ratingBar" class="slider"></div>
-        <div id="yearBar" class="slider"></div>
+    <div class="infoBar">
+        <div id="startInfoTitle">How the movies are visualized
+            <div id="startInfo">
+                IMDb-rating: The size of the tree crown</br>
+                Color: Average color value of the movie poster</br>
+                Number of votes: The length and thickness of the stem</br>
+                Position: Depends on the year the movie was released and what genre it has
+
+            </div>
+        </div>
     </div>
-</div>
 
-<div id="centerSign">
-    <div id="centerPlusVertical"></div>
-    <div id="centerPlusHorizontal"></div>
-</div>
-
-<div id="toolTipHolder">
-	<div id="informationHolder">
-        <div id="titleYear"></div>
-        <div id="titleText"></div>
-        <div id="restInfo"></div>
-        <div id="plotInfo"></div>
+    <div class="searchBar">
+        <input type="text" id="search" onclick="this.select();" onkeyup="searchMovies(true,this.value);" placeholder="search..." />
+        <div id="barHolder">
+            <div id="ratingBar" class="slider"></div>
+            <div id="yearBar" class="slider"></div>
+        </div>
     </div>
-</div>
 
-<div id="minimapAxis">
-    <div id="yearAxis">Year<div>
-</div>
+    <div id="centerSign">
+        <div id="centerPlusVertical"></div>
+        <div id="centerPlusHorizontal"></div>
+    </div>
+
+    <div id="toolTipHolder">
+        <div id="informationHolder">
+            <div id="titleYear"></div>
+            <div id="titleText"></div>
+            <div id="restInfo"></div>
+            <div id="plotInfo"></div>
+        </div>
+    </div>
+
+    <div id="minimapAxis">
+        <div id="yearAxis">Year
+        </div>
+    </div>
+
+
+
 
 </body>
 
 <script src="dist/js/all.js"></script>
 
 </html>
-
-

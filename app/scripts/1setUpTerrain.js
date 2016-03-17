@@ -8,16 +8,21 @@ var ground, heightMap;
 // main scene
 var scene	= new THREE.Scene();
 
+var muted = false;
 // second scene for minimap, this scene contains everything from scene except the terrain
-var sceneMiniMap   = new THREE.Scene();
+var sceneMiniMap = new THREE.Scene();
 
 renderer.shadowMap.enabled = true;
 renderer.shadowMapSoft = false;
 
 var backAudio = new Audio("sounds/background.mp3");
 backAudio.loop = true;
-backAudio.play();
-backAudio.volume = 0.05;
+if (muted == false) {
+    backAudio.play();
+    backAudio.volume = 0.05;
+};
+
+
 
 createSkyAndTerrainAndAddToScene();
 createAndAddLightsToScene();
@@ -29,13 +34,16 @@ function createAndAddLightsToScene(){
     //////////////////////////////////////////////////////////////////////////////////
 
     // add a ambient light
-    var light	= new THREE.AmbientLight( 'white' );
-    scene.add( light );
-    sceneMiniMap.add( light.clone() );
+    var light = new THREE.AmbientLight('white');
+    scene.add(light);
+    sceneMiniMap.add(light.clone());
 
     // add a light in front
+
     //var light	= new THREE.DirectionalLight('white', 5);
     //light.position.set(0.5, 0.0, 2);
+    var light = new THREE.DirectionalLight('white', 5);
+    light.position.set(0.5, 0.0, 2);
     //scene.add( light );
 
     // add a light behind
@@ -95,7 +103,6 @@ function createSkyAndTerrainAndAddToScene(){
 
     scene.add( ground );
 }
-
 
 // create clouds
 
