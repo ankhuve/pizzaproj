@@ -80,3 +80,29 @@ function findSimilarMovies(movie) {
     	}
 	}
 }
+
+function showAllMovies() {
+	for (var k = 0; k < scene.children.length; k++) {
+	        if (scene.children[k].name == "allTrees") {
+	            scenePlace = k;
+	        }
+	    }
+
+	    for (var k = 0; k < sceneMiniMap.children.length; k++) {
+	        if (sceneMiniMap.children[k].name == "allTrees") {
+	            sceneMiniMapPlace = k;
+	        }
+	    }
+
+	    treeArraySim = scene.children[scenePlace].children[0].children;
+	    treeArrayMiniSim = sceneMiniMap.children[sceneMiniMapPlace].children[0].children;
+
+	    for (var k = 0; k < treeArraySim.length; k++) {
+	        treeArraySim[k].visible = true;
+	        treeArrayMiniSim[k].visible = true;
+	    }
+
+	    for (var i = 0; i < arrayOfTreePos.length; i++) {
+	    	arrayOfTreePos[i].visible = true;
+	    }
+}
