@@ -124,7 +124,7 @@ function createTreeHeightScale(data) {
 
 function makeDaTrees(data) {
 
-    range = data.length;
+    range = data.length * 0.8;
     ground.scale.x = range;
     ground.scale.y = range;
 
