@@ -179,6 +179,7 @@ function makeDaTrees(data) {
             }
 
         }
+        tree.mainGenre = gspot;
 
 
         // decide tree geometry data
