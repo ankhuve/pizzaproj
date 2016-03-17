@@ -182,8 +182,6 @@ function makeDaTrees(data){
 
         }
 
-        z = 10;
-
         var y = THREEx.Terrain.planeToHeightMapCoords(heightMap, ground, x, z);
 
 
@@ -265,7 +263,7 @@ function makeDaTrees(data){
         //treeStemMesh.grayness = grayness; // *** NOTE THIS
 
         // set color underneath tree
-        colorGround(x, z, y, moviePosterColor);
+        //colorGround(x, z, y, moviePosterColor);
 
         bigTreeCrownMesh.name = data[i][0];
         treeStemMesh.name = data[i][0];
@@ -310,10 +308,10 @@ function makeDaTrees(data){
 
 function colorGround(xVar, zVar, yVar, moviePosterColor) {
 
-    var vertexRange = 2;
+    var vertexRange = 1;
     // convert vertex coordinates to world coordinates
-    var mapToCoord = (heightMap.length/2-1);
-    console.log(xVar, zVar);
+    var mapToCoord = (heightMap.length/2-0.5);
+    //console.log(xVar, zVar);
     //console.log(mapToCoord);
 
     //var groundColorDarker = new THREE.Color("rgb(151,192,86)");
@@ -328,6 +326,9 @@ function colorGround(xVar, zVar, yVar, moviePosterColor) {
 
     xVar +=mapToCoord;
     zVar +=mapToCoord;
+
+
+    
 
     for(var i = 0; i < ground.geometry.faces.length;i++){
 
@@ -352,7 +353,7 @@ function colorGround(xVar, zVar, yVar, moviePosterColor) {
         var hypoC = Math.hypot(Math.abs(xVertexC-xVar),Math.abs(zVertexC-zVar));
 
 
-        // if the vectors are in reach of the tree, color the ground
+        //if the vectors are in reach of the tree, color the ground
         if(hypoA<vertexRange) {
             ground.geometry.faces[i].vertexColors.splice(0, 1, groundColorDarker);
         }

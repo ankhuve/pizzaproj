@@ -28,7 +28,7 @@ function searchMovies(updateSearchTerm, searchTerm) {
     treeArray = scene.children[scenePlace].children[0].children;
     treeArrayMini = sceneMiniMap.children[sceneMiniMapPlace].children[0].children;
 
-    console.log(scene);
+    //console.log(scene);
 
     if (updateSearchTerm) {
         term = searchTerm

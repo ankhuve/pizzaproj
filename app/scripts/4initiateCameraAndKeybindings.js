@@ -345,6 +345,12 @@ function init() {
             }
             break;
 
+        case 32: // space
+            if (controls.enabled && closeTrees.length>0) {
+                findSimilarMovies(closeTrees[0].movie[1].data);
+            }
+            break;
+
 
 
 
