@@ -101,13 +101,13 @@ var material = new THREE.LineBasicMaterial({
 
 var geometry = new THREE.Geometry();
 geometry.vertices.push(
-    new THREE.Vector3(-115, 0, 0),
+    new THREE.Vector3(-94, 0, 0),
     new THREE.Vector3(0, 100, 0),
-    new THREE.Vector3(115, 0, 0)
+    new THREE.Vector3(95, 0, 0)
 );
 
 var line = new THREE.Line(geometry, material);
-line.position.z = 110;
+line.position.z = 95;
 line.position.x = -1;
 sceneMiniMap.add(line);
 
@@ -119,13 +119,13 @@ var material = new THREE.LineBasicMaterial({
 
 var geometry = new THREE.Geometry();
 geometry.vertices.push(
-    new THREE.Vector3(0, 0, -90),
+    new THREE.Vector3(0, 0, -68),
     new THREE.Vector3(0, 100, 0),
-    new THREE.Vector3(0, 0, 135)
+    new THREE.Vector3(0, 0, 120)
 );
 
 var otherLine = new THREE.Line(geometry, material);
-otherLine.position.x = -115;
+otherLine.position.x = -95;
 otherLine.position.y = -70;
 otherLine.position.z = -25;
 

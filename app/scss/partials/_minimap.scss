@@ -1,5 +1,5 @@
 		#minimapDiv {
-		    width: 15.7%;
+		    width: 30%;
 		    height: 35%;
 		    font-size: 1vw;
 		    font-family: Lato;
@@ -12,19 +12,18 @@
 		    right: 0.3%;
 		}
 		
-		#year {
-		    width: 5%;
-		    height: 1%;
+		#yearText {
+		    width: 62%;
+		    height: 30%;
 		    font-size: 1vw;
 		    font-family: Lato;
 		    font-weight: 300;
 		    background-color: rgba(0, 0, 0, 0);
-		    color: #000;
+		    color: white;
 		    overflow: hidden;
-		    margin-right: 25px;
 		    position: absolute;
-		    right: 6%;
-		    
+		    right: 0px;
+		    top: 2px;
 		}
 		/*
 		
