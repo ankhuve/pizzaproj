@@ -142,7 +142,16 @@ function initiateSearchAndBars() {
             range: rangeArr[i],
             connect: true,
             tooltips: false,
-            step: stepArr[i]
+            step: stepArr[i],
+            tooltips: true,
+            format: {
+	  			to: function ( value ) {
+					return value + '';
+	  			},
+	  			from: function ( value ) {
+					return value.replace('', '');
+	  			}
+			}
         });
 
         sliders[i].noUiSlider.on('slide', setBars);
