@@ -101,7 +101,7 @@ function createSkyAndTerrainAndAddToScene(){
 
     scene.fog = new THREE.Fog(0x69d0f9, 0, 100);
 
-    scene.add( ground );
+    
 }
 
 // create clouds
