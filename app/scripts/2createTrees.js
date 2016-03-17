@@ -297,8 +297,10 @@ function makeDaTrees(data) {
         var singleTreeCrownGeometry = new THREE.PolyhedronGeometry(verticesOfCube, indicesOfFaces, treeCrownSize, 1);
         var bigTreeCrown = new THREE.Geometry();
         var bigTreeCrownMesh;
+        var highestSingleTreeCrown;
 
         for (var k = 1; k <= imdbRating; k++) {
+
             var quarterCrownRandom = Math.random() * treeCrownSize * 0.25;
 
             var singleTreeCrownMesh = new THREE.Mesh(singleTreeCrownGeometry);
@@ -354,6 +356,7 @@ function makeDaTrees(data) {
             singleTreeCrownMesh.position.set(crownX + offsetX, crownY + offsetY, crownZ + offsetZ);
             singleTreeCrownMesh.updateMatrix();
             bigTreeCrown.merge(singleTreeCrownMesh.geometry, singleTreeCrownMesh.matrix);
+            highestSingleTreeCrown = crownY + offsetY;
 
         }
 
@@ -369,7 +372,7 @@ function makeDaTrees(data) {
         treeStemMesh.name = data[i][0];
 
         if (data[i][9] != "") {
-            musicIndicatorMesh.position.set(x, (y + treeStemHeight / 2 + treeCrownSize - 0.1) + 4, z);
+            musicIndicatorMesh.position.set(x, highestSingleTreeCrown + 2, z);
             musicIndicatorMesh.name = data[i][0];
             tree.add(musicIndicatorMesh);
             indicatorPositionX.push(x);
