@@ -142,44 +142,57 @@ function makeDaTrees(data) {
         var numberOfVotes = parseInt(data[i][12]);
 
         var gspot = 15;
+        var numberOfGenreAreas = 13;
+        var genrePosition = numberOfGenreAreas;
         var allGenres = data[i][7].split(", ");
 
 
         for (var j = 0; j < allGenres.length; j++) {
             if (allGenres[j] == "Animation") {
                 gspot = 1;
+                genrePosition = 1;
             } else if (allGenres[j] == "Music" && gspot > 2) {
                 gspot = 2;
             } else if (allGenres[j] == "Biography" && gspot > 3) {
                 gspot = 3;
             } else if (allGenres[j] == "Documentary" && gspot > 4) {
                 gspot = 4;
+                genrePosition = 12;
             } else if (allGenres[j] == "Horror" && gspot > 5) {
                 gspot = 5;
+                genrePosition = 11;
             } else if (allGenres[j] == "Sci-fi" && gspot > 6) {
                 gspot = 6;
+                genrePosition = 10;
             } else if (allGenres[j] == "Fantasy" && gspot > 7) {
                 gspot = 7;
+                genrePosition = 9;
             } else if (allGenres[j] == "Adventure" && gspot > 8) {
                 gspot = 8;
+                genrePosition = 8;
             } else if (allGenres[j] == "Comedy" && gspot > 9) {
                 gspot = 9;
+                genrePosition = 2;
             } else if (allGenres[j] == "Crime" && gspot > 10) {
                 gspot = 10;
+                genrePosition = 6;
             } else if (allGenres[j] == "Thriller" && gspot > 11) {
                 gspot = 11;
+                genrePosition = 5;
             } else if (allGenres[j] == "Action" && gspot > 12) {
                 gspot = 12;
+                genrePosition = 7;
             } else if (allGenres[j] == "Romance" && gspot > 13) {
                 gspot = 13;
+                genrePosition = 3;
             } else if (allGenres[j] == "Drama" && gspot > 14) {
                 gspot = 14;
+                genrePosition = 4;
             }
 
         }
 
-        console.log(data[i][0] + gspot);
-        tree.mainGenre = gspot;
+        tree.mainGenre = genrePosition;
 
 
         // decide tree geometry data
@@ -231,7 +244,12 @@ function makeDaTrees(data) {
         //treeStemMesh.receiveShadow = true;
         mat.color.setRGB(grayness, grayness, grayness);
         var x = releaseYearScale(yearOfRelease);
-        var z = range * (0.5 - Math.random());
+
+
+        var genreBarSize = range / numberOfGenreAreas;
+        var z = (genreBarSize * (tree.mainGenre - 1)) + (genreBarSize * Math.random()) - (range / 2);
+
+        //var z = range * (0.5 - Math.random());
 
         // check if trees are nearby, inrease z until no collision detected
 
