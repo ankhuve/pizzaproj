@@ -53,7 +53,7 @@ body {
         cursor: pointer;
         position: relative;
     }
-    #logo {
+    .logo {
         width: 100%;
         text-align: center;
         height: 50px;
@@ -63,11 +63,12 @@ body {
         font-size: 56px;
         position: absolute;
         top: 50%;
-        margin-top: -125px;
+        margin-top: -25px;
         text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
+        transition: all 0.6s cubic-bezier(0.87, -0.41, 0.19, 1.44);
     }
-    #controls {
-        width: 150px;
+    .controls {
+        width: 200px;
         height: auto;
         background-color: transparent;
         font-family: Lato;
@@ -76,8 +77,16 @@ body {
         position: absolute;
         top: 50%;
         left: 50%;
-        margin: -20px 0 0 -75px;
+        margin: 80px 0 0 -100px;
         display: flex;
+        transition: all 0.6s cubic-bezier(0.87, -0.41, 0.19, 1.44);
+        transition-delay: 0.03s;
+    }
+    .logoMove {
+        margin-top: -125px;
+    }
+    .controlsMove {
+		margin: -20px 0 0 -100px;
     }
     #wasdIcon {
         width: 20px;
@@ -108,10 +117,25 @@ body {
         flex: 1;
         background-position: center;
         background-color: transparent;
-        transition: all 1s cubic-bezier(0.2, -0.41, 0.3, 1.44)
     }
     #settingsIcon:hover {
-        transform: rotate3d(1, 1, 0, -180deg);
+        transform: rotate3d(1, 1, 0, 180deg);
+        
+    }
+    #infoIcon {
+        width: 20px;
+        height: 20px;
+        background-image: url('../../images/info.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        flex: 1;
+        background-position: center;
+        background-color: transparent;
+    }
+    #infoIcon:hover {
+        transform: rotateZ(80deg);
+        animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+        transform: translate3d(0, 0, 0);
     }
     .searchBar {
         width: 100%;
@@ -123,7 +147,7 @@ body {
         bottom: 0px;
         z-index: 99999999;
         overflow: hidden;
-        transition: all 0.6s cubic-bezier(0.87, -0.41, 0.19, 1.44)
+        transition: all 0.6s cubic-bezier(0.87, -0.41, 0.19, 1.44);
     }
     .searchBarShow {
         height: 250px;
@@ -151,13 +175,11 @@ body {
         font-family: Lato;
         font-weight: 700;
         font-size: 24px;
-        position: absolute;
-        left: 40%;
-        top: 3%;
+        margin: 50px 0 0 50px;
     }
     #startInfo {
         width: 80%;
-        max-width: 640px;
+        max-width: 900px;
         height: auto;
         background-color: transparent;
         color: #fff;
@@ -184,20 +206,7 @@ body {
         color: rgba(0, 0, 0, 1);
         display: block;
     }
-    #infoIcon {
-        width: 20px;
-        height: 20px;
-        background-image: url('../../images/info.png');
-        background-repeat: no-repeat;
-        background-size: contain;
-        flex: 1;
-        position: absolute;
-        background-position: left;
-        background-color: transparent;
-        top: 10px;
-        left: 10px;
-        z-index: 100;
-    }
+ 
     #music {
         width: 20px;
         height: 20px;
@@ -208,9 +217,10 @@ body {
         position: absolute;
         background-position: left;
         background-color: transparent;
-        top: 10px;
-        left: 40px;
-        z-index: 100;
+        bottom: 20px;
+        right: 20px;
+        z-index:9999999999999999;
+        cursor:pointer;
     }
     #music:hover {
         transform: rotateZ(80deg);

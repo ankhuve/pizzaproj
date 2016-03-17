@@ -53,6 +53,7 @@ $('#music').click(function (event) {
         backAudio.pause();
     } else {
         musicIcon.style.backgroundImage = "url('../../images/music.png')";
+        backAudio.play();
 
     }
     clicked++;
@@ -60,13 +61,13 @@ $('#music').click(function (event) {
 });
 var geom = new THREE.Geometry();
 var v1 = new THREE.Vector3(0, 0, 0);
-var v2 = new THREE.Vector3(-4, 0, 0);
-var v3 = new THREE.Vector3(-4, -4, 0);
+var v2 = new THREE.Vector3(-7, 0, 0);
+var v3 = new THREE.Vector3(-7, -7, 0);
 
 var geom2 = new THREE.Geometry();
 var v4 = new THREE.Vector3(0, 0, 0);
-var v5 = new THREE.Vector3(4, 0, 0);
-var v6 = new THREE.Vector3(4, 4, 0);
+var v5 = new THREE.Vector3(7, 0, 0);
+var v6 = new THREE.Vector3(7, 7, 0);
 
 geom.vertices.push(v1);
 geom.vertices.push(v2);
@@ -100,13 +101,13 @@ var material = new THREE.LineBasicMaterial({
 
 var geometry = new THREE.Geometry();
 geometry.vertices.push(
-    new THREE.Vector3(-60, 0, 0),
+    new THREE.Vector3(-90, 0, 0),
     new THREE.Vector3(0, 100, 0),
-    new THREE.Vector3(70, 0, 0)
+    new THREE.Vector3(115, 0, 0)
 );
 
 var line = new THREE.Line(geometry, material);
-line.position.z = 72;
+line.position.z = 108;
 line.position.x = -10;
 sceneMiniMap.add(line);
 
@@ -147,10 +148,10 @@ var miniView = [
 				}];
 
 // orthographic cameras (minimap)
-mapCamera = new THREE.OrthographicCamera(-1 * window.innerWidth / window.innerHeight / 0.002, // Left  // 
-    80, // Right 
-    80, // Top 
-    -1.8 * window.innerHeight / window.innerWidth / 0.002, // Bottom 
+mapCamera = new THREE.OrthographicCamera(-1.2 * window.innerWidth / window.innerHeight / 0.002, // Left  // 
+    120, // Right
+    130, // Top
+    -2.4 * window.innerHeight / window.innerWidth / 0.002, // Bottom 
     -5000, // Near 
     10000); // Far 
 mapCamera.up = new THREE.Vector3(0, 0, 1); //rotation i x,y,z på mappen (-1, 1 beroende på hur vi vill flippa year axeln)
@@ -343,6 +344,12 @@ function init() {
                 if (muted == false) {
                     footsteps.play();
                 };
+            }
+            break;
+
+        case 32: // space
+            if (controls.enabled && closeTrees.length > 0) {
+                findSimilarMovies(closeTrees[0].movie[1].data);
             }
             break;
 

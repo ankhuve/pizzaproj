@@ -220,14 +220,13 @@ function makeDaTrees(data){
 
         }
 
-        //z = 0;
-
         var y = THREEx.Terrain.planeToHeightMapCoords(heightMap, ground, x, z);
 
 
         treeStemMesh.rotateY(-Math.PI/1.5);
         var treePosAndData = {};
         treePosAndData["data"] = data[i];
+        treePosAndData["visible"] = true;
         treePosAndData["x"] = x;
         treePosAndData["y"] = y;
         treePosAndData["z"] = z;
@@ -303,7 +302,7 @@ function makeDaTrees(data){
         //treeStemMesh.grayness = grayness; // *** NOTE THIS
 
         // set color underneath tree
-        colorGround(x, z, y, moviePosterColor);
+        //colorGround(x, z, y, moviePosterColor);
 
         bigTreeCrownMesh.name = data[i][0];
         treeStemMesh.name = data[i][0];
@@ -333,6 +332,7 @@ function makeDaTrees(data){
     sceneMiniMap.add( trees.clone() );
 
     // now that we changed the color of vertices, add ground
+    scene.add( ground );
     initiateSearchAndBars()
 
 }
@@ -340,15 +340,15 @@ function makeDaTrees(data){
 function colorGround(xVar, zVar, yVar, moviePosterColor) {
 
 
-
-
-    var vertexRange = 2;
+    var vertexRange = 1;
     // convert vertex coordinates to world coordinates
-    var mapToCoord = heightMap.length/2-1;
+    var mapToCoord = (heightMap.length/2-0.5);
+
     //console.log(xVar, zVar);
     //console.log(mapToCoord);
 
     //var groundColorDarker = new THREE.Color("rgb(151,192,86)");
+    var groundColorDarker = new THREE.Color("rgb(255,0,0)");
     //var groundColor = new THREE.Color("rgb(171,212,106)")
     color = moviePosterColor.slice(4).substring(0, moviePosterColor.slice(4).length - 1).split(",");
     greenWeight = 4;
@@ -357,10 +357,13 @@ function colorGround(xVar, zVar, yVar, moviePosterColor) {
     newBlue = Math.ceil((106*greenWeight+parseInt(color[2]))/(greenWeight+1));
     var combinedColor = new THREE.Color("rgb("+newRed+","+newGreen+","+newBlue+")");
 
-    //xVar +=mapToCoord;
-    //zVar +=mapToCoord;
+    xVar +=mapToCoord;
+    zVar +=mapToCoord;
 
-    for(var i = 0; i < ground.geometry.faces.length; i++){
+
+    
+
+    for(var i = 0; i < ground.geometry.faces.length;i++){
 
         var heightmapWidth = heightMap.length;
 
@@ -383,17 +386,17 @@ function colorGround(xVar, zVar, yVar, moviePosterColor) {
         var hypoC = Math.hypot(Math.abs(xVertexC-xVar),Math.abs(zVertexC-zVar));
 
 
-        // if the vectors are in reach of the tree, color the ground
+        //if the vectors are in reach of the tree, color the ground
         if(hypoA<vertexRange) {
-            ground.geometry.faces[i].vertexColors.splice(0, 1, combinedColor);
+            ground.geometry.faces[i].vertexColors.splice(0, 1, groundColorDarker);
         }
 
         if(hypoB<vertexRange) {
-            ground.geometry.faces[i].vertexColors.splice(1, 1, combinedColor);
+            ground.geometry.faces[i].vertexColors.splice(1, 1, groundColorDarker);
         }
 
         if(hypoC<vertexRange) {
-            ground.geometry.faces[i].vertexColors.splice(2, 1, combinedColor);
+            ground.geometry.faces[i].vertexColors.splice(2, 1, groundColorDarker);
         }
     }
 }

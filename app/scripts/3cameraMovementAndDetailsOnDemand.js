@@ -8,7 +8,7 @@ var tooltip = document.getElementById('toolTipHolder');
 
 function movementAndDetailsOnDemand() {
     if (controls.enabled) {
-        tooltip.style = "display:block;";
+        //tooltip.style = "display:block;";
 
         var time = performance.now();
         var delta = (time - prevTime) / 1000;
@@ -89,18 +89,19 @@ function movementAndDetailsOnDemand() {
                     ]
                     };
 
-                    closeTrees.push(closeTree); // push all trees we are close to
+                    if(currObj.visible) {
+                        closeTrees.push(closeTree); // push all trees we are close to
+                        movieMusicPlayer(currObj, distVolume);
 
-                    movieMusicPlayer(currObj, distVolume);
+                        tooltip.style = "display:block;";
+                        $("#plotInfo").css("border-top", "1px solid #fff");
 
-                    tooltip.style = "display:block;";
-                    $("#plotInfo").css("border-top", "1px solid #fff");
-
-                    //$("#informationHolder").html("<div id='titleText'>" + currObj.data[0] + " (" + currObj.data[1] + ")</div></br><div id='infoInfo'>Press 'i' for more information.</div><div id='smallerInformation'><img class='icons' src='images/clapboard.png'> " + currObj.data[11] + "</br><img class='icons' src='images/actor.png'> " + currObj.data[10] + "</br><img class='icons' src='images/genre.png'> " + currObj.data[7] + "</br><img class='icons' src='images/rating.png'> " + currObj.data[3] + "</div><div id='plotInfo'>" + currObj.data[8] + "</div>");
-                    $("#titleText").html(currObj.data[0]);
-                    $("#titleYear").html(currObj.data[1]);
-                    $("#plotInfo").html(currObj.data[8]);
-                    $("#restInfo").html(currObj.data[3] + " | " + currObj.data[7] + " | " + currObj.data[11] + " | " + currObj.data[10]);
+                        //$("#informationHolder").html("<div id='titleText'>" + currObj.data[0] + " (" + currObj.data[1] + ")</div></br><div id='infoInfo'>Press 'i' for more information.</div><div id='smallerInformation'><img class='icons' src='images/clapboard.png'> " + currObj.data[11] + "</br><img class='icons' src='images/actor.png'> " + currObj.data[10] + "</br><img class='icons' src='images/genre.png'> " + currObj.data[7] + "</br><img class='icons' src='images/rating.png'> " + currObj.data[3] + "</div><div id='plotInfo'>" + currObj.data[8] + "</div>");
+                        $("#titleText").html(currObj.data[0]);
+                        $("#titleYear").html(currObj.data[1]);
+                        $("#plotInfo").html(currObj.data[8]);
+                        $("#restInfo").html(currObj.data[3] + " | " + currObj.data[7] + " | " + currObj.data[11] + " | " + currObj.data[10]);
+                    }
                 }
             }
 
