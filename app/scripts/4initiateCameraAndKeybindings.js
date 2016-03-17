@@ -147,10 +147,10 @@ var miniView = [
 				}];
 
 // orthographic cameras (minimap)
-mapCamera = new THREE.OrthographicCamera(-1.5 * window.innerWidth / window.innerHeight / 0.002, // Left  // 
+mapCamera = new THREE.OrthographicCamera(-1.2 * window.innerWidth / window.innerHeight / 0.002, // Left  // 
     120, // Right
     130, // Top
-    -3 * window.innerHeight / window.innerWidth / 0.002, // Bottom 
+    -2.4 * window.innerHeight / window.innerWidth / 0.002, // Bottom 
     -5000, // Near 
     10000); // Far 
 mapCamera.up = new THREE.Vector3(0, 0, 1); //rotation i x,y,z på mappen (-1, 1 beroende på hur vi vill flippa year axeln)
