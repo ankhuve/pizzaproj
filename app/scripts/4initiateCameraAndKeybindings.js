@@ -53,6 +53,7 @@ $('#music').click(function (event) {
         backAudio.pause();
     } else {
         musicIcon.style.backgroundImage = "url('../../images/music.png')";
+        backAudio.play();
 
     }
     clicked++;
