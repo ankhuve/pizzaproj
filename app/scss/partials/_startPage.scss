@@ -119,7 +119,6 @@ body {
         flex: 1;
         background-position: center;
         background-color: transparent;
-        transition: all 1s cubic-bezier(0.2, -0.41, 0.3, 1.44)
     }
     #settingsIcon:hover {
         transform: rotateZ(80deg);
@@ -135,6 +134,11 @@ body {
         flex: 1;
         background-position: center;
         background-color: transparent;
+    }
+    #infoIcon:hover {
+        transform: rotateZ(80deg);
+        animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+        transform: translate3d(0, 0, 0);
     }
     .searchBar {
         width: 100%;
