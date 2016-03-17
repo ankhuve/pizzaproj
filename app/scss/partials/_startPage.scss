@@ -65,7 +65,7 @@ body {
         top: 50%;
         margin-top: -25px;
         text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
-   		transition: all 0.6s cubic-bezier(0.87, -0.41, 0.19, 1.44);
+        transition: all 0.6s cubic-bezier(0.87, -0.41, 0.19, 1.44);
     }
     .controls {
         width: 150px;
@@ -80,15 +80,13 @@ body {
         margin: 80px 0 0 -75px;
         display: flex;
         transition: all 0.6s cubic-bezier(0.87, -0.41, 0.19, 1.44);
-        transition-delay:0.03s;
+        transition-delay: 0.03s;
     }
-
     .logoMove {
-    	margin-top: -125px;
+        margin-top: -125px;
     }
-
     .controlsMove {
-		margin: -20px 0 0 -75px;
+        margin: -20px 0 0 -75px;
     }
     #wasdIcon {
         width: 20px;
@@ -122,9 +120,7 @@ body {
         transition: all 1s cubic-bezier(0.2, -0.41, 0.3, 1.44)
     }
     #settingsIcon:hover {
-        transform: rotateZ(80deg);
-        animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
-        transform: translate3d(0, 0, 0);
+        transform: rotate3d(1, 1, 0, 180deg);
     }
     .searchBar {
         width: 100%;
@@ -164,7 +160,7 @@ body {
         font-family: Lato;
         font-weight: 700;
         font-size: 24px;
-        margin:50px 0 0 50px;
+        margin: 50px 0 0 50px;
     }
     #startInfo {
         width: 80%;
