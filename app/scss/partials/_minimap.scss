@@ -1,25 +1,107 @@
-	#minimapAxis {
-	    width: 100%;
-	    height: auto;
-	    background-color: transparent;
-	    position: absolute;
-	    right: 0px;
-	    top: 0px;
-	    z-index: 99999999;
-	}
-	
-	#yearAxis {
-	    width: 5%;
-	    height: 5%;
-	    font-size: 1vw;
-	    font-family: Lato;
-	    font-weight: 300;
-	    background-color: rgba(0, 0, 0, 0);
-	    border-radius: 2px;
-	    color: #fff;
-	    overflow: hidden;
-	    margin-right: 25px;
-	    position: absolute;
-	    right: 10.4%;
-	    top: 0.1%;
-	}
+		#minimapDiv {
+		    width: 15.7%;
+		    height: 35%;
+		    font-size: 1vw;
+		    font-family: Lato;
+		    font-weight: 300;
+		    background-color: rgba(0, 0, 0, 0);
+		    color: #000;
+		    overflow: hidden;
+		    position: absolute;
+		    top: 0;
+		    right: 0.3%;
+		}
+		
+		#year {
+		    width: 5%;
+		    height: 1%;
+		    font-size: 1vw;
+		    font-family: Lato;
+		    font-weight: 300;
+		    background-color: rgba(0, 0, 0, 0);
+		    color: #000;
+		    overflow: hidden;
+		    margin-right: 25px;
+		    position: absolute;
+		    right: 6%;
+		    top: -6%;
+		}
+		/*
+		
+		#yearAxis {
+		    width: 100%;
+		    height: 1%;
+		    position: absolute;
+		    background-color: white;
+		    right: 1%;
+		    top: 7%;
+		}
+		
+		#genreAxis {
+		    width: 1%;
+		    height: 100%;
+		    background-color: white;
+		    right: 0;
+		    top: 7%;
+		    position: absolute;
+		}
+		
+		.miniLine {
+		    width: 100%;
+		    height: calc(93%/13);
+		    right: 0;
+		    display: block;
+		}
+		
+		#animation {
+		    background-color: black;
+		}
+		
+		#comedy {
+		    background-color: white;
+		}
+		
+		#romance {
+		    background-color: black;
+		}
+		
+		#drama {
+		    background-color: white;
+		}
+		
+		#thriller {
+		    background-color: black;
+		}
+		
+		#crime {
+		    background-color: white;
+		}
+		
+		#action {
+		    background-color: black;
+		}
+		
+		#adventure {
+		    background-color: white;
+		}
+		
+		#fantasy {
+		    background-color: black;
+		}
+		
+		#sci-fi {
+		    background-color: white;
+		}
+		
+		#horror {
+		    background-color: black;
+		}
+		
+		#documentary {
+		    background-color: white;
+		}
+		
+		#others {
+		    background-color: black;
+		}
+*/

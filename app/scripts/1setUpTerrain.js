@@ -19,7 +19,7 @@ var backAudio = new Audio("sounds/background.mp3");
 backAudio.loop = true;
 if (muted == false) {
     backAudio.play();
-    backAudio.volume = 0.05;
+    backAudio.volume = 0.3;
 };
 
 
