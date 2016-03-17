@@ -24,7 +24,7 @@ function findSimilarMovies(movie) {
 	            if(thisMovieTitle != orgMovieTitle) {
 
 	            	if(thisMovieAttr.indexOf(attrName.toLowerCase()) != -1) {
-	            		movieObject[thisMovieTitle] += 1;
+	            		movieObject[thisMovieTitle] += actorGenreArr[w];
 	            	}
 	            }
 	    	}
