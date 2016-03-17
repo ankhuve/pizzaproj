@@ -300,6 +300,7 @@ function init() {
     footsteps.volume = 0.1;
     footsteps.playbackRate = 1.5;
 
+
     var onKeyDown = function (event) {
 
         switch (event.keyCode) {

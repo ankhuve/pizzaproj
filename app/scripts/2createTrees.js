@@ -1,5 +1,13 @@
-var trees = new THREE.Object3D();
 
+var bird, birds, boids, boid;
+var birds = [];
+var boids = [];
+var indicatorPositionX = [];
+var indicatorPositionZ = [];
+var musicIndicatorMesh;
+
+
+var trees = new THREE.Object3D();
 //var cubes = new THREE.Object3D();
 var range;
 
@@ -28,7 +36,34 @@ $.get("php/betterMoviesPop.php", function(data){
 
     makeDaTrees(array);
 });
+/*
+var bird, birds, boids, boid;
+function createBirds(){
 
+
+    birds = [];
+    boids = [];
+
+    for ( var i = 0; i < 50; i ++ ) {
+
+        boid = boids[ i ] = new Boid();
+        boid.position.x = 0
+        boid.position.y = 0;
+        boid.position.z = Math.random() + 15;
+        boid.velocity.x = Math.random() * 2 - 1;
+        boid.velocity.y = Math.random() * 2 - 1;
+        boid.velocity.z = Math.random() * 2 - 1;
+        boid.setAvoidWalls( true );
+        boid.setWorldSize( 500, 500, 400 );
+
+        bird = birds[ i ] = new THREE.Mesh( new Bird(), new THREE.MeshBasicMaterial( { color:Math.random() * 0xffffff, side: THREE.DoubleSide } ) );
+        bird.phase = Math.floor( Math.random() * 62.83 );
+        trees.add( bird );
+    }
+}
+
+createBirds();
+*/
 function createLinearScale(data, dataAttr ) {
     var n;
     var botRange;
@@ -89,6 +124,7 @@ function createTreeHeightScale( data ){
 
 
 function makeDaTrees(data){
+
     range = data.length;
     ground.scale.x = range;
     ground.scale.y = range;
@@ -141,10 +177,12 @@ function makeDaTrees(data){
         //var BollGeo = new THREE.SphereGeometry( treeCrownSize, 5, 5 );
 
         var grayness = Math.random() * 0.5 + 0.25,
-            mat = new THREE.MeshBasicMaterial();
+        mat = new THREE.MeshBasicMaterial();
         var treeStemMesh = new THREE.Mesh( stemGeometry, stemMaterial );
-        var musicIndicatorMesh = new THREE.Mesh( musicIndicatorGeometry, musicIndicatorMaterial );
 
+        musicIndicatorMesh = new THREE.Mesh( new Bird(), new THREE.MeshBasicMaterial( { color:Math.random() * musicIndicatorMaterial, side: THREE.DoubleSide } ) );
+
+        musicIndicatorMesh.scale.set(0.1,0.1,0.1);
 
         //treeStemMesh.castShadow = true;
         //treeStemMesh.receiveShadow = true;
@@ -270,10 +308,11 @@ function makeDaTrees(data){
         treeStemMesh.name = data[i][0];
 
         if(data[i][9]!="") {
-            musicIndicatorMesh.position.set(x, (y + treeStemHeight / 2 + treeCrownSize - 0.1)+10, z);
+            musicIndicatorMesh.position.set(x, (y + treeStemHeight / 2 + treeCrownSize - 0.1)+ 4, z);
             musicIndicatorMesh.name = data[i][0];
             tree.add( musicIndicatorMesh );
-
+            indicatorPositionX.push(x);
+            indicatorPositionZ.push(z);
         }
 
         tree.add( bigTreeCrownMesh );
@@ -283,35 +322,28 @@ function makeDaTrees(data){
         tree.name = data[i][0];
         trees.add( tree );
 
-        //console.log(data[i]);
-
-
-
-
-        // if(i%50==0) {
-
-        //     var light = new THREE.PointLight( 0xffffff, 1, 10 );
-        //     light.position.set( x, y, z );
-        //     scene.add( light );
-        // }
     }
 
     trees.scale.multiplyScalar(1);
     trees.castShadow = true;
     trees.name="allTrees";
     scene.add( trees );
+
     sceneMiniMap.add( trees.clone() );
 
     // now that we changed the color of vertices, add ground
     scene.add( ground );
     initiateSearchAndBars()
+
 }
 
 function colorGround(xVar, zVar, yVar, moviePosterColor) {
 
+
     var vertexRange = 1;
     // convert vertex coordinates to world coordinates
     var mapToCoord = (heightMap.length/2-0.5);
+
     //console.log(xVar, zVar);
     //console.log(mapToCoord);
 
@@ -368,7 +400,6 @@ function colorGround(xVar, zVar, yVar, moviePosterColor) {
         }
     }
 }
-
 
 
 
