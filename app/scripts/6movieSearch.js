@@ -39,6 +39,10 @@ function searchMovies(updateSearchTerm, searchTerm) {
         treeArrayMini[k].visible = false;
     }
 
+    for (var i = 0; i < arrayOfTreePos.length; i++) {
+    	arrayOfTreePos[i].visible = false;
+    }
+
     if (term != "") {
 
         for (var i = 0; i < arrayOfTreePos.length; i++) {
@@ -54,13 +58,16 @@ function searchMovies(updateSearchTerm, searchTerm) {
                 if (parseInt(thisMovieYear) >= minYearVal && parseInt(thisMovieYear) <= maxYearVal && thisMovieRating >= minRatingVal && thisMovieRating <= maxRatingVal)
 
                     for (var k = 0; k < treeArray.length; k++) {
-                    if (treeArray[k].name.toLowerCase() == thisMovieTitle) {
-                        treeArray[k].visible = true;
-                        treeArrayMini[k].visible = true;
-                    }
-                }
-            }
-        }
+                    	if (treeArray[k].name.toLowerCase() == thisMovieTitle) {
+                        	treeArray[k].visible = true;
+                        	treeArrayMini[k].visible = true;
+                    	}
+                	}
+
+                	arrayOfTreePos[i].visible = true;
+      
+            	}
+        	}
     } else {
 
         for (var i = 0; i < arrayOfTreePos.length; i++) {
@@ -76,6 +83,7 @@ function searchMovies(updateSearchTerm, searchTerm) {
                         treeArrayMini[k].visible = true;
                     }
                 }
+                arrayOfTreePos[i].visible = true;
             }
         }
 

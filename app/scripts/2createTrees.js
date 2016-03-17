@@ -188,6 +188,7 @@ function makeDaTrees(data){
         treeStemMesh.rotateY(-Math.PI/1.5);
         var treePosAndData = {};
         treePosAndData["data"] = data[i];
+        treePosAndData["visible"] = true;
         treePosAndData["x"] = x;
         treePosAndData["y"] = y;
         treePosAndData["z"] = z;
