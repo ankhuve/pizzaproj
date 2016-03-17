@@ -350,6 +350,8 @@ function init() {
         case 32: // space
             if (controls.enabled && closeTrees.length > 0) {
                 findSimilarMovies(closeTrees[0].movie[1].data);
+            } else if(controls.enabled){
+            	showAllMovies();
             }
             break;
 
