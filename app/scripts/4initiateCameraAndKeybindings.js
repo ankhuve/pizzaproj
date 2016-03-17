@@ -101,14 +101,14 @@ var material = new THREE.LineBasicMaterial({
 
 var geometry = new THREE.Geometry();
 geometry.vertices.push(
-    new THREE.Vector3(-90, 0, 0),
+    new THREE.Vector3(-115, 0, 0),
     new THREE.Vector3(0, 100, 0),
     new THREE.Vector3(115, 0, 0)
 );
 
 var line = new THREE.Line(geometry, material);
-line.position.z = 108;
-line.position.x = -10;
+line.position.z = 110;
+line.position.x = -1;
 sceneMiniMap.add(line);
 
 // y axis (other axis)
@@ -119,17 +119,17 @@ var material = new THREE.LineBasicMaterial({
 
 var geometry = new THREE.Geometry();
 geometry.vertices.push(
-    new THREE.Vector3(0, 0, -50),
+    new THREE.Vector3(0, 0, -90),
     new THREE.Vector3(0, 100, 0),
-    new THREE.Vector3(0, 0, 50)
+    new THREE.Vector3(0, 0, 135)
 );
 
 var otherLine = new THREE.Line(geometry, material);
-otherLine.position.x = -60;
-otherLine.position.y = -50;
-otherLine.position.z = -20;
+otherLine.position.x = -115;
+otherLine.position.y = -70;
+otherLine.position.z = -25;
 
-//sceneMiniMap.add(otherLine);
+sceneMiniMap.add(otherLine);
 
 //New minimap
 var miniView = [
