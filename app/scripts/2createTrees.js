@@ -400,7 +400,7 @@ function makeDaTrees(data) {
     initiateSearchAndBars()
 
 }
-
+console.log(trees);
 function colorGround(xVar, zVar, yVar, moviePosterColor) {
 
 
