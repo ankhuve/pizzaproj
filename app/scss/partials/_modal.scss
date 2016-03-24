@@ -1,0 +1,213 @@
+.slideContainer{
+  width: 200%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+
+  .slide{
+    position: relative;
+    width: 50%;
+    height: 100%;
+    float: left;
+    display: inline-block;
+    -webkit-transition: transform 0.3s;
+    -moz-transition: transform 0.3s;
+    -ms-transition: transform 0.3s;
+    -o-transition: transform 0.3s;
+    transition: transform 0.3s;
+
+    &.move{
+      -webkit-transform: translateX(-100%);
+      -moz-transform: translateX(-100%);
+      -ms-transform: translateX(-100%);
+      -o-transform: translateX(-100%);
+      transform: translateX(-100%);
+    }
+
+    &.moveOpposite{
+      -webkit-transform: translateX(100%);
+      -moz-transform: translateX(100%);
+      -ms-transform: translateX(100%);
+      -o-transform: translateX(100%);
+      transform: translateX(100%);
+    }
+
+    .moreInfo{
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      height: 2rem;
+      width: 2rem;
+      font-size: 2rem;
+      cursor: pointer;
+      opacity: 0.7;
+
+      &.left{
+        right: auto;
+        left: 1rem;
+      }
+    }
+  }
+}
+
+::-webkit-scrollbar
+{
+  width: 12px;  /* for vertical scrollbars */
+  height: 12px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: rgba(0, 0, 0, 0.5);
+}
+
+#modalBg{
+  -webkit-transition: background 0.2s, color 0.2s, box-shadow 0.2s, fill 0.2s;
+  -moz-transition: background 0.2s, color 0.2s, box-shadow 0.2s, fill 0.2s;
+  -ms-transition: background 0.2s, color 0.2s, box-shadow 0.2s, fill 0.2s;
+  -o-transition: background 0.2s, color 0.2s, box-shadow 0.2s, fill 0.2s;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, fill 0.2s;
+
+  display: none;
+  z-index: 900;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0);
+  height: 100%;
+  width: 100%;
+}
+
+#modal{
+  color: white;
+  font-family: "Raleway", sans-serif;
+  font-weight: 300;
+  font-size: 0.9rem;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  position: absolute;
+  -webkit-transform: translateY(-150%);
+  -moz-transform: translateY(-150%);
+  -ms-transform: translateY(-150%);
+  -o-transform: translateY(-150%);
+  transform: translateY(-150%);
+  top: 5%;
+  left: 8%;
+  margin: 0 auto;
+  z-index: 1000;
+  background: #10191f;
+  padding: 2% 0 0;
+  width: 80%;
+  height: 75%;
+  border-radius: 10px;
+  border-bottom: solid #87d0e3 3px;
+  overflow: hidden;
+
+  .emphasize{
+    font-weight: 700;
+    color: #87d0e3;
+  }
+
+  h1{
+    //font-family: "Oswald", serif;
+    border-bottom: solid 2px #2b4754;
+    padding-bottom: 1%;
+    margin-top: 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 300;
+    color: #87d0e3;
+    font-size: 2rem;
+  }
+
+  h2{
+    font-weight: 500;
+    color: #649db0;
+  }
+
+  h3{
+    width: 100%;
+    padding-bottom: 1%;
+    margin-top: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 300;
+    color: #87d0e3;
+    font-size: 1rem;
+
+    a{
+      padding: 0 0 0 0.5rem;
+    }
+  }
+
+  .bottomPagination{
+    display: block;
+    height: 3rem;
+    width: 100%;
+    text-align: center;
+
+    div{
+      cursor: pointer;
+      font-size: 0.7rem;
+      height: 2rem;
+      width: 2rem;
+      display: inline-block;
+      opacity: 0.3;
+      -webkit-transition: opacity 0.3s;
+      -moz-transition: opacity 0.3s;
+      -ms-transition: opacity 0.3s;
+      -o-transition: opacity 0.3s;
+      transition: opacity 0.3s;
+
+      &.active{
+        opacity: 1;
+      }
+
+    }
+  }
+
+  .slideContainer{
+    height: 92%;
+  }
+
+  .slide{
+    width: 46%;
+    padding: 0 2%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+}
+
+.awesomeGrid{
+  float: left;
+  padding-top: 1rem;
+  display: inline-block;
+}
+
+.awesomeGrid img{
+  width: 100%;
+}
+
+.half{
+  width: 50%;
+}
+
+.two-thirds{
+  width: 66.666666667%;
+}
+
+.one-third{
+  width: 33.333333333%;
+}
+
+.one-whole{
+  width: 100%;
+}

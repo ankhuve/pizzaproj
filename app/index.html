@@ -10,12 +10,94 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link rel="stylesheet" href="dist/css/main.css">
-    <!--<script type="text/javascript" src="node_modules/three.terrain.js/demo/index.js"></script>-->
 
 </head>
 
 <body>
     <div id="music"></div>
+
+    <div id="modalBg" onclick="closeModal();"></div>
+    <div id="modal">
+        <div class="slideContainer" id="slider-3">
+            <div class="slide oneHalf">
+                <h1>About the project</h1>
+                <div class="awesomeGrid one-third">
+                    <h3>Erik Forsberg</h3>
+                </div>
+                <div class="awesomeGrid one-third">
+                    <h3>Erik Forsberg</h3>
+                </div>
+                <div class="awesomeGrid one-third">
+                    <h3>Erik Forsberg</h3>
+                </div>
+                <div class="awesomeGrid one-third">
+                    <h3>Erik Forsberg</h3>
+                </div>
+                <div class="awesomeGrid one-third">
+                    <h3>Erik Forsberg</h3>
+                </div>
+                <div class="awesomeGrid one-third">
+                    <h3>Erik Forsberg</h3>
+                </div>
+                <div class="awesomeGrid one-whole">
+                    <h3>Erik Forsberg</h3>
+                </div>
+                <div class="awesomeGrid one-whole">
+                    <h2>What is this?</h2>
+                    <p>
+                        The goal with Moviz was to create a new, unique and explorative movie finding experience where the user get to interact with data and information in a new immersive way. We wanted to push the boundaries of what an information visualization can be and break out of the 2D world they are so often contained within.
+                    </p>
+                    <p>
+                        This project was not that much about creating the optimal movie-finding-service, instead we wanted to focus on something new, something creative. We wanted to create an experience for the user, with a purpose of exploration rather than an optimal way of finding movies.
+                    </p>
+                    <p>
+                        The end result is something that we really feel is something new and unique, it is a new take on the old used up treemap. You can explore the movie landscape in a new fashion by actually walking around in the 3D world where you are presented with a forest. Each tree in the forest is a movie and the shapes, colors and positions of the trees all depend on different data from that specific movie. This lets you explore not only specific movies, but cluster of movies from a specific time period, a specific genre or similar, in a new way.
+                    </p>
+
+                    <h2>Learning outcomes</h2>
+                    <p>The bubbles represent every day's new likes. The size of the bubbles vary according to the new likes that day. The bubbles' movement is psuedo-random, as is the duration of their life. They slowly fade during the animation until they pop and disappear.
+                    </p>
+
+                    <h2>The sky</h2>
+                    <p>
+                        What we have learned during this project is of course the tools we used to create this world, but also how to choose which data to display and how to display it. One of the major issues with the amount of data that is stored in the cloud is that no one really knows how to use it, and what to display. This was evident when creating a project like this, even the (relatively) small amount of data that exists about movies was difficult to process and later display.
+                    </p>
+                    <p>
+                        We’ve also learned a lot about working together on a project with this many participants as this was something we haven’t done before. For a group of students who have basically never worked in projects with a group larger than 4. This was extremely useful, since in the “real world” - developer teams usually consist of 6 people plus a project manager, making this learning experience very beneficial.
+                    </p>
+
+                    <h2>Technologies used</h2>
+                    <p>
+                        For the project, we used regular web technologies, such as HTML5 and CSS, but the main technology that has to be mentioned is JavaScript. Mainly, we used a JavaScript framework called Three.js. This allowed us to create the 3D-environment in which our visualization is shown. A database was created from movie data gotten from different API’s (OMDB and freebase) and PHP was used to get hold of that data.
+                    </p>
+                    <p>
+                        We’ve also learned a lot about working together on a project with this many participants as this was something we haven’t done before. For a group of students who have basically never worked in projects with a group larger than 4. This was extremely useful, since in the “real world” - developer teams usually consist of 6 people plus a project manager, making this learning experience very beneficial.
+                    </p>
+
+
+                    <h2>But it doesn't stop there!</h2>
+                    <p>
+                        What we have created has the potential to be developed into a platform. Eisenmann et al talk about how to create digital strategies for two sided networks - and that is essentially something we have created. The platform has two user groups, the movie distribution companies and regular people who watch movies.
+                    </p>
+
+                </div>
+            </div>
+            <div class="slide oneHalf">
+                <h1>User study</h1>
+                <div class="awesomeGrid one-whole">
+                    <h2>Lorem</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <h2>Ipsum</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+            </div>
+        </div>
+        <div class="awesomeGrid one-whole bottomPagination">
+            <div class="paginator active" id="page-2" onclick="slideBubbleInfo(3, 1, 1, this)"><i class="fa fa-circle"></i></div>
+            <div class="paginator" id="page-1" onclick="slideBubbleInfo(3, 2, 1, this)"><i class="fa fa-circle"></i></div>
+        </div>
+    </div>
 
     <div id="blocker">
         <div id="instructions">
@@ -25,6 +107,7 @@
                 <div id="mouseIcon"></div>
                 <div id="infoIcon"></div>
                 <div id="settingsIcon"></div>
+                <div id="projectInfo" onclick="modalToggle()"></div>
             </div>
         </div>
     </div>
