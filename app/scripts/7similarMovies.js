@@ -1,5 +1,5 @@
 function findSimilarMovies(movie) {
-
+console.log(scene);
 	// create object to contain movie name and vector of similar movies
 	var movieObject = {};
 	for (var k = 0; k < arrayOfTreePos.length; k++) movieObject[arrayOfTreePos[k].data[0].toLowerCase()] = 0;

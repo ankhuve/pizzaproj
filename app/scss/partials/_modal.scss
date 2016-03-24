@@ -103,7 +103,7 @@
   left: 8%;
   margin: 0 auto;
   z-index: 1000;
-  background: #10191f;
+  background: rgba(255, 255, 255, 0.1);
   padding: 2% 0 0;
   width: 80%;
   height: 75%;
@@ -118,7 +118,7 @@
 
   h1{
     //font-family: "Oswald", serif;
-    border-bottom: solid 2px #2b4754;
+    border-bottom: solid 2px #87d0e3;
     padding-bottom: 1%;
     margin-top: 0;
     text-align: center;
@@ -205,7 +205,7 @@
 }
 
 .one-third{
-  width: 33.333333333%;
+  width: 25%;
 }
 
 .one-whole{
