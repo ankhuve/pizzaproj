@@ -111,6 +111,12 @@
   border-bottom: solid #87d0e3 3px;
   overflow: hidden;
 
+  .teamPhoto{
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+  }
+
   .emphasize{
     font-weight: 700;
     color: #87d0e3;
@@ -130,7 +136,7 @@
 
   h2{
     font-weight: 500;
-    color: #649db0;
+    color: #87d0e3;
   }
 
   h3{
@@ -141,11 +147,12 @@
     text-transform: uppercase;
     font-weight: 300;
     color: #87d0e3;
-    font-size: 1rem;
+    font-size: 0.8rem;
+  }
 
-    a{
-      padding: 0 0 0 0.5rem;
-    }
+  a{
+    padding: 0;
+    text-decoration: none;
   }
 
   .bottomPagination{
@@ -193,7 +200,12 @@
 }
 
 .awesomeGrid img{
-  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  width: 80%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
 }
 
 .half{
@@ -205,7 +217,15 @@
 }
 
 .one-third{
+  width: 33.333333333%;
+}
+
+.one-fourth{
   width: 25%;
+}
+
+.one-eight{
+  width: 12.5%;
 }
 
 .one-whole{
